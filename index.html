@@ -1,0 +1,1723 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Portfolio profesional de desarrollador web" />
+  <meta name="theme-color" content="#FDF8F0" id="themeColorMeta" />
+  <title>Tu Nombre | Desarrollador Web</title>
+
+  <!-- Google Fonts: Inter (cuerpo) + Playfair Display (títulos decorativos) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ============================================================
+       PORTFOLIO — Desarrollador Web
+       Tabla de contenidos:
+         1. Tokens CSS (variables de color y spacing)
+         2. Reset y base
+         3. Utilidades (container, btn, tag)
+         4. Header / Navbar
+         5. Menú móvil
+         6. Sección Hero
+         7. Sección Sobre Mí
+         8. Sección Proyectos
+         9. Sección Contacto
+        10. Footer
+        11. Animaciones de scroll (reveal)
+        12. Responsive (tablet y móvil)
+    ============================================================ */
+
+
+    /* ----------------------------------------------------------------
+       1. TOKENS CSS — Cambia estos valores para personalizar el diseño
+    ---------------------------------------------------------------- */
+    :root {
+      /* Modo claro: tonos crema y blancos cálidos */
+      --bg:          #FDF8F0;          /* Fondo principal: crema */
+      --bg-alt:      #F6EDE1;          /* Superficies elevadas: crema cálido */
+      --bg-card:     #FBF7EF;          /* Fondo de tarjetas: crema suave */
+      --bg-nav:      rgba(253,248,240,0.88); /* Navbar con transparencia */
+      --fg:          #1E1B18;          /* Texto principal */
+      --fg-muted:    #7A6F65;          /* Texto secundario */
+      --accent:      #4F46E5;          /* Color de acento (índigo) */
+      --accent-soft: #EEF2FF;          /* Acento muy suave (fondos) */
+      --border:      #E8DDD0;          /* Bordes */
+      --shadow-sm:   0 1px 3px rgba(0,0,0,0.06);
+      --shadow-md:   0 4px 16px rgba(0,0,0,0.08);
+      --shadow-lg:   0 8px 32px rgba(0,0,0,0.12);
+      --tag-bg:      #F0EAE0;
+      --tag-fg:      #7A6F65;
+      --radius:      12px;
+      --radius-sm:   8px;
+      --nav-h:       70px;             /* Altura del header fijo */
+    }
+
+    [data-theme="dark"] {
+      /* Modo oscuro: grises elegantes con blanco */
+      --bg:          #111113;
+      --bg-alt:      #1A1A1D;
+      --bg-card:     #1E1E22;
+      --bg-nav:      rgba(17,17,19,0.90);
+      --fg:          #F0EFED;
+      --fg-muted:    #9B9791;
+      --accent:      #818CF8;          /* Versión más clara del índigo para dark */
+      --accent-soft: #1E1B4B;
+      --border:      #2C2C30;
+      --shadow-sm:   0 1px 3px rgba(0,0,0,0.30);
+      --shadow-md:   0 4px 16px rgba(0,0,0,0.40);
+      --shadow-lg:   0 8px 32px rgba(0,0,0,0.55);
+      --tag-bg:      #2C2C30;
+      --tag-fg:      #9B9791;
+    }
+
+
+    /* ----------------------------------------------------------------
+       2. RESET Y BASE
+    ---------------------------------------------------------------- */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background-color: var(--bg);
+      color: var(--fg);
+      line-height: 1.65;
+      /* Transición suave al cambiar de tema */
+      transition: background-color 0.3s ease, color 0.3s ease;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img { max-width: 100%; display: block; }
+    a   { color: inherit; text-decoration: none; }
+    ul  { list-style: none; }
+    button { cursor: pointer; font-family: 'Inter', sans-serif; }
+
+
+    /* ----------------------------------------------------------------
+       3. UTILIDADES
+    ---------------------------------------------------------------- */
+
+    /* Contenedor centrado con ancho máximo */
+    .container {
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Espaciado vertical uniforme de secciones */
+    .section {
+      padding: 100px 0;
+    }
+
+    /* Etiqueta pequeña sobre el título de sección */
+    .section-label {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+
+    .section-title {
+      font-size: clamp(1.75rem, 4vw, 2.25rem);
+      font-weight: 700;
+      color: var(--fg);
+      margin-bottom: 12px;
+      line-height: 1.2;
+    }
+
+    .section-description {
+      color: var(--fg-muted);
+      font-size: 1rem;
+      max-width: 560px;
+      line-height: 1.75;
+    }
+
+    .section-header {
+      margin-bottom: 56px;
+    }
+
+    /* Chip / badge de tecnología */
+    .tag {
+      display: inline-block;
+      padding: 3px 9px;
+      background: var(--tag-bg);
+      color: var(--tag-fg);
+      border-radius: 6px;
+      font-size: 0.74rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+
+    /* Botón base */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border-radius: var(--radius-sm);
+      font-size: 0.9rem;
+      font-weight: 600;
+      font-family: 'Inter', sans-serif;
+      transition: all 0.2s ease;
+      border: 2px solid transparent;
+      white-space: nowrap;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+    }
+    .btn-primary:hover {
+      opacity: 0.85;
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--fg);
+      border-color: var(--border);
+    }
+    .btn-outline:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--fg-muted);
+      padding: 8px 16px;
+      font-size: 0.85rem;
+      border: 2px solid transparent;
+    }
+    .btn-ghost:hover {
+      color: var(--fg);
+      background: var(--bg-alt);
+    }
+
+    .btn-sm {
+      padding: 8px 16px;
+      font-size: 0.8rem;
+    }
+
+
+    /* ----------------------------------------------------------------
+       4. HEADER / NAVBAR
+    ---------------------------------------------------------------- */
+    .header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--nav-h);
+      z-index: 1000;
+      background: var(--bg-nav);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      transition: background 0.3s ease, border-color 0.3s ease;
+    }
+
+    .nav {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    /* Logotipo / nombre */
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--fg);
+      flex-shrink: 0;
+      transition: color 0.2s;
+    }
+    .nav-logo span { color: var(--accent); }
+    .nav-logo:hover { color: var(--accent); }
+
+    /* Links de navegación (desktop) */
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .nav-link {
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--fg-muted);
+      transition: all 0.2s ease;
+    }
+    .nav-link:hover,
+    .nav-link.active {
+      color: var(--fg);
+      background: var(--bg-alt);
+    }
+
+    /* Controles a la derecha: idioma + tema + hamburger */
+    .nav-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    /* Selector de idioma ES / EN */
+    .lang-toggle {
+      display: flex;
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .lang-btn {
+      padding: 6px 11px;
+      background: none;
+      border: none;
+      font-size: 0.78rem;
+      font-weight: 700;
+      font-family: 'Inter', sans-serif;
+      color: var(--fg-muted);
+      transition: all 0.2s;
+    }
+    .lang-btn.active {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    /* Botón de alternar tema (claro/oscuro) */
+    .theme-btn {
+      width: 38px;
+      height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 1.1rem;
+      transition: all 0.2s;
+    }
+    .theme-btn:hover { border-color: var(--accent); }
+
+    /* Botón hamburger (solo móvil/tablet) */
+    .hamburger {
+      display: none;
+      width: 38px;
+      height: 38px;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      padding: 8px;
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 18px;
+      height: 2px;
+      background: var(--fg);
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+    /* Animación de X al abrir */
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+
+    /* ----------------------------------------------------------------
+       5. MENÚ MÓVIL
+    ---------------------------------------------------------------- */
+    .mobile-menu {
+      /* Siempre renderizado como flex, pero oculto fuera de vista */
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      position: fixed;
+      top: var(--nav-h);
+      left: 0; right: 0;
+      background: var(--bg-alt);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 16px 16px;
+      z-index: 999;
+      /* Estado oculto */
+      transform: translateY(-110%);
+      opacity: 0;
+      pointer-events: none;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    .mobile-menu.open {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .mobile-menu .nav-link {
+      padding: 12px 16px;
+      display: block;
+      border-radius: var(--radius-sm);
+    }
+
+    /* En desktop: el menú móvil y el hamburger están completamente ocultos */
+    @media (min-width: 901px) {
+      .mobile-menu { display: none !important; }
+      .hamburger   { display: none !important; }
+    }
+
+
+    /* ----------------------------------------------------------------
+       6. SECCIÓN HERO
+    ---------------------------------------------------------------- */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding-top: var(--nav-h);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 680px;
+    }
+
+    .hero-greeting {
+      display: inline-block;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--accent);
+      background: var(--accent-soft);
+      padding: 6px 14px;
+      border-radius: 20px;
+      margin-bottom: 24px;
+      letter-spacing: 0.02em;
+    }
+
+    .hero-name {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 9vw, 5rem);
+      font-weight: 700;
+      line-height: 1.05;
+      color: var(--fg);
+      margin-bottom: 16px;
+    }
+
+    .hero-role {
+      font-size: clamp(1rem, 3vw, 1.3rem);
+      font-weight: 400;
+      color: var(--fg-muted);
+      margin-bottom: 20px;
+    }
+    .hero-role strong {
+      color: var(--fg);
+      font-weight: 600;
+    }
+
+    .hero-tagline {
+      font-size: 1rem;
+      color: var(--fg-muted);
+      line-height: 1.8;
+      margin-bottom: 40px;
+      max-width: 520px;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    /* Indicador de scroll (flecha animada) */
+    .hero-scroll {
+      position: absolute;
+      bottom: 36px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      color: var(--fg-muted);
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      animation: scrollBounce 2.2s ease-in-out infinite;
+    }
+    .hero-scroll svg { width: 18px; height: 18px; }
+
+    @keyframes scrollBounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50%       { transform: translateX(-50%) translateY(8px); }
+    }
+
+
+    /* ----------------------------------------------------------------
+       6b. DECORACIONES FLOTANTES DEL HERO
+    ---------------------------------------------------------------- */
+
+    /* Contenedor absoluto que cubre toda la sección hero */
+    .hero-decor {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Wrapper de parallax — JS le aplica transform: translate() */
+    .h-parallax {
+      position: absolute;
+      will-change: transform;
+    }
+
+    /* Posición base de cada elemento (el JS la desplaza con el mouse) */
+    .h-par--blob1 { top:  -80px;  right:  -180px; }
+    .h-par--blob2 { bottom: -60px; left:  -80px;  }
+    .h-par--c1    { top:  28%;    right:   9%;    }
+    .h-par--c2    { top:  11%;    left:   40%;    }
+    .h-par--c3    { bottom: 16%;  right:  22%;    }
+
+    /* Blobs grandes de fondo */
+    .h-blob {
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--accent-soft) 0%, transparent 65%);
+    }
+    .h-blob--1 {
+      width: 680px; height: 680px;
+      animation: hFloatA 14s ease-in-out infinite;
+    }
+    .h-blob--2 {
+      width: 440px; height: 440px;
+      animation: hFloatB 10s ease-in-out infinite 2s;
+    }
+
+    /* Círculos decorativos pequeños */
+    .h-circle { border-radius: 50%; }
+    .h-circle--1 {
+      width: 100px; height: 100px;
+      border: 2px solid var(--accent);
+      opacity: 0.18;
+      animation: hFloatC 8s ease-in-out infinite;
+    }
+    .h-circle--2 {
+      width: 52px; height: 52px;
+      background: var(--accent-soft);
+      border: 1px solid var(--accent);
+      opacity: 0.5;
+      animation: hFloatB 7s ease-in-out infinite 1.5s;
+    }
+    .h-circle--3 {
+      width: 78px; height: 78px;
+      border: 1.5px solid var(--accent);
+      opacity: 0.14;
+      animation: hFloatA 9s ease-in-out infinite 3s;
+    }
+
+    /* Animaciones de flotación (CSS sobre los hijos; JS sobre los padres → no conflicto) */
+    @keyframes hFloatA {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      35%      { transform: translate(14px, -22px) scale(1.03); }
+      70%      { transform: translate(-9px, -14px) scale(0.97); }
+    }
+    @keyframes hFloatB {
+      0%, 100% { transform: translate(0, 0); }
+      50%      { transform: translate(-18px, -28px); }
+    }
+    @keyframes hFloatC {
+      0%, 100% { transform: translate(0, 0) rotate(0deg); }
+      33%      { transform: translate(10px, -14px) rotate(18deg); }
+      66%      { transform: translate(-7px, -9px) rotate(-12deg); }
+    }
+
+    /* ----------------------------------------------------------------
+       6c. ANIMACIONES DE ENTRADA DEL HERO (stagger al cargar la página)
+    ---------------------------------------------------------------- */
+    @keyframes heroFadeUp {
+      from { opacity: 0; transform: translateY(36px); }
+      to   { opacity: 1; transform: translateY(0);    }
+    }
+
+    /* Cada elemento aparece con un retraso escalonado */
+    .hero-greeting { animation: heroFadeUp 0.9s cubic-bezier(.16,1,.3,1) both 0.10s; }
+    .hero-name     { animation: heroFadeUp 0.9s cubic-bezier(.16,1,.3,1) both 0.26s; }
+    .hero-role     { animation: heroFadeUp 0.9s cubic-bezier(.16,1,.3,1) both 0.42s; }
+    .hero-tagline  { animation: heroFadeUp 0.9s cubic-bezier(.16,1,.3,1) both 0.58s; }
+    .hero-cta      { animation: heroFadeUp 0.9s cubic-bezier(.16,1,.3,1) both 0.74s; }
+    .hero-scroll   { animation: heroFadeUp 0.9s cubic-bezier(.16,1,.3,1) both 1.00s; }
+
+    /* ----------------------------------------------------------------
+       6d. CURSOR GLOW — Halo suave que sigue al puntero
+    ---------------------------------------------------------------- */
+    .cursor-glow {
+      position: fixed;
+      top: 0; left: 0;
+      width: 440px; height: 440px;
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--accent-soft) 0%, transparent 58%);
+      pointer-events: none;
+      z-index: 1;                    /* Debajo del contenido, sobre el fondo */
+      transform: translate(-50%, -50%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+    .cursor-glow.active { opacity: 0.6; }
+
+    /* Desactivar en dispositivos sin hover real (táctil) */
+    @media (hover: none) { .cursor-glow { display: none; } }
+
+
+    /* ----------------------------------------------------------------
+       7. SECCIÓN SOBRE MÍ
+    ---------------------------------------------------------------- */
+    .about { background: var(--bg-alt); }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      gap: 72px;
+      align-items: start;
+    }
+
+    /* Wrapper de la imagen con decoración offset */
+    .about-img-wrapper {
+      position: relative;
+      padding: 16px 0 0 16px;
+    }
+
+    /* Marco decorativo detrás de la foto */
+    .about-img-wrapper::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: calc(100% - 16px);
+      height: calc(100% - 16px);
+      border: 2px solid var(--accent);
+      border-radius: var(--radius);
+      opacity: 0.5;
+    }
+
+    .about-img {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      aspect-ratio: 1;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 5.5rem;
+      overflow: hidden;
+      /* Reemplaza esto con tu foto:
+         background-image: url('tu-foto.jpg');
+         background-size: cover;
+         background-position: center;
+      */
+    }
+
+    .about-text .section-title { margin-bottom: 20px; }
+
+    .about-text p {
+      color: var(--fg-muted);
+      line-height: 1.8;
+      margin-bottom: 16px;
+    }
+
+    .about-text p:last-of-type { margin-bottom: 32px; }
+
+    /* Título de habilidades */
+    .skills-label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--fg-muted);
+      margin-bottom: 14px;
+    }
+
+    /* Contenedor de badges de habilidades */
+    .skills-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .skill-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 13px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-size: 0.83rem;
+      font-weight: 500;
+      color: var(--fg);
+      transition: all 0.2s;
+    }
+    .skill-badge:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-sm);
+    }
+
+
+    /* ----------------------------------------------------------------
+       8. SECCIÓN PROYECTOS
+    ---------------------------------------------------------------- */
+    .projects { background: var(--bg); }
+
+    /* Grilla de 2 columnas en desktop */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    .project-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+      box-shadow: var(--shadow-sm);
+    }
+    .project-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--accent);
+    }
+
+    /* Miniatura de la tarjeta (placeholder con gradiente) */
+    .project-thumb {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.8rem;
+    }
+
+    /* Gradientes únicos para cada tarjeta */
+    .project-card:nth-child(1) .project-thumb { background: linear-gradient(135deg, #667eea, #764ba2); }
+    .project-card:nth-child(2) .project-thumb { background: linear-gradient(135deg, #f093fb, #f5576c); }
+    .project-card:nth-child(3) .project-thumb { background: linear-gradient(135deg, #4facfe, #00f2fe); }
+    .project-card:nth-child(4) .project-thumb { background: linear-gradient(135deg, #43e97b, #38f9d7); }
+
+    .project-body { padding: 24px; }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .project-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--fg);
+      margin-bottom: 8px;
+    }
+
+    .project-desc {
+      font-size: 0.875rem;
+      color: var(--fg-muted);
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+
+    .project-links { display: flex; gap: 8px; }
+
+
+    /* ----------------------------------------------------------------
+       9. SECCIÓN CONTACTO
+    ---------------------------------------------------------------- */
+    .contact { background: var(--bg-alt); }
+
+    .contact-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 72px;
+      align-items: start;
+    }
+
+    .contact-info .section-title { margin-bottom: 16px; }
+
+    .contact-info > p {
+      color: var(--fg-muted);
+      line-height: 1.8;
+      margin-bottom: 32px;
+    }
+
+    /* Links de contacto (email, LinkedIn, GitHub) */
+    .contact-links {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 13px 16px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--fg);
+      transition: all 0.2s;
+    }
+    .contact-link:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateX(4px);
+      box-shadow: var(--shadow-sm);
+    }
+    .contact-link-icon { font-size: 1.1rem; width: 22px; text-align: center; }
+
+    /* Formulario de contacto */
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-label {
+      font-size: 0.84rem;
+      font-weight: 600;
+      color: var(--fg);
+    }
+
+    .form-input,
+    .form-textarea {
+      padding: 11px 15px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--fg);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none;
+    }
+    .form-input:focus,
+    .form-textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-soft);
+    }
+    .form-input::placeholder,
+    .form-textarea::placeholder {
+      color: var(--fg-muted);
+    }
+    .form-textarea {
+      resize: vertical;
+      min-height: 130px;
+    }
+
+    /* Mensaje de éxito tras enviar el formulario */
+    .form-success {
+      padding: 14px 16px;
+      background: var(--accent-soft);
+      border: 1px solid var(--accent);
+      border-radius: var(--radius-sm);
+      color: var(--accent);
+      font-size: 0.875rem;
+      font-weight: 500;
+      display: none;
+    }
+    .form-success.visible { display: block; }
+
+
+    /* ----------------------------------------------------------------
+       10. FOOTER
+    ---------------------------------------------------------------- */
+    .footer {
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+      padding: 28px 0;
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .footer-copy {
+      font-size: 0.84rem;
+      color: var(--fg-muted);
+    }
+
+    .footer-social { display: flex; gap: 8px; }
+
+    .social-btn {
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 1rem;
+      color: var(--fg-muted);
+      transition: all 0.2s;
+    }
+    .social-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+
+    /* ----------------------------------------------------------------
+       11. ANIMACIONES DE SCROLL (Reveal)
+    ---------------------------------------------------------------- */
+
+    /* Elementos que aparecen al hacer scroll */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Elementos hijos con retraso escalonado */
+    .reveal-stagger > * {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .reveal-stagger.visible > *:nth-child(1) { opacity:1; transform:translateY(0); transition-delay:0.05s; }
+    .reveal-stagger.visible > *:nth-child(2) { opacity:1; transform:translateY(0); transition-delay:0.15s; }
+    .reveal-stagger.visible > *:nth-child(3) { opacity:1; transform:translateY(0); transition-delay:0.25s; }
+    .reveal-stagger.visible > *:nth-child(4) { opacity:1; transform:translateY(0); transition-delay:0.35s; }
+
+
+    /* ----------------------------------------------------------------
+       12. RESPONSIVE
+    ---------------------------------------------------------------- */
+
+    /* Tablet (≤ 900px) */
+    @media (max-width: 900px) {
+      .section { padding: 72px 0; }
+
+      /* Ocultar nav links de desktop, mostrar hamburger */
+      .nav-links  { display: none; }
+      .hamburger  { display: flex; }
+
+      /* About: apilar en una columna */
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+      .about-img-wrapper { max-width: 280px; }
+
+      /* Contacto: apilar en una columna */
+      .contact-inner {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+
+      .section-header { margin-bottom: 40px; }
+    }
+
+    /* Móvil (≤ 620px) */
+    @media (max-width: 620px) {
+      .section { padding: 56px 0; }
+
+      /* Proyectos: una columna */
+      .projects-grid { grid-template-columns: 1fr; }
+
+      /* Hero: botones apilados */
+      .hero-cta {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      /* Footer: centrado */
+      .footer-inner {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      /* Ocultar scroll indicator en móvil muy pequeño */
+      .hero-scroll { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Halo que sigue al cursor (solo en desktop) -->
+  <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
+
+  <!-- ============================================================
+    HEADER — Navbar fija con logo, links, idioma y tema
+  ============================================================ -->
+  <header class="header" id="header">
+    <div class="container">
+      <nav class="nav" role="navigation" aria-label="Navegación principal">
+
+        <!-- Logo / Nombre -->
+        <a href="#hero" class="nav-logo">
+          L<span>.</span>Q
+        </a>
+
+        <!-- Links de navegación (desktop) -->
+        <ul class="nav-links" id="navLinks">
+          <li><a href="#hero"     class="nav-link active" data-i18n="nav_home">Inicio</a></li>
+          <li><a href="#about"    class="nav-link"        data-i18n="nav_about">Sobre Mí</a></li>
+          <li><a href="#projects" class="nav-link"        data-i18n="nav_projects">Proyectos</a></li>
+          <li><a href="#contact"  class="nav-link"        data-i18n="nav_contact">Contacto</a></li>
+        </ul>
+
+        <!-- Controles: idioma + tema + hamburger -->
+        <div class="nav-controls">
+
+          <!-- Selector de idioma -->
+          <div class="lang-toggle" role="group" aria-label="Cambiar idioma">
+            <button class="lang-btn active" data-lang="es" onclick="setLang('es')">ES</button>
+            <button class="lang-btn"        data-lang="en" onclick="setLang('en')">EN</button>
+          </div>
+
+          <!-- Botón alternar tema -->
+          <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Alternar modo claro/oscuro">
+            🌙
+          </button>
+
+          <!-- Botón hamburger (tablet / móvil) -->
+          <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Abrir menú" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Menú desplegable móvil (fuera del header por z-index) -->
+  <div class="mobile-menu" id="mobileMenu" role="navigation" aria-label="Menú móvil">
+    <a href="#hero"     class="nav-link" data-i18n="nav_home"     onclick="closeMenu()">Inicio</a>
+    <a href="#about"    class="nav-link" data-i18n="nav_about"    onclick="closeMenu()">Sobre Mí</a>
+    <a href="#projects" class="nav-link" data-i18n="nav_projects" onclick="closeMenu()">Proyectos</a>
+    <a href="#contact"  class="nav-link" data-i18n="nav_contact"  onclick="closeMenu()">Contacto</a>
+  </div>
+
+
+  <main>
+
+    <!-- ============================================================
+      HERO — Presentación principal
+    ============================================================ -->
+    <section id="hero" class="hero section">
+
+      <!-- Decoraciones flotantes — se mueven con el parallax del mouse -->
+      <div class="hero-decor" aria-hidden="true">
+        <!-- Blobs de fondo grandes -->
+        <div class="h-parallax h-par--blob1" data-parallax="0.025">
+          <div class="h-blob h-blob--1"></div>
+        </div>
+        <div class="h-parallax h-par--blob2" data-parallax="0.040">
+          <div class="h-blob h-blob--2"></div>
+        </div>
+        <!-- Círculos flotantes pequeños -->
+        <div class="h-parallax h-par--c1" data-parallax="0.10">
+          <div class="h-circle h-circle--1"></div>
+        </div>
+        <div class="h-parallax h-par--c2" data-parallax="0.07">
+          <div class="h-circle h-circle--2"></div>
+        </div>
+        <div class="h-parallax h-par--c3" data-parallax="0.13">
+          <div class="h-circle h-circle--3"></div>
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="hero-content">
+
+          <!-- Etiqueta de disponibilidad -->
+          <span class="hero-greeting" data-i18n="hero_greeting">👋disponible</span>
+
+          <!-- Nombre destacado -->
+          <h1 class="hero-name">Lucas</h1>
+
+          <!-- Título profesional -->
+          <p class="hero-role">
+            <strong data-i18n="hero_role">Desarrollador Web Full Stack</strong>
+          </p>
+
+          <!-- Descripción breve -->
+          <p class="hero-tagline" data-i18n="hero_tagline">
+            Creo experiencias digitales elegantes y funcionales. Me especializo en construir webs modernas, rápidas y accesibles que conectan marcas con sus usuarios.
+          </p>
+
+          <!-- Llamadas a la acción -->
+          <div class="hero-cta">
+            <a href="#projects" class="btn btn-primary" data-i18n="hero_cta1">Ver Proyectos</a>
+            <a href="#contact"  class="btn btn-outline" data-i18n="hero_cta2">Contáctame</a>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Flecha de scroll animada -->
+      <div class="hero-scroll" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="12" y1="5" x2="12" y2="19"/>
+          <polyline points="19 12 12 19 5 12"/>
+        </svg>
+      </div>
+    </section>
+
+
+    <!-- ============================================================
+      SOBRE MÍ — Descripción personal y habilidades
+    ============================================================ -->
+    <section id="about" class="about section">
+      <div class="container">
+        <div class="about-grid">
+
+          <!-- Imagen (placeholder — reemplaza con tu foto) -->
+          <div class="about-img-wrapper reveal">
+            <div class="about-img" role="img" aria-label="Foto de perfil">
+              <!-- Para añadir tu foto, reemplaza el emoji con:
+                   <img src="tu-foto.jpg" alt="Tu Nombre" style="width:100%;height:100%;object-fit:cover;" />
+              -->
+              👨‍💻
+            </div>
+          </div>
+
+          <!-- Texto y habilidades -->
+          <div class="about-text reveal">
+            <p class="section-label" data-i18n="about_label">Sobre Mí</p>
+            <h2 class="section-title" data-i18n="about_title">Un desarrollador apasionado por la web</h2>
+
+            <p data-i18n="about_p1">
+              Soy desarrollador web con experiencia creando aplicaciones y sitios modernos. Me apasiona escribir código limpio, optimizar el rendimiento y crear interfaces que los usuarios disfruten usando.
+            </p>
+            <p data-i18n="about_p2">
+              Trabajo tanto en el front-end como en el back-end, con especial interés en la accesibilidad, el diseño UI/UX y las buenas prácticas de ingeniería de software.
+            </p>
+
+            <p class="skills-label" data-i18n="about_skills_title">Tecnologías</p>
+            <div class="skills-grid">
+              <span class="skill-badge">⚡ JavaScript</span>
+              <span class="skill-badge">🔷 TypeScript</span>
+              <span class="skill-badge">🎨 CSS3</span>
+              <span class="skill-badge">⚛️ React</span>
+              <span class="skill-badge">🟩 Node.js</span>
+              <span class="skill-badge">🐍 Python</span>
+              <span class="skill-badge">🐬 MySQL</span>
+              <span class="skill-badge">🍃 MongoDB</span>
+              <span class="skill-badge">🐳 Docker</span>
+              <span class="skill-badge">📦 Git</span>
+              <span class="skill-badge">🎭 Figma</span>
+              <span class="skill-badge">☁️ AWS</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ============================================================
+      PROYECTOS — 4 tarjetas placeholder
+    ============================================================ -->
+    <section id="projects" class="projects section">
+      <div class="container">
+
+        <div class="section-header reveal">
+          <p class="section-label" data-i18n="projects_label">Proyectos</p>
+          <h2 class="section-title" data-i18n="projects_title">Mi trabajo reciente</h2>
+          <p class="section-description" data-i18n="projects_subtitle">
+            Aquí encontrarás algunos de los proyectos en los que he trabajado. El contenido se actualizará próximamente.
+          </p>
+        </div>
+
+        <!-- Grilla de 4 tarjetas (2×2 en desktop, 1 columna en móvil) -->
+        <div class="projects-grid reveal-stagger">
+
+          <!-- Tarjeta 1 — Reemplaza el contenido con tu proyecto real -->
+          <article class="project-card">
+            <div class="project-thumb" aria-hidden="true">🛒</div>
+            <div class="project-body">
+              <div class="project-tags">
+                <span class="tag">React</span>
+                <span class="tag">Node.js</span>
+                <span class="tag">MongoDB</span>
+              </div>
+              <h3 class="project-title" data-i18n="proj1_title">Proyecto 1</h3>
+              <p class="project-desc" data-i18n="proj1_desc">
+                Descripción del proyecto. Aquí irá el texto explicativo cuando agregues el contenido real del proyecto.
+              </p>
+              <div class="project-links">
+                <a href="#" class="btn btn-outline btn-sm" data-i18n="proj_demo">Demo</a>
+                <a href="#" class="btn btn-ghost btn-sm"   data-i18n="proj_code">Código</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Tarjeta 2 -->
+          <article class="project-card">
+            <div class="project-thumb" aria-hidden="true">📊</div>
+            <div class="project-body">
+              <div class="project-tags">
+                <span class="tag">Vue.js</span>
+                <span class="tag">Python</span>
+                <span class="tag">PostgreSQL</span>
+              </div>
+              <h3 class="project-title" data-i18n="proj2_title">Proyecto 2</h3>
+              <p class="project-desc" data-i18n="proj2_desc">
+                Descripción del proyecto. Aquí irá el texto explicativo cuando agregues el contenido real del proyecto.
+              </p>
+              <div class="project-links">
+                <a href="#" class="btn btn-outline btn-sm" data-i18n="proj_demo">Demo</a>
+                <a href="#" class="btn btn-ghost btn-sm"   data-i18n="proj_code">Código</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Tarjeta 3 -->
+          <article class="project-card">
+            <div class="project-thumb" aria-hidden="true">🌐</div>
+            <div class="project-body">
+              <div class="project-tags">
+                <span class="tag">HTML</span>
+                <span class="tag">CSS</span>
+                <span class="tag">JavaScript</span>
+              </div>
+              <h3 class="project-title" data-i18n="proj3_title">Proyecto 3</h3>
+              <p class="project-desc" data-i18n="proj3_desc">
+                Descripción del proyecto. Aquí irá el texto explicativo cuando agregues el contenido real del proyecto.
+              </p>
+              <div class="project-links">
+                <a href="#" class="btn btn-outline btn-sm" data-i18n="proj_demo">Demo</a>
+                <a href="#" class="btn btn-ghost btn-sm"   data-i18n="proj_code">Código</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Tarjeta 4 -->
+          <article class="project-card">
+            <div class="project-thumb" aria-hidden="true">📱</div>
+            <div class="project-body">
+              <div class="project-tags">
+                <span class="tag">React Native</span>
+                <span class="tag">Firebase</span>
+              </div>
+              <h3 class="project-title" data-i18n="proj4_title">Proyecto 4</h3>
+              <p class="project-desc" data-i18n="proj4_desc">
+                Descripción del proyecto. Aquí irá el texto explicativo cuando agregues el contenido real del proyecto.
+              </p>
+              <div class="project-links">
+                <a href="#" class="btn btn-outline btn-sm" data-i18n="proj_demo">Demo</a>
+                <a href="#" class="btn btn-ghost btn-sm"   data-i18n="proj_code">Código</a>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ============================================================
+      CONTACTO — Mensaje de disponibilidad y formulario
+    ============================================================ -->
+    <section id="contact" class="contact section">
+      <div class="container">
+        <div class="contact-inner">
+
+          <!-- Info de contacto -->
+          <div class="contact-info reveal">
+            <p class="section-label" data-i18n="contact_label">Contacto</p>
+            <h2 class="section-title" data-i18n="contact_title">Estoy disponible para desarrollar tu web</h2>
+            <p data-i18n="contact_subtitle">
+              ¿Tienes un proyecto en mente? Me encantaría escucharte. Escríbeme y encontramos la mejor solución juntos.
+            </p>
+
+            <!-- Links directos -->
+            <div class="contact-links">
+              <a href="mailto:tu@email.com" class="contact-link">
+                <span class="contact-link-icon">✉️</span>
+                <span>tu@email.com</span>
+              </a>
+              <a href="https://linkedin.com/in/tunombre" class="contact-link" target="_blank" rel="noopener noreferrer">
+                <span class="contact-link-icon">💼</span>
+                <span>linkedin.com/in/tunombre</span>
+              </a>
+              <a href="https://github.com/tunombre" class="contact-link" target="_blank" rel="noopener noreferrer">
+                <span class="contact-link-icon">🐙</span>
+                <span>github.com/tunombre</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Formulario de contacto -->
+          <!-- Para integrarlo con un servicio real:
+               Opción 1 (Formspree): cambia action a "https://formspree.io/f/TU_ID" y method="POST", elimina el onsubmit
+               Opción 2 (EmailJS): reemplaza handleFormSubmit() con la llamada a emailjs.sendForm()
+               Opción 3: conecta a tu propio backend
+          -->
+          <form class="contact-form reveal" id="contactForm" onsubmit="handleFormSubmit(event)" novalidate>
+
+            <div class="form-group">
+              <label class="form-label" for="name" data-i18n="form_name">Nombre</label>
+              <input class="form-input" type="text" id="name" name="name"
+                     data-i18n-placeholder="form_name_ph" placeholder="Tu nombre" required />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="email" data-i18n="form_email">Email</label>
+              <input class="form-input" type="email" id="email" name="email"
+                     placeholder="tu@email.com" required />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="message" data-i18n="form_message">Mensaje</label>
+              <textarea class="form-textarea" id="message" name="message"
+                        data-i18n-placeholder="form_message_ph"
+                        placeholder="Cuéntame sobre tu proyecto..." required></textarea>
+            </div>
+
+            <!-- Mensaje de éxito (oculto hasta enviar) -->
+            <div class="form-success" id="formSuccess" role="alert">
+              <span data-i18n="form_success">¡Mensaje enviado! Te responderé pronto.</span>
+            </div>
+
+            <button type="submit" class="btn btn-primary" data-i18n="form_send">
+              Enviar Mensaje
+            </button>
+
+          </form>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+
+  <!-- ============================================================
+    FOOTER
+  ============================================================ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <p class="footer-copy">
+          <span data-i18n="footer_copy">© <span id="footerYear">2025</span> Tu Nombre. Diseñado y desarrollado con</span> ❤️
+        </p>
+        <div class="footer-social">
+          <a href="https://github.com/tunombre"    class="social-btn" target="_blank" rel="noopener noreferrer" aria-label="GitHub">🐙</a>
+          <a href="https://linkedin.com/in/tunombre" class="social-btn" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">💼</a>
+          <a href="https://twitter.com/tunombre"   class="social-btn" target="_blank" rel="noopener noreferrer" aria-label="Twitter / X">🐦</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- ============================================================
+    JAVASCRIPT
+    - i18n: sistema de traducciones ES/EN
+    - Tema: alternar claro/oscuro, persistencia en localStorage
+    - Menú: hamburger móvil
+    - Navegación activa: highlight del link según sección visible
+    - Reveal: animaciones de aparición al hacer scroll
+    - Formulario: manejo de envío
+  ============================================================ -->
+  <script>
+
+    /* ============================================================
+       TRADUCCIONES (i18n)
+       Para añadir un nuevo idioma: copia uno de los objetos y
+       traduce los valores. Luego añade un botón .lang-btn.
+    ============================================================ */
+    const i18n = {
+
+      es: {
+        page_title:        'Lucas Quevedo | Desarrollador Web',
+        nav_home:          'Inicio',
+        nav_about:         'Sobre Mí',
+        nav_projects:      'Proyectos',
+        nav_contact:       'Contacto',
+        hero_greeting:     '👋 Hola, estoy disponible',
+        hero_role:         'Desarrollador Web Full Stack',
+        hero_tagline:      'Creo experiencias digitales elegantes y funcionales. Me especializo en construir webs modernas, rápidas y accesibles que conectan marcas con sus usuarios.',
+        hero_cta1:         'Ver Proyectos',
+        hero_cta2:         'Contáctame',
+        about_label:       'Sobre Mí',
+        about_title:       'Un desarrollador apasionado por la web',
+        about_p1:          'Soy desarrollador web con experiencia creando aplicaciones y sitios modernos. Me apasiona escribir código limpio, optimizar el rendimiento y crear interfaces que los usuarios disfruten usando.',
+        about_p2:          'Trabajo tanto en el front-end como en el back-end, con especial interés en la accesibilidad, el diseño UI/UX y las buenas prácticas de ingeniería de software.',
+        about_skills_title:'Tecnologías',
+        projects_label:    'Proyectos',
+        projects_title:    'Mi trabajo reciente',
+        projects_subtitle: 'Aquí encontrarás algunos de los proyectos en los que he trabajado. El contenido se actualizará próximamente.',
+        proj1_title:       'Proyecto 1',
+        proj1_desc:        'Descripción del proyecto. Aquí irá el texto explicativo cuando agregues el contenido real del proyecto.',
+        proj2_title:       'Proyecto 2',
+        proj2_desc:        'Descripción del proyecto. Aquí irá el texto explicativo cuando agregues el contenido real del proyecto.',
+        proj3_title:       'Proyecto 3',
+        proj3_desc:        'Descripción del proyecto. Aquí irá el texto explicativo cuando agregues el contenido real del proyecto.',
+        proj4_title:       'Proyecto 4',
+        proj4_desc:        'Descripción del proyecto. Aquí irá el texto explicativo cuando agregues el contenido real del proyecto.',
+        proj_demo:         'Demo',
+        proj_code:         'Código',
+        contact_label:     'Contacto',
+        contact_title:     'Estoy disponible para desarrollar tu web',
+        contact_subtitle:  '¿Tienes un proyecto en mente? Me encantaría escucharte. Escríbeme y encontramos la mejor solución juntos.',
+        form_name:         'Nombre',
+        form_name_ph:      'Tu nombre',
+        form_email:        'Email',
+        form_message:      'Mensaje',
+        form_message_ph:   'Cuéntame sobre tu proyecto...',
+        form_send:         'Enviar Mensaje',
+        form_success:      '¡Mensaje enviado! Te responderé pronto.',
+        footer_copy:       'Diseñado y desarrollado con',
+      },
+
+      en: {
+        page_title:        'Your Name | Web Developer',
+        nav_home:          'Home',
+        nav_about:         'About',
+        nav_projects:      'Projects',
+        nav_contact:       'Contact',
+        hero_greeting:     '👋 Hi, I\'m available',
+        hero_role:         'Full Stack Web Developer',
+        hero_tagline:      'I build elegant and functional digital experiences. I specialize in crafting modern, fast, and accessible websites that connect brands with their users.',
+        hero_cta1:         'View Projects',
+        hero_cta2:         'Contact Me',
+        about_label:       'About Me',
+        about_title:       'A developer passionate about the web',
+        about_p1:          'I\'m a web developer experienced in building modern applications and websites. I\'m passionate about writing clean code, optimizing performance, and crafting interfaces that users enjoy.',
+        about_p2:          'I work across both front-end and back-end, with special interest in accessibility, UI/UX design, and software engineering best practices.',
+        about_skills_title:'Technologies',
+        projects_label:    'Projects',
+        projects_title:    'My recent work',
+        projects_subtitle: 'Here you\'ll find some of the projects I\'ve worked on. Content will be updated soon.',
+        proj1_title:       'Project 1',
+        proj1_desc:        'Project description. This is where the explanatory text will go when you add the real project content.',
+        proj2_title:       'Project 2',
+        proj2_desc:        'Project description. This is where the explanatory text will go when you add the real project content.',
+        proj3_title:       'Project 3',
+        proj3_desc:        'Project description. This is where the explanatory text will go when you add the real project content.',
+        proj4_title:       'Project 4',
+        proj4_desc:        'Project description. This is where the explanatory text will go when you add the real project content.',
+        proj_demo:         'Demo',
+        proj_code:         'Code',
+        contact_label:     'Contact',
+        contact_title:     'I\'m available to build your website',
+        contact_subtitle:  'Have a project in mind? I\'d love to hear about it. Write to me and let\'s find the best solution together.',
+        form_name:         'Name',
+        form_name_ph:      'Your name',
+        form_email:        'Email',
+        form_message:      'Message',
+        form_message_ph:   'Tell me about your project...',
+        form_send:         'Send Message',
+        form_success:      'Message sent! I\'ll get back to you soon.',
+        footer_copy:       'Designed and developed with',
+      }
+
+    };
+
+
+    /* ============================================================
+       ESTADO GLOBAL
+    ============================================================ */
+    let currentLang  = localStorage.getItem('lang')  || 'es';
+    let currentTheme = localStorage.getItem('theme') || 'light';
+
+
+    /* ============================================================
+       IDIOMA
+    ============================================================ */
+    function setLang(lang) {
+      currentLang = lang;
+      localStorage.setItem('lang', lang);
+      applyLang();
+    }
+
+    function applyLang() {
+      const t = i18n[currentLang];
+
+      // Atributo lang del HTML (importante para accesibilidad y SEO)
+      document.documentElement.lang = currentLang;
+
+      // Título de la página
+      document.title = t.page_title;
+
+      // Textos con data-i18n
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (t[key] !== undefined) el.textContent = t[key];
+      });
+
+      // Placeholders con data-i18n-placeholder
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-i18n-placeholder');
+        if (t[key] !== undefined) el.setAttribute('placeholder', t[key]);
+      });
+
+      // Botones de idioma activo
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('data-lang') === currentLang);
+      });
+    }
+
+
+    /* ============================================================
+       TEMA (CLARO / OSCURO)
+    ============================================================ */
+    function toggleTheme() {
+      currentTheme = currentTheme === 'light' ? 'dark' : 'light';
+      localStorage.setItem('theme', currentTheme);
+      applyTheme();
+    }
+
+    function applyTheme() {
+      document.documentElement.setAttribute('data-theme', currentTheme);
+
+      // Actualizar icono del botón
+      document.getElementById('themeBtn').textContent = currentTheme === 'light' ? '🌙' : '☀️';
+
+      // Actualizar meta theme-color (barra del navegador en móvil)
+      document.querySelector('meta[name="theme-color"]')
+        ?.setAttribute('content', currentTheme === 'light' ? '#FDF8F0' : '#111113');
+    }
+
+
+    /* ============================================================
+       MENÚ MÓVIL
+    ============================================================ */
+    function toggleMenu() {
+      const menu      = document.getElementById('mobileMenu');
+      const hamburger = document.getElementById('hamburger');
+      const isOpen    = menu.classList.toggle('open');
+
+      hamburger.classList.toggle('open', isOpen);
+      hamburger.setAttribute('aria-expanded', isOpen);
+    }
+
+    function closeMenu() {
+      const menu      = document.getElementById('mobileMenu');
+      const hamburger = document.getElementById('hamburger');
+      menu.classList.remove('open');
+      hamburger.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+    }
+
+    // Cerrar menú al hacer click fuera de él
+    document.addEventListener('click', e => {
+      const menu      = document.getElementById('mobileMenu');
+      const hamburger = document.getElementById('hamburger');
+      if (
+        menu.classList.contains('open') &&
+        !menu.contains(e.target) &&
+        !hamburger.contains(e.target)
+      ) {
+        closeMenu();
+      }
+    });
+
+    // Cerrar menú al redimensionar a desktop
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 900) closeMenu();
+    });
+
+
+    /* ============================================================
+       NAVEGACIÓN ACTIVA AL HACER SCROLL
+    ============================================================ */
+    const sections  = document.querySelectorAll('section[id]');
+    const navLinks  = document.querySelectorAll('.nav-link');
+
+    function updateActiveNav() {
+      let currentSection = '';
+      sections.forEach(section => {
+        // La sección activa es aquella cuyo tope está dentro del viewport
+        if (section.getBoundingClientRect().top <= 100) {
+          currentSection = section.id;
+        }
+      });
+
+      navLinks.forEach(link => {
+        link.classList.toggle('active', link.getAttribute('href') === '#' + currentSection);
+      });
+    }
+
+    window.addEventListener('scroll', updateActiveNav, { passive: true });
+
+
+    /* ============================================================
+       ANIMACIONES DE SCROLL — IntersectionObserver
+    ============================================================ */
+    const revealObserver = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            revealObserver.unobserve(entry.target); // Animar solo una vez
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+    );
+
+    // Observar todos los elementos con clase .reveal o .reveal-stagger
+    document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => {
+      revealObserver.observe(el);
+    });
+
+
+    /* ============================================================
+       FORMULARIO DE CONTACTO
+    ============================================================ */
+    function handleFormSubmit(e) {
+      e.preventDefault();
+
+      const name    = document.getElementById('name').value.trim();
+      const email   = document.getElementById('email').value.trim();
+      const message = document.getElementById('message').value.trim();
+
+      if (!name || !email || !message) return;
+
+      // Aquí puedes integrar tu servicio de email (Formspree, EmailJS, etc.)
+      // Por ahora mostramos un mensaje de éxito visual.
+      const successEl = document.getElementById('formSuccess');
+      successEl.classList.add('visible');
+      e.target.reset();
+
+      // Ocultar el mensaje de éxito después de 5 segundos
+      setTimeout(() => successEl.classList.remove('visible'), 5000);
+    }
+
+
+    /* ============================================================
+       PARALLAX DE MOUSE Y CURSOR GLOW
+       Los divs con [data-parallax] se desplazan suavemente en
+       función del puntero. El valor numérico es la "profundidad":
+       mayor valor → mayor desplazamiento (elemento más cercano).
+    ============================================================ */
+    (function initParallax() {
+      const parallaxEls  = document.querySelectorAll('[data-parallax]');
+      const cursorGlow   = document.getElementById('cursorGlow');
+
+      if (!parallaxEls.length && !cursorGlow) return;
+
+      // Posición objetivo (mouse normalizado a -1..+1 desde el centro)
+      const mouse  = { x: 0, y: 0 };
+      // Posición actual interpolada (lerp)
+      const lerped = { x: 0, y: 0 };
+      let   hasPointer = false;
+
+      // Registrar posición del mouse
+      window.addEventListener('mousemove', e => {
+        mouse.x = (e.clientX / window.innerWidth  - 0.5) * 2;
+        mouse.y = (e.clientY / window.innerHeight - 0.5) * 2;
+
+        // El glow responde de forma inmediata (no lerpeado)
+        if (cursorGlow) {
+          cursorGlow.style.left = e.clientX + 'px';
+          cursorGlow.style.top  = e.clientY + 'px';
+          if (!hasPointer) {
+            cursorGlow.classList.add('active');
+            hasPointer = true;
+          }
+        }
+      }, { passive: true });
+
+      // Ocultar glow al salir de la ventana
+      window.addEventListener('mouseleave', () => {
+        if (cursorGlow) cursorGlow.classList.remove('active');
+        hasPointer = false;
+      });
+
+      // Loop de animación con interpolación lineal suave (factor 0.065)
+      // Esto da el efecto de "inercia" elegante al mover el mouse
+      (function tick() {
+        const ease = 0.065;
+        lerped.x += (mouse.x - lerped.x) * ease;
+        lerped.y += (mouse.y - lerped.y) * ease;
+
+        parallaxEls.forEach(el => {
+          const depth = parseFloat(el.dataset.parallax);
+          // Máximo ~90px horizontal y ~70px vertical a profundidad 1
+          const tx = lerped.x * depth * 90;
+          const ty = lerped.y * depth * 70;
+          el.style.transform = `translate(${tx}px, ${ty}px)`;
+        });
+
+        requestAnimationFrame(tick);
+      })();
+    })();
+
+
+    /* ============================================================
+       INICIALIZACIÓN
+    ============================================================ */
+    (function init() {
+      // Aplicar tema e idioma guardados (o valores por defecto)
+      applyTheme();
+      applyLang();
+
+      // Actualizar año en el footer dinámicamente
+      const yearEl = document.getElementById('footerYear');
+      if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+      // Marcar el nav link correcto según la posición inicial
+      updateActiveNav();
+    })();
+
+  </script>
+
+</body>
+</html>
