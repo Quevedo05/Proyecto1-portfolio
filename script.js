@@ -27,7 +27,7 @@ const i18n = {
     nav_about:         'Sobre Mí',
     nav_projects:      'Proyectos',
     nav_contact:       'Contacto',
-    hero_greeting:     '👋 Hola, estoy disponible',
+    hero_greeting:     'Disponible para proyectos',
     hero_role:         'Desarrollador Web Full Stack',
     hero_tagline:      'Creo experiencias digitales elegantes y funcionales. Me especializo en construir webs modernas, rápidas y accesibles que conectan marcas con sus usuarios.',
     hero_cta1:         'Ver Proyectos',
@@ -69,7 +69,7 @@ const i18n = {
     nav_about:         'About',
     nav_projects:      'Projects',
     nav_contact:       'Contact',
-    hero_greeting:     '👋 Hi, I\'m available',
+    hero_greeting:     'Available for projects',
     hero_role:         'Full Stack Web Developer',
     hero_tagline:      'I build elegant and functional digital experiences. I specialize in crafting modern, fast, and accessible websites that connect brands with their users.',
     hero_cta1:         'View Projects',
@@ -169,7 +169,7 @@ function applyTheme() {
 
   // Actualizar meta theme-color (barra del navegador en móvil)
   document.querySelector('meta[name="theme-color"]')
-    ?.setAttribute('content', currentTheme === 'light' ? '#FDF8F0' : '#111113');
+    ?.setAttribute('content', currentTheme === 'light' ? '#F8F8F9' : '#0C0C0E');
 }
 
 
