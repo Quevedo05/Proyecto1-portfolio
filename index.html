@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Portfolio de diseño web — diseño digital premium y desarrollo no-code." />
-  <meta name="theme-color" content="#0a0a0a" />
+  <meta name="description" content="Lucas Quevedo — diseñador web y desarrollador No-Code. Diseño en Figma, construyo en Webflow y Framer. Argentina, proyectos globales." />
+  <meta name="theme-color" content="#f5f0e8" />
   <title>Lucas Quevedo · Diseño Web</title>
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&family=Playfair+Display:ital,wght@1,700&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
 
   <!-- Tailwind config MUST go before CDN script -->
   <script>
@@ -18,17 +18,19 @@
       theme: {
         extend: {
           colors: {
-            surface:       '#0a0a0a',
-            'surface-alt': '#111111',
-            'surface-cta': '#141414',
-            accent:        '#e8e0d0',
-            muted:         '#6b6b6b',
-            border:        '#1f1f1f',
+            bg:           '#f5f0e8',
+            'bg-alt':     '#ede8e0',
+            ink:          '#1a1512',
+            'ink-muted':  '#6b5f54',
+            accent:       '#c85c38',
+            'accent-pale':'#f0e0d8',
+            border:       '#ddd5c8',
           },
           fontFamily: {
-            heading: ['Syne', 'sans-serif'],
-            display: ['"Bebas Neue"', 'sans-serif'],
-            body:    ['"DM Sans"', 'system-ui', 'sans-serif'],
+            heading:  ['Syne', 'sans-serif'],
+            display:  ['"Playfair Display"', 'Georgia', 'serif'],
+            mono:     ['"Bebas Neue"', 'sans-serif'],
+            body:     ['"DM Sans"', 'system-ui', 'sans-serif'],
           },
         }
       }
@@ -41,8 +43,8 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
     body {
-      background-color: #0a0a0a;
-      color: #e8e0d0;
+      background-color: #f5f0e8;
+      color: #1a1512;
       font-family: 'DM Sans', system-ui, sans-serif;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
@@ -73,8 +75,9 @@
       align-items: center;
       justify-content: center;
       padding: 11px 28px;
-      border: 1px solid #e8e0d0;
-      color: #e8e0d0;
+      border: 1px solid #1a1512;
+      color: #1a1512;
+      background: transparent;
       border-radius: 3px;
       font-family: 'DM Sans', sans-serif;
       font-size: 0.78rem;
@@ -86,17 +89,17 @@
       cursor: pointer;
     }
     .btn-outline:hover {
-      background-color: #e8e0d0;
-      color: #0a0a0a;
+      background-color: #1a1512;
+      color: #f5f0e8;
     }
     .btn-fill {
       display: inline-flex;
       align-items: center;
       justify-content: center;
       padding: 11px 28px;
-      background: #ffffff;
-      color: #0a0a0a;
-      border: 1px solid #ffffff;
+      background: #c85c38;
+      color: #ffffff;
+      border: 1px solid #c85c38;
       border-radius: 3px;
       font-family: 'DM Sans', sans-serif;
       font-size: 0.78rem;
@@ -108,9 +111,8 @@
       cursor: pointer;
     }
     .btn-fill:hover {
-      background: transparent;
-      color: #ffffff;
-      border-color: #ffffff;
+      background: #b54d2a;
+      border-color: #b54d2a;
     }
 
     /* ─── Navbar ───────────────────────────────────────────────────── */
@@ -120,10 +122,10 @@
       border-bottom: 1px solid transparent;
     }
     #navbar.scrolled {
-      background-color: rgba(10, 10, 10, 0.88);
+      background-color: rgba(245, 240, 232, 0.92);
       backdrop-filter: blur(22px) saturate(1.6);
       -webkit-backdrop-filter: blur(22px) saturate(1.6);
-      border-bottom-color: #1f1f1f;
+      border-bottom-color: #ddd5c8;
     }
 
     /* ─── Project card image + overlay ────────────────────────────── */
@@ -143,7 +145,7 @@
     .project-overlay {
       position: absolute;
       inset: 0;
-      background: rgba(10, 10, 10, 0.78);
+      background: rgba(26, 21, 18, 0.78);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -154,50 +156,61 @@
     }
     .project-card:hover .project-overlay { opacity: 1; }
 
-    /* ─── Hero background ──────────────────────────────────────────── */
-    #hero-canvas {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
+    /* ─── Project row (case study list) ──────────────────────────── */
+    .project-row {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 2rem;
+      padding: 2rem 0;
+      border-bottom: 1px solid #ddd5c8;
+      align-items: start;
+      transition: background-color 0.2s ease;
     }
-    .hero-orb-wrap {
-      position: absolute;
-      inset: 0;
-      overflow: hidden;
-      pointer-events: none;
+    .project-row:hover {
+      background-color: #ede8e0;
+      margin: 0 -1.5rem;
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
     }
-    .hero-orb {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(72px);
+    .section-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 3.5rem;
+      letter-spacing: 0.15em;
+      color: #c85c38;
+      line-height: 0.9;
+      min-width: 5rem;
     }
-    .hero-orb-1 {
-      width: clamp(350px, 52vw, 700px);
-      height: clamp(350px, 52vw, 700px);
-      background: radial-gradient(circle, rgba(232,224,208,0.28) 0%, transparent 65%);
-      top: -18%;
-      left: -12%;
-      animation: orb-drift-1 22s ease-in-out infinite;
+
+    /* ─── Hero background (paper texture) ──────────────────────────── */
+    #hero {
+      background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' result='noise'/%3E%3C/filter%3E%3Crect width='100' height='100' fill='%23f5f0e8' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
     }
-    .hero-orb-2 {
-      width: clamp(280px, 44vw, 580px);
-      height: clamp(280px, 44vw, 580px);
-      background: radial-gradient(circle, rgba(232,224,208,0.20) 0%, transparent 65%);
-      bottom: -12%;
-      right: -10%;
-      animation: orb-drift-2 28s ease-in-out infinite;
+
+    /* ─── Hero grid layout ─────────────────────────────────────────── */
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      min-height: 100vh;
+      padding: 6rem 3rem 4rem;
     }
-    @keyframes orb-drift-1 {
-      0%,  100% { transform: translate(0,     0)    scale(1);    }
-      33%        { transform: translate(90px, 70px)  scale(1.1);  }
-      66%        { transform: translate(40px, 130px) scale(0.93); }
+    @media (max-width: 768px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+        padding: 5rem 1.5rem 3rem;
+      }
     }
-    @keyframes orb-drift-2 {
-      0%,  100% { transform: translate(0,       0)     scale(1);    }
-      35%        { transform: translate(-90px, -80px)  scale(1.12); }
-      65%        { transform: translate(-30px, -150px) scale(0.90); }
+
+    /* ─── Hero italic (Playfair Display) ──────────────────────────── */
+    .hero-italic {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-style: italic;
+      font-weight: 700;
+      font-size: clamp(2.8rem, 7vw, 6rem);
+      line-height: 0.96;
+      letter-spacing: -0.02em;
+      color: #c85c38;
     }
 
     /* ─── Hero animation ───────────────────────────────────────────── */
@@ -220,6 +233,9 @@
       display: flex;
       width: max-content;
       animation: marquee-scroll 40s linear infinite;
+      font-family: 'Playfair Display', Georgia, serif;
+      font-style: italic;
+      color: #6b5f54;
     }
     .marquee-track:hover { animation-play-state: paused; }
     @keyframes marquee-scroll {
@@ -284,10 +300,29 @@
       .marquee-track { animation: none; }
     }
 
-    /* ─── Skill Cards ──────────────────────────────────────────────── */
+    /* ─── Capability table ────────────────────────────────────────── */
+    .capability-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 1rem;
+      padding: 1rem 0;
+      border-bottom: 1px solid #ddd5c8;
+      align-items: center;
+      font-size: 0.95rem;
+    }
+    .dot-filled {
+      color: #c85c38;
+      font-size: 1.2rem;
+    }
+    .dot-empty {
+      color: #ddd5c8;
+      font-size: 1.2rem;
+    }
+
+    /* ─── Skill Cards (legacy) ───────────────────────────────────── */
     .skill-card {
-      background: #111111;
-      border: 1px solid #1f1f1f;
+      background: #ede8e0;
+      border: 1px solid #ddd5c8;
       border-radius: 4px;
       padding: 24px 20px;
       display: flex;
@@ -297,20 +332,22 @@
                   transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .skill-card:hover {
-      border-color: rgba(232, 224, 208, 0.35);
+      border-color: #c85c38;
       transform: translateY(-3px);
     }
     .skill-card__icon {
-      color: #e8e0d0;
+      color: #1a1512;
       opacity: 0.7;
     }
     .skill-card__name {
       font-size: 0.72rem;
       line-height: 1.2;
+      color: #1a1512;
     }
     .skill-card__desc {
       font-size: 0.82rem;
       line-height: 1.55;
+      color: #6b5f54;
     }
 
     /* ─── Project card body ─────────────────────────────────────────── */
@@ -329,15 +366,15 @@
     .project-tag {
       display: inline-block;
       padding: 2px 7px;
-      background: #1a1a1a;
-      border: 1px solid #2a2a2a;
+      background: #f0e0d8;
+      border: 1px solid #ddd5c8;
       border-radius: 3px;
       font-family: 'DM Sans', sans-serif;
       font-size: 0.62rem;
       font-weight: 500;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: #6b6b6b;
+      color: #6b5f54;
       white-space: nowrap;
     }
     .project-link {
@@ -348,38 +385,39 @@
       font-weight: 500;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: #6b6b6b;
+      color: #6b5f54;
       transition: color 0.2s ease, gap 0.2s ease;
       margin-top: auto;
     }
     .project-link:hover {
-      color: #e8e0d0;
+      color: #1a1512;
       gap: 8px;
     }
   </style>
 </head>
 
-<body class="bg-surface text-accent">
+<body>
 
   <!-- ═══════════════════════════════════════════════════════ NAVBAR -->
   <header id="navbar" class="fixed top-0 left-0 right-0 z-50 px-6 lg:px-12">
     <div class="max-w-7xl mx-auto flex items-center justify-between h-16 md:h-20">
 
       <!-- Logo -->
-      <a href="#hero" class="font-heading text-xl tracking-widest uppercase text-accent">
-        LUCAS Q<span class="text-muted">.</span>
+      <a href="#hero" class="flex items-center gap-2 font-heading text-sm tracking-widest uppercase" style="color: #1a1512;">
+        <span style="font-size: 1.3rem; letter-spacing: -0.08em; font-weight: 800;">LQ</span>
+        <span style="font-size: 0.7rem; font-weight: 700;">Lucas Quevedo</span>
       </a>
 
       <!-- Nav links (desktop) -->
       <nav class="hidden md:flex items-center gap-8">
-        <a href="#projects" class="text-muted hover:text-accent text-label uppercase tracking-widest transition-colors font-body" data-i18n="nav.projects">Proyectos</a>
-        <a href="#services" class="text-muted hover:text-accent text-label uppercase tracking-widest transition-colors font-body" data-i18n="nav.services">Servicios</a>
-        <a href="#faq"      class="text-muted hover:text-accent text-label uppercase tracking-widest transition-colors font-body">FAQ</a>
+        <a href="#projects" class="text-label uppercase tracking-widest transition-colors font-body" style="color: #6b5f54;" data-i18n="nav.projects">Proyectos</a>
+        <a href="#services" class="text-label uppercase tracking-widest transition-colors font-body" style="color: #6b5f54;" data-i18n="nav.services">Servicios</a>
+        <a href="#faq"      class="text-label uppercase tracking-widest transition-colors font-body" style="color: #6b5f54;">FAQ</a>
       </nav>
 
       <!-- Lang toggle + CTA -->
       <div class="flex items-center gap-4">
-        <button id="lang-toggle" class="font-body text-label uppercase tracking-widest text-muted hover:text-accent transition-colors">EN</button>
+        <button id="lang-toggle" class="font-body text-label uppercase tracking-widest transition-colors" style="color: #6b5f54;">EN</button>
         <a href="#cta" class="btn-outline" data-i18n="nav.cta">Hablemos</a>
       </div>
     </div>
@@ -388,29 +426,52 @@
   <main>
 
     <!-- ═════════════════════════════════════════════════════════ HERO -->
-    <section id="hero" class="min-h-screen flex flex-col items-center justify-center text-center px-6 relative">
+    <section id="hero" class="relative px-6 lg:px-12">
+      <div class="hero-grid max-w-7xl mx-auto">
 
-      <!-- Background: canvas particles -->
-      <canvas id="hero-canvas" aria-hidden="true"></canvas>
+        <!-- Left column: text -->
+        <div class="flex flex-col justify-center reveal">
+          <p class="text-label uppercase font-body text-ink-muted mb-8 tracking-widest" data-i18n="hero.label">
+            Diseño web · No-Code · Argentina
+          </p>
 
-      <!-- Background: ambient orbs -->
-      <div class="hero-orb-wrap" aria-hidden="true">
-        <div class="hero-orb hero-orb-1"></div>
-        <div class="hero-orb hero-orb-2"></div>
+          <h1 class="font-heading text-ink uppercase leading-none mb-2" style="font-size: clamp(2.6rem, 7vw, 5.5rem); letter-spacing: -0.02em; font-weight: 800;" data-i18n="hero.line1">
+            Diseño lo que
+          </h1>
+
+          <h1 class="hero-italic mb-8" data-i18n="hero.line2">
+            construyo.
+          </h1>
+
+          <div class="flex flex-col md:flex-row gap-4 mb-8">
+            <span class="text-sm font-body text-ink-muted" data-i18n="hero.stat1">12+ sitios lanzados</span>
+            <span class="text-sm font-body text-ink-muted" data-i18n="hero.stat2">3 países</span>
+          </div>
+
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a href="#cta" class="btn-fill" data-i18n="nav.cta">Hablemos</a>
+            <a href="#projects" class="btn-outline" data-i18n="hero.projects">Ver proyectos</a>
+          </div>
+        </div>
+
+        <!-- Right column: photo -->
+        <div class="flex justify-center lg:justify-end reveal" style="transition-delay: 0.1s;">
+          <div class="w-64 md:w-80 aspect-[3/4] overflow-hidden border-r-4" style="border-right-color: #c85c38; transform: translateY(2rem);">
+            <img
+              src="assets/foto-lucas.jpg"
+              alt="Lucas Quevedo"
+              class="w-full h-full object-cover object-top"
+            />
+          </div>
+        </div>
+
       </div>
 
-      <h1 class="hero-name relative font-heading text-accent uppercase leading-none mb-4" style="font-size: clamp(2.6rem, 7vw, 5.5rem); letter-spacing: -0.02em; font-weight: 800;" data-i18n="hero.name">
-        Lucas Quevedo
-      </h1>
-      <p class="hero-role relative font-body text-muted uppercase tracking-[0.4em] text-sm md:text-base" data-i18n="hero.role">
-        Freelance
-      </p>
-
       <!-- Scroll indicator -->
-      <div class="absolute bottom-10" style="left:50%;transform:translateX(-50%);">
-        <div class="hero-scroll flex flex-col items-center gap-2 animate-bounce">
-          <span class="font-body text-muted text-label uppercase tracking-widest" data-i18n="hero.scroll">Scroll</span>
-          <svg class="w-4 h-4 text-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2">
+        <div class="hero-scroll flex flex-col items-center gap-2 animate-bounce reveal" style="transition-delay: 0.2s;">
+          <span class="font-body text-ink-muted text-label uppercase tracking-widest" data-i18n="hero.scroll">Scroll</span>
+          <svg class="w-4 h-4 text-ink-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/>
           </svg>
         </div>
@@ -422,33 +483,37 @@
     <section id="about" class="border-t border-border py-28 px-6 lg:px-12">
       <div class="max-w-7xl mx-auto">
 
-        <p class="text-label uppercase font-body text-muted mb-12 tracking-widest reveal" data-i18n="about.label">(Sobre Mí)</p>
+        <p class="text-label uppercase font-body text-ink-muted mb-12 tracking-widest reveal" data-i18n="about.label">(Sobre Mí)</p>
 
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center reveal">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start reveal">
 
-          <!-- Foto cuadrada -->
-          <div class="flex justify-center lg:justify-start">
-            <div class="w-72 md:w-96 aspect-square overflow-hidden border border-border flex-shrink-0 rounded">
+          <!-- Texto (left on desktop, top on mobile) -->
+          <div>
+            <h2 class="text-h2 font-heading text-ink uppercase mb-8 leading-tight" data-i18n="about.title">
+              No soy diseñador que sabe código
+            </h2>
+            <p class="text-ink-muted font-body leading-relaxed mb-6" style="font-size:1.05rem;" data-i18n="about.p1">
+              Soy las dos cosas con igual seriedad. Diseño en Figma con criterio visual propio. Después abro Webflow o Framer y lo construyo yo mismo, sin perder nada en la traducción.
+            </p>
+            <p class="text-ink-muted font-body leading-relaxed mb-10" style="font-size:1.05rem;" data-i18n="about.p2">
+              Trabajo desde Argentina con clientes en LATAM, España y EEUU. Inglés fluido, zona horaria flexible, comunicación directa. Sin agencias, sin intermediarios.
+            </p>
+            <div class="flex flex-wrap gap-3">
+              <span class="text-xs font-body text-ink border border-ink rounded px-3 py-1.5">[Webflow]</span>
+              <span class="text-xs font-body text-ink border border-ink rounded px-3 py-1.5">[Framer]</span>
+              <span class="text-xs font-body text-ink border border-ink rounded px-3 py-1.5">[Figma]</span>
+            </div>
+          </div>
+
+          <!-- Foto (right on desktop, hidden on mobile) -->
+          <div class="hidden lg:flex justify-end">
+            <div class="w-80 aspect-square overflow-hidden border border-border flex-shrink-0 rounded">
               <img
                 src="assets/foto-lucas.jpg"
                 alt="Lucas Quevedo"
                 class="w-full h-full object-cover object-top"
               />
             </div>
-          </div>
-
-          <!-- Texto -->
-          <div>
-            <h2 class="text-h2 font-heading text-accent uppercase mb-8 leading-tight" data-i18n="about.title">
-              Un vistazo a mi pasión por el diseño digital
-            </h2>
-            <p class="text-muted font-body leading-relaxed mb-4" style="font-size:1.05rem;" data-i18n="about.p1">
-              Soy Lucas, un apasionado por el desarrollo web y la tecnología que encontró en la creación de sitios web una forma de conectar ideas con personas. Mi enfoque es sencillo: transformar proyectos en experiencias digitales claras, funcionales y con impacto real.
-            </p>
-            <p class="text-muted font-body leading-relaxed mb-10" style="font-size:1.05rem;" data-i18n="about.p2">
-              Trabajo junto a empresas, negocios y particulares que buscan destacar en un mundo cada vez más digital. Mi misión es ayudarte a contar tu historia online con un sitio web que no solo se vea bien, sino que también te acerque a tus objetivos.
-            </p>
-            <a href="#projects" class="btn-outline" data-i18n="about.cta">Mis proyectos</a>
           </div>
 
         </div>
@@ -459,10 +524,71 @@
     <section id="skills" class="border-t border-border py-24 px-6 lg:px-12">
       <div class="max-w-7xl mx-auto">
 
-        <p class="text-label uppercase font-body text-muted mb-12 tracking-widest reveal"
+        <p class="text-label uppercase font-body text-ink-muted mb-12 tracking-widest reveal"
            data-i18n="skills.label">(Herramientas)</p>
 
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+        <!-- Heading -->
+        <h2 class="text-h2 font-heading text-ink uppercase mb-16 leading-tight reveal"
+            data-i18n="skills.title">
+          El stack que muy pocos combinan
+        </h2>
+
+        <!-- Capability Table -->
+        <div class="reveal" style="overflow-x: auto;">
+          <table style="width: 100%; border-collapse: collapse;">
+            <thead>
+              <tr class="border-b border-border">
+                <th class="text-left py-3 px-0 font-heading text-ink text-sm" style="font-weight: 700; width: 30%;">Herramienta</th>
+                <th class="text-center py-3 px-4 font-heading text-ink text-sm" style="font-weight: 700; width: 35%;" data-i18n="skills.design">Diseño</th>
+                <th class="text-center py-3 px-4 font-heading text-ink text-sm" style="font-weight: 700; width: 35%;" data-i18n="skills.dev">Desarrollo</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b border-border">
+                <td class="py-4 px-0 font-body text-ink">Figma</td>
+                <td class="py-4 px-4 text-center">
+                  <span class="dot-filled">● ● ● ● ●</span>
+                </td>
+                <td class="py-4 px-4 text-center">
+                  <span class="dot-empty">○</span>
+                </td>
+              </tr>
+              <tr class="border-b border-border">
+                <td class="py-4 px-0 font-body text-ink">Webflow</td>
+                <td class="py-4 px-4 text-center">
+                  <span class="dot-filled">● ● ● ● ○</span>
+                </td>
+                <td class="py-4 px-4 text-center">
+                  <span class="dot-filled">● ● ● ● ●</span>
+                </td>
+              </tr>
+              <tr class="border-b border-border">
+                <td class="py-4 px-0 font-body text-ink">Framer</td>
+                <td class="py-4 px-4 text-center">
+                  <span class="dot-filled">● ● ● ● ○</span>
+                </td>
+                <td class="py-4 px-4 text-center">
+                  <span class="dot-filled">● ● ● ● ●</span>
+                </td>
+              </tr>
+              <tr class="border-b border-border">
+                <td class="py-4 px-0 font-body text-ink">HTML / CSS / JS</td>
+                <td class="py-4 px-4 text-center">
+                  <span class="dot-empty">○</span>
+                </td>
+                <td class="py-4 px-4 text-center">
+                  <span class="dot-filled">● ● ● ● ○</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p class="text-ink-muted font-body leading-relaxed mt-12 max-w-2xl" style="font-size: 0.95rem;" data-i18n="skills.note">
+          Webflow + Framer porque el proyecto manda, no la herramienta.
+        </p>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center" style="display: none;">
 
           <!-- Left: heading + description -->
           <div class="reveal">
@@ -574,11 +700,11 @@
       <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-5 reveal-stagger">
 
         <!-- Card 1: Calidad Cuyo -->
-        <article class="project-card relative border border-border rounded overflow-hidden flex flex-col cursor-pointer">
+        <a href="https://calidadcuyo.com/" target="_blank" rel="noopener noreferrer" class="project-card relative border border-border rounded overflow-hidden flex flex-col cursor-pointer" style="text-decoration:none;">
           <div class="project-img-wrap relative">
             <img src="assets/calidad-cuyo.png" alt="Calidad Cuyo" loading="lazy" />
             <div class="project-overlay">
-              <span class="font-heading text-xl text-accent uppercase leading-tight">Calidad Cuyo</span>
+              <span class="font-heading text-2xl text-accent uppercase tracking-widest">VER →</span>
             </div>
           </div>
           <div class="project-body">
@@ -589,20 +715,18 @@
             </div>
             <h3 class="font-heading text-accent uppercase tracking-wide mb-1" style="font-size:1rem;">Calidad Cuyo</h3>
             <p class="text-label uppercase font-body text-muted tracking-widest mb-3" data-i18n="proj.calidadcuyo.type">Empresa regional</p>
-            <p class="font-body text-muted leading-relaxed mb-5" style="font-size:0.85rem;" data-i18n="proj.calidadcuyo.desc">
+            <p class="font-body text-muted leading-relaxed" style="font-size:0.85rem;" data-i18n="proj.calidadcuyo.desc">
               Sitio web corporativo para empresa regional de calidad. Diseño limpio y funcional orientado a captar nuevos clientes.
             </p>
-            <a href="https://calidadcuyo.com/" target="_blank" rel="noopener noreferrer"
-               class="project-link font-body" data-i18n="proj.viewproject">Ver proyecto →</a>
           </div>
-        </article>
+        </a>
 
         <!-- Card 2: Grupo Innova -->
-        <article class="project-card relative border border-border rounded overflow-hidden flex flex-col cursor-pointer">
+        <a href="https://grupoinnova.com.ar/" target="_blank" rel="noopener noreferrer" class="project-card relative border border-border rounded overflow-hidden flex flex-col cursor-pointer" style="text-decoration:none;">
           <div class="project-img-wrap relative">
             <img src="assets/grupo-innova.png" alt="Grupo Innova" loading="lazy" />
             <div class="project-overlay">
-              <span class="font-heading text-xl text-accent uppercase leading-tight">Grupo Innova</span>
+              <span class="font-heading text-2xl text-accent uppercase tracking-widest">VER →</span>
             </div>
           </div>
           <div class="project-body">
@@ -613,20 +737,18 @@
             </div>
             <h3 class="font-heading text-accent uppercase tracking-wide mb-1" style="font-size:1rem;">Grupo Innova</h3>
             <p class="text-label uppercase font-body text-muted tracking-widest mb-3" data-i18n="proj.grupoinnova.type">Grupo empresarial</p>
-            <p class="font-body text-muted leading-relaxed mb-5" style="font-size:0.85rem;" data-i18n="proj.grupoinnova.desc">
+            <p class="font-body text-muted leading-relaxed" style="font-size:0.85rem;" data-i18n="proj.grupoinnova.desc">
               Presencia digital para grupo empresarial con múltiples unidades de negocio. Enfoque en credibilidad y claridad de propuesta de valor.
             </p>
-            <a href="https://grupoinnova.com.ar/" target="_blank" rel="noopener noreferrer"
-               class="project-link font-body" data-i18n="proj.viewproject">Ver proyecto →</a>
           </div>
-        </article>
+        </a>
 
-        <!-- Card 3: Choice -->
-        <article class="project-card relative border border-border rounded overflow-hidden flex flex-col cursor-pointer">
+        <!-- Card 3: Pediátrica 020 -->
+        <a href="https://www.turnosped020.com.ar/" target="_blank" rel="noopener noreferrer" class="project-card relative border border-border rounded overflow-hidden flex flex-col cursor-pointer" style="text-decoration:none;">
           <div class="project-img-wrap relative">
-            <img src="assets/choice.png" alt="Choice" loading="lazy" />
+            <img src="assets/pediatrica-020.png" alt="Pediátrica 020" loading="lazy" />
             <div class="project-overlay">
-              <span class="font-heading text-xl text-accent uppercase leading-tight">Choice</span>
+              <span class="font-heading text-2xl text-accent uppercase tracking-widest">VER →</span>
             </div>
           </div>
           <div class="project-body">
@@ -635,15 +757,13 @@
               <span class="project-tag">CSS</span>
               <span class="project-tag">JS</span>
             </div>
-            <h3 class="font-heading text-accent uppercase tracking-wide mb-1" style="font-size:1rem;">Choice</h3>
-            <p class="text-label uppercase font-body text-muted tracking-widest mb-3" data-i18n="proj.choice.type">Empresa / Servicios</p>
-            <p class="font-body text-muted leading-relaxed mb-5" style="font-size:0.85rem;" data-i18n="proj.choice.desc">
-              Sitio web para empresa de servicios. Diseño orientado a la conversión con información clara sobre servicios y canales de contacto.
+            <h3 class="font-heading text-accent uppercase tracking-wide mb-1" style="font-size:1rem;">Pediátrica 020</h3>
+            <p class="text-label uppercase font-body text-muted tracking-widest mb-3" data-i18n="proj.pediatrica.type">Clínica / App</p>
+            <p class="font-body text-muted leading-relaxed" style="font-size:0.85rem;" data-i18n="proj.pediatrica.desc">
+              App de reservas de turnos médicos para clínica pediátrica. Permite elegir médico, fecha y horario con confirmación instantánea.
             </p>
-            <a href="https://choice.com.ar/" target="_blank" rel="noopener noreferrer"
-               class="project-link font-body" data-i18n="proj.viewproject">Ver proyecto →</a>
           </div>
-        </article>
+        </a>
 
       </div>
     </section>
@@ -826,22 +946,22 @@
     </section>
 
     <!-- ═══════════════════════════════════════════ CTA FINAL -->
-    <section id="cta" class="py-28 px-6 lg:px-12" style="background-color:#141414;">
+    <section id="cta" class="py-28 px-6 lg:px-12" style="background-color:#1a1512;">
       <div class="max-w-4xl mx-auto text-center flex flex-col items-center gap-8 reveal">
 
-        <p class="text-label uppercase font-body text-muted tracking-widest" data-i18n="cta.label">Contacto</p>
+        <p class="text-label uppercase font-body tracking-widest" style="color: #6b5f54;" data-i18n="cta.label">Contacto</p>
 
-        <h2 class="text-h2 font-heading text-accent uppercase" data-i18n="cta.title">
-          Trabajamos juntos
+        <h2 class="text-h2 font-heading uppercase" style="color: #f5f0e8;" data-i18n="cta.title">
+          ¿Tu sitio te da vergüenza o no existe?
         </h2>
 
-        <p class="text-muted font-body leading-relaxed max-w-md" style="font-size:1.02rem;" data-i18n="cta.desc">
-          ¿Tenés un proyecto en mente? Me encantaría escuchar tu idea y ver cómo puedo ayudarte a hacerla realidad.
+        <p class="font-body leading-relaxed max-w-md" style="font-size:1.02rem; color: #6b5f54;" data-i18n="cta.desc">
+          Hablemos 15 minutos. Si hay match, propuesta en 48 horas.
         </p>
 
         <div class="flex flex-wrap gap-4 justify-center">
-          <a href="https://wa.me/5492645852654" target="_blank" rel="noopener noreferrer" class="btn-fill" data-i18n="cta.btn1">Agendar llamada</a>
-          <a href="#projects" class="btn-outline" data-i18n="cta.btn2">Ver proyectos</a>
+          <a href="https://wa.me/5492645852654" target="_blank" rel="noopener noreferrer" class="btn-fill" data-i18n="cta.btn1">WhatsApp directo</a>
+          <a href="#projects" class="btn-outline" style="border-color: #ddd5c8; color: #ddd5c8;" data-i18n="cta.btn2">Ver proyectos</a>
         </div>
 
       </div>
@@ -857,37 +977,38 @@
       <div class="flex flex-col md:flex-row items-center justify-between gap-8 pb-8 border-b border-border">
 
         <!-- Logo -->
-        <a href="#hero" class="font-heading text-lg tracking-widest uppercase text-accent">
-          LUCAS Q<span class="text-muted">.</span>
+        <a href="#hero" class="flex items-center gap-2 font-heading text-sm tracking-widest uppercase" style="color: #1a1512;">
+          <span style="font-size: 1rem; letter-spacing: -0.08em; font-weight: 800;">LQ</span>
+          <span style="font-size: 0.65rem; font-weight: 700;">Lucas Quevedo</span>
         </a>
 
         <!-- Nav -->
         <nav class="flex flex-wrap items-center gap-6 justify-center">
-          <a href="#projects" class="text-muted hover:text-accent text-label uppercase tracking-widest transition-colors font-body" data-i18n="footer.projects">Proyectos</a>
-          <a href="#services" class="text-muted hover:text-accent text-label uppercase tracking-widest transition-colors font-body" data-i18n="footer.services">Servicios</a>
-          <a href="#faq"      class="text-muted hover:text-accent text-label uppercase tracking-widest transition-colors font-body">FAQ</a>
-          <a href="#cta"      class="text-muted hover:text-accent text-label uppercase tracking-widest transition-colors font-body" data-i18n="footer.contact">Contacto</a>
+          <a href="#projects" class="text-label uppercase tracking-widest transition-colors font-body" style="color: #6b5f54;" data-i18n="footer.projects">Proyectos</a>
+          <a href="#services" class="text-label uppercase tracking-widest transition-colors font-body" style="color: #6b5f54;" data-i18n="footer.services">Servicios</a>
+          <a href="#faq"      class="text-label uppercase tracking-widest transition-colors font-body" style="color: #6b5f54;">FAQ</a>
+          <a href="#cta"      class="text-label uppercase tracking-widest transition-colors font-body" style="color: #6b5f54;" data-i18n="footer.contact">Contacto</a>
         </nav>
 
         <!-- Social icons -->
         <div class="flex items-center gap-2">
 
           <!-- Instagram -->
-          <a href="https://www.instagram.com/lucasquevedo04/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="w-8 h-8 flex items-center justify-center border border-border rounded text-muted hover:text-accent hover:border-accent transition-colors">
+          <a href="https://www.instagram.com/lucasquevedo04/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="w-8 h-8 flex items-center justify-center border border-border rounded transition-colors" style="color: #6b5f54; border-color: #ddd5c8;">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
             </svg>
           </a>
 
           <!-- LinkedIn -->
-          <a href="https://www.linkedin.com/in/lucas-javier-quevedo-berjano-a522b2192/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="w-8 h-8 flex items-center justify-center border border-border rounded text-muted hover:text-accent hover:border-accent transition-colors">
+          <a href="https://www.linkedin.com/in/lucas-javier-quevedo-berjano-a522b2192/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="w-8 h-8 flex items-center justify-center border border-border rounded transition-colors" style="color: #6b5f54; border-color: #ddd5c8;">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/>
             </svg>
           </a>
 
           <!-- WhatsApp -->
-          <a href="https://wa.me/5492645852654" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" class="w-8 h-8 flex items-center justify-center border border-border rounded text-muted hover:text-accent hover:border-accent transition-colors">
+          <a href="https://wa.me/5492645852654" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" class="w-8 h-8 flex items-center justify-center border border-border rounded transition-colors" style="color: #6b5f54; border-color: #ddd5c8;">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
               <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/>
             </svg>
@@ -898,8 +1019,8 @@
 
       <!-- Copyright -->
       <div class="pt-6 text-center">
-        <p class="text-xs text-muted font-body tracking-wide">
-          © <span id="footer-year">2026</span> Lucas Quevedo. <span data-i18n="footer.rights">Todos los derechos reservados.</span>
+        <p class="text-xs font-body tracking-wide" style="color: #6b5f54;">
+          <span style="color: #c85c38; font-weight: 600;" data-i18n="footer.available">Disponible para proyectos</span> · © <span id="footer-year">2026</span> Lucas Quevedo. <span data-i18n="footer.rights">Todos los derechos reservados.</span>
         </p>
       </div>
 
@@ -908,81 +1029,7 @@
 
   <!-- ══════════════════════════════════════════════════ SCRIPTS -->
   <script>
-    // ── Hero canvas particles ────────────────────────────────────────
-    (function initHeroCanvas() {
-      const canvas = document.getElementById('hero-canvas');
-      if (!canvas) return;
-      const ctx = canvas.getContext('2d');
-
-      const COLOR = '232,224,208';
-      const COUNT = 55;
-      const MAX_DIST = 140;
-      const SPEED = 0.22;
-
-      let W, H, particles;
-
-      function resize() {
-        W = canvas.width  = canvas.offsetWidth;
-        H = canvas.height = canvas.offsetHeight;
-      }
-
-      function makeParticle() {
-        return {
-          x:  Math.random() * W,
-          y:  Math.random() * H,
-          vx: (Math.random() - 0.5) * SPEED * 2,
-          vy: (Math.random() - 0.5) * SPEED * 2,
-          r:  Math.random() * 1.5 + 0.6,
-          a:  Math.random() * 0.35 + 0.15,
-        };
-      }
-
-      function init() {
-        resize();
-        particles = Array.from({ length: COUNT }, makeParticle);
-      }
-
-      function tick() {
-        ctx.clearRect(0, 0, W, H);
-
-        for (let i = 0; i < particles.length; i++) {
-          const p = particles[i];
-          p.x += p.vx;
-          p.y += p.vy;
-          if (p.x < 0)  p.x = W;
-          if (p.x > W)  p.x = 0;
-          if (p.y < 0)  p.y = H;
-          if (p.y > H)  p.y = 0;
-
-          // dot
-          ctx.beginPath();
-          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(${COLOR},${p.a})`;
-          ctx.fill();
-
-          // lines to nearby particles
-          for (let j = i + 1; j < particles.length; j++) {
-            const q = particles[j];
-            const dx = p.x - q.x, dy = p.y - q.y;
-            const d  = Math.sqrt(dx * dx + dy * dy);
-            if (d < MAX_DIST) {
-              const alpha = (1 - d / MAX_DIST) * 0.18;
-              ctx.beginPath();
-              ctx.moveTo(p.x, p.y);
-              ctx.lineTo(q.x, q.y);
-              ctx.strokeStyle = `rgba(${COLOR},${alpha})`;
-              ctx.lineWidth = 0.6;
-              ctx.stroke();
-            }
-          }
-        }
-        requestAnimationFrame(tick);
-      }
-
-      window.addEventListener('resize', () => { resize(); });
-      init();
-      tick();
-    })();
+    // Hero canvas removed — using CSS paper texture instead
 
     // ── Navbar scroll effect ─────────────────────────────────────────
     (function initNavbar() {
@@ -1054,17 +1101,22 @@
           'nav.projects':        'Proyectos',
           'nav.services':        'Servicios',
           'nav.cta':             'Hablemos',
-          'hero.name':           'Lucas Quevedo',
-          'hero.role':           'Freelance',
+          'hero.label':          'Diseño web · No-Code · Argentina',
+          'hero.line1':          'Diseño lo que',
+          'hero.line2':          'construyo.',
+          'hero.stat1':          '12+ sitios lanzados',
+          'hero.stat2':          '3 países',
+          'hero.projects':       'Ver proyectos',
           'hero.scroll':         'Scroll',
           'about.label':         '(Sobre Mí)',
-          'about.title':         'Un vistazo a mi pasión por el diseño digital',
-          'about.p1':            'Soy Lucas, un apasionado por el desarrollo web y la tecnología que encontró en la creación de sitios web una forma de conectar ideas con personas. Mi enfoque es sencillo: transformar proyectos en experiencias digitales claras, funcionales y con impacto real.',
-          'about.p2':            'Trabajo junto a empresas, negocios y particulares que buscan destacar en un mundo cada vez más digital. Mi misión es ayudarte a contar tu historia online con un sitio web que no solo se vea bien, sino que también te acerque a tus objetivos.',
-          'about.cta':           'Mis proyectos',
+          'about.title':         'No soy diseñador que sabe código',
+          'about.p1':            'Soy las dos cosas con igual seriedad. Diseño en Figma con criterio visual propio. Después abro Webflow o Framer y lo construyo yo mismo, sin perder nada en la traducción.',
+          'about.p2':            'Trabajo desde Argentina con clientes en LATAM, España y EEUU. Inglés fluido, zona horaria flexible, comunicación directa. Sin agencias, sin intermediarios.',
           'skills.label':        '(Herramientas)',
-          'skills.title':        'Las herramientas con las que construyo',
-          'skills.desc':         'Cada proyecto requiere las herramientas correctas. Trabajo con un stack moderno y probado para diseñar, prototipar y construir experiencias digitales de alta calidad.',
+          'skills.title':        'El stack que muy pocos combinan',
+          'skills.design':       'Diseño',
+          'skills.dev':          'Desarrollo',
+          'skills.note':         'Webflow + Framer porque el proyecto manda, no la herramienta.',
           'skills.html':         'HTML / CSS / JS',
           'skills.html.desc':    'Base de la web: estructura, estilo e interacción.',
           'skills.figma':        'Figma',
@@ -1078,11 +1130,10 @@
           'projects.cta':        'Trabajemos juntos',
           'proj.calidadcuyo.type': 'Empresa regional',
           'proj.grupoinnova.type': 'Grupo empresarial',
-          'proj.choice.type':    'Empresa / Servicios',
+          'proj.pediatrica.type': 'Clínica / App',
           'proj.calidadcuyo.desc': 'Sitio web corporativo para empresa regional de calidad. Diseño limpio y funcional orientado a captar nuevos clientes.',
           'proj.grupoinnova.desc': 'Presencia digital para grupo empresarial con múltiples unidades de negocio. Enfoque en credibilidad y claridad de propuesta de valor.',
-          'proj.choice.desc':    'Sitio web para empresa de servicios. Diseño orientado a la conversión con información clara sobre servicios y canales de contacto.',
-          'proj.viewproject':    'Ver proyecto →',
+          'proj.pediatrica.desc': 'App de reservas de turnos médicos para clínica pediátrica. Permite elegir médico, fecha y horario con confirmación instantánea.',
           'services.label':      'Servicios',
           'services.title':      'Diseño web y desarrollo No-Code',
           'services.desc':       'Transformo ideas en sitios web que convierten. Trabajo con herramientas modernas —Webflow, Framer, código limpio— para entregar resultados rápidos sin sacrificar calidad ni escalabilidad.',
@@ -1110,30 +1161,36 @@
           'faq.q6':              '¿Trabajás con clientes internacionales?',
           'faq.a6':              'Sí, trabajo 100% remoto con clientes de toda Latinoamérica, España y Estados Unidos. Las reuniones son por videollamada y el trabajo se gestiona de forma asincrónica cuando hay diferencia horaria.',
           'cta.label':           'Contacto',
-          'cta.title':           'Trabajamos juntos',
-          'cta.desc':            '¿Tenés un proyecto en mente? Me encantaría escuchar tu idea y ver cómo puedo ayudarte a hacerla realidad.',
-          'cta.btn1':            'Agendar llamada',
+          'cta.title':           '¿Tu sitio te da vergüenza o no existe?',
+          'cta.desc':            'Hablemos 15 minutos. Si hay match, propuesta en 48 horas.',
+          'cta.btn1':            'WhatsApp directo',
           'cta.btn2':            'Ver proyectos',
           'footer.projects':     'Proyectos',
           'footer.services':     'Servicios',
           'footer.contact':      'Contacto',
+          'footer.available':    'Disponible para proyectos',
           'footer.rights':       'Todos los derechos reservados.',
         },
         en: {
           'nav.projects':        'Projects',
           'nav.services':        'Services',
           'nav.cta':             "Let's talk",
-          'hero.name':           'Lucas Quevedo',
-          'hero.role':           'Freelancer',
+          'hero.label':          'Web design · No-Code · Argentina',
+          'hero.line1':          'I design what',
+          'hero.line2':          'I build.',
+          'hero.stat1':          '12+ sites launched',
+          'hero.stat2':          '3 countries',
+          'hero.projects':       'View projects',
           'hero.scroll':         'Scroll',
           'about.label':         '(About Me)',
-          'about.title':         'A glimpse into my passion for digital design',
-          'about.p1':            "I'm Lucas, passionate about web development and technology. I found in website creation a way to connect ideas with people. My approach is simple: turning projects into clear, functional digital experiences with real impact.",
-          'about.p2':            "I work with businesses, companies, and individuals who want to stand out in an increasingly digital world. My mission is to help you tell your story online with a website that not only looks great but also brings you closer to your goals.",
-          'about.cta':           'My projects',
+          'about.title':         'Not a designer who dabbles in code',
+          'about.p1':            "Both, seriously. I design in Figma with genuine visual judgment. Then I open Webflow or Framer and build it myself, so nothing gets lost in translation.",
+          'about.p2':            'Based in Argentina, working with clients across Latin America, Spain, and the US. Fluent English, flexible timezone, direct communication. No agencies, no middlemen.',
           'skills.label':        '(Tools)',
-          'skills.title':        'The tools I build with',
-          'skills.desc':         'Every project calls for the right tools. I work with a modern, battle-tested stack to design, prototype, and build high-quality digital experiences.',
+          'skills.title':        'The stack very few combine',
+          'skills.design':       'Design',
+          'skills.dev':          'Development',
+          'skills.note':         'Webflow + Framer because the project dictates the tool, not the other way around.',
           'skills.html':         'HTML / CSS / JS',
           'skills.html.desc':    'The foundation of the web: structure, style, and interaction.',
           'skills.figma':        'Figma',
@@ -1147,11 +1204,10 @@
           'projects.cta':        "Let's work together",
           'proj.calidadcuyo.type': 'Regional company',
           'proj.grupoinnova.type': 'Business group',
-          'proj.choice.type':    'Company / Services',
+          'proj.pediatrica.type': 'Clinic / App',
           'proj.calidadcuyo.desc': 'Corporate website for a regional quality company. Clean, functional design focused on attracting new clients.',
           'proj.grupoinnova.desc': 'Digital presence for a multi-unit business group. Emphasis on credibility and clear value proposition.',
-          'proj.choice.desc':    'Website for a services company. Conversion-oriented design with clear service information and contact channels.',
-          'proj.viewproject':    'View project →',
+          'proj.pediatrica.desc': 'Medical appointment booking app for a pediatric clinic. Lets patients choose their doctor, date and time with instant confirmation.',
           'services.label':      'Services',
           'services.title':      'Web design & No-Code development',
           'services.desc':       'I turn ideas into websites that convert. I work with modern tools — Webflow, Framer, clean code — to deliver fast results without sacrificing quality or scalability.',
@@ -1179,13 +1235,14 @@
           'faq.q6':              'Do you work with international clients?',
           'faq.a6':              "Yes, I work 100% remotely with clients from across Latin America, Spain and the United States. Meetings are via video call and work is managed asynchronously when there's a time difference.",
           'cta.label':           'Contact',
-          'cta.title':           "Let's work together",
-          'cta.desc':            "Do you have a project in mind? I'd love to hear your idea and see how I can help you make it happen.",
-          'cta.btn1':            'Schedule a call',
+          'cta.title':           'Is your site embarrassing or just not there yet?',
+          'cta.desc':            '15-minute call. If there\'s a fit, I\'ll send a proposal in 48 hours.',
+          'cta.btn1':            'Direct WhatsApp',
           'cta.btn2':            'View projects',
           'footer.projects':     'Projects',
           'footer.services':     'Services',
           'footer.contact':      'Contact',
+          'footer.available':    'Available for projects',
           'footer.rights':       'All rights reserved.',
         }
       };
