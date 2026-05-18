@@ -49,8 +49,8 @@
   --tag-fg:      #52525B;
 
   /* Forma */
-  --radius:      14px;
-  --radius-sm:   8px;
+  --radius:      32px;
+  --radius-sm:   18px;
   --nav-h:       64px;
 
   /* Gradiente para el nombre del hero */
@@ -122,7 +122,7 @@ body {
   background-color: var(--bg);
   color: var(--fg);
   line-height: 1.6;
-  transition: background-color 0.25s ease, color 0.25s ease;
+  transition: background-color 0.35s cubic-bezier(0.4, 0, 0.2, 1), color 0.35s cubic-bezier(0.4, 0, 0.2, 1);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
@@ -195,11 +195,11 @@ button { cursor: pointer; font-family: 'Inter', sans-serif; }
   justify-content: center;
   gap: 6px;
   padding: 11px 22px;
-  border-radius: 8px;
+  border-radius: 20px;
   font-size: 0.875rem;
   font-weight: 500;
   font-family: 'Inter', sans-serif;
-  transition: all 0.15s ease;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   border: 1px solid transparent;
   white-space: nowrap;
   letter-spacing: 0.005em;
@@ -289,7 +289,7 @@ button { cursor: pointer; font-family: 'Inter', sans-serif; }
 
 .nav-link {
   padding: 6px 12px;
-  border-radius: 6px;
+  border-radius: 10px;
   font-size: 0.85rem;
   font-weight: 400;
   color: var(--fg-muted);
@@ -313,7 +313,7 @@ button { cursor: pointer; font-family: 'Inter', sans-serif; }
   display: flex;
   background: var(--bg-alt);
   border: 1px solid var(--border);
-  border-radius: 6px;
+  border-radius: 14px;
   overflow: hidden;
 }
 
@@ -342,7 +342,7 @@ button { cursor: pointer; font-family: 'Inter', sans-serif; }
   justify-content: center;
   background: var(--bg-alt);
   border: 1px solid var(--border);
-  border-radius: 6px;
+  border-radius: 12px;
   font-size: 1rem;
   transition: border-color 0.15s;
 }
@@ -360,7 +360,7 @@ button { cursor: pointer; font-family: 'Inter', sans-serif; }
   padding: 8px;
   background: var(--bg-alt);
   border: 1px solid var(--border);
-  border-radius: 6px;
+  border-radius: 12px;
 }
 .hamburger span {
   display: block;
@@ -547,18 +547,18 @@ button { cursor: pointer; font-family: 'Inter', sans-serif; }
 
 .h-blob {
   border-radius: 50%;
-  background: radial-gradient(circle, var(--accent-soft) 0%, transparent 65%);
+  background: radial-gradient(circle, var(--accent-soft) 0%, transparent 70%);
 }
-/* Blobs: más pequeños y transparentes que antes */
+/* Blobs: más grandes y orgánicos */
 .h-blob--1 {
-  width: 580px; height: 580px;
-  opacity: 0.55;
-  animation: hFloatA 14s ease-in-out infinite;
+  width: 720px; height: 720px;
+  opacity: 0.45;
+  animation: hFloatA 16s ease-in-out infinite;
 }
 .h-blob--2 {
-  width: 360px; height: 360px;
-  opacity: 0.40;
-  animation: hFloatB 10s ease-in-out infinite 2s;
+  width: 480px; height: 480px;
+  opacity: 0.35;
+  animation: hFloatB 12s ease-in-out infinite 2s;
 }
 
 .h-circle { border-radius: 50%; }
@@ -584,17 +584,18 @@ button { cursor: pointer; font-family: 'Inter', sans-serif; }
 
 @keyframes hFloatA {
   0%, 100% { transform: translate(0, 0) scale(1); }
-  35%      { transform: translate(14px, -22px) scale(1.03); }
-  70%      { transform: translate(-9px, -14px) scale(0.97); }
+  25%      { transform: translate(24px, -32px) scale(1.05); }
+  50%      { transform: translate(-18px, 28px) scale(0.98); }
+  75%      { transform: translate(12px, -20px) scale(1.02); }
 }
 @keyframes hFloatB {
   0%, 100% { transform: translate(0, 0); }
-  50%      { transform: translate(-18px, -28px); }
+  50%      { transform: translate(-28px, -38px); }
 }
 @keyframes hFloatC {
   0%, 100% { transform: translate(0, 0) rotate(0deg); }
-  33%      { transform: translate(10px, -14px) rotate(18deg); }
-  66%      { transform: translate(-7px, -9px) rotate(-12deg); }
+  33%      { transform: translate(16px, -20px) rotate(25deg); }
+  66%      { transform: translate(-12px, -14px) rotate(-18deg); }
 }
 
 
@@ -616,16 +617,16 @@ button { cursor: pointer; font-family: 'Inter', sans-serif; }
 .cursor-glow {
   position: fixed;
   top: 0; left: 0;
-  width: 600px; height: 600px;
+  width: 800px; height: 800px;
   border-radius: 50%;
-  background: radial-gradient(circle, var(--accent-soft) 0%, transparent 65%);
+  background: radial-gradient(circle, var(--accent-soft) 0%, transparent 70%);
   pointer-events: none;
   z-index: 1;
   transform: translate(-50%, -50%);
   opacity: 0;
   transition: opacity 0.5s ease;
 }
-.cursor-glow.active { opacity: 0.35; }
+.cursor-glow.active { opacity: 0.30; }
 
 @media (hover: none) { .cursor-glow { display: none; } }
 
@@ -652,7 +653,7 @@ button { cursor: pointer; font-family: 'Inter', sans-serif; }
   aspect-ratio: 1;
   background: var(--bg);
   border: 1px solid var(--border);
-  border-radius: 20px;
+  border-radius: 32px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -699,14 +700,14 @@ button { cursor: pointer; font-family: 'Inter', sans-serif; }
   padding: 12px 14px;
   background: var(--bg);
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: 18px;
   font-size: 0.7rem;
   font-weight: 500;
   color: var(--fg-muted);
   letter-spacing: 0.01em;
   min-width: 66px;
   text-align: center;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1), color 0.25s ease;
 }
 
 .skill-badge img {
@@ -746,10 +747,10 @@ button { cursor: pointer; font-family: 'Inter', sans-serif; }
   counter-increment: project-counter;
   background: var(--bg-card);
   border: 1px solid var(--border);
-  border-radius: var(--radius);
+  border-radius: 28px;
   overflow: hidden;
   position: relative;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: var(--shadow-sm);
 }
 .project-card:hover {
@@ -846,7 +847,7 @@ button { cursor: pointer; font-family: 'Inter', sans-serif; }
   padding: 12px 14px;
   background: var(--bg-alt);
   border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
+  border-radius: 16px;
   font-size: 0.85rem;
   font-weight: 400;
   color: var(--fg-muted);
@@ -884,7 +885,7 @@ button { cursor: pointer; font-family: 'Inter', sans-serif; }
   padding: 10px 14px;
   background: var(--bg-alt);
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: 16px;
   color: var(--fg);
   font-family: 'Inter', sans-serif;
   font-size: 0.9rem;
@@ -909,7 +910,7 @@ button { cursor: pointer; font-family: 'Inter', sans-serif; }
   padding: 13px 14px;
   background: var(--bg-alt);
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: 16px;
   color: var(--fg-muted);
   font-size: 0.875rem;
   font-weight: 500;
@@ -949,7 +950,7 @@ button { cursor: pointer; font-family: 'Inter', sans-serif; }
   justify-content: center;
   background: transparent;
   border: 1px solid var(--border);
-  border-radius: 6px;
+  border-radius: 12px;
   font-size: 0.95rem;
   color: var(--fg-muted);
   transition: color 0.15s, border-color 0.15s, transform 0.15s;

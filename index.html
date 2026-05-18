@@ -456,7 +456,7 @@
 
         <!-- Right column: photo -->
         <div class="flex justify-center lg:justify-end reveal" style="transition-delay: 0.1s;">
-          <div class="w-64 md:w-80 aspect-[3/4] overflow-hidden border-r-4" style="border-right-color: #c85c38; transform: translateY(2rem);">
+          <div class="w-64 md:w-80 aspect-[3/4] overflow-hidden" style="border-radius: 28px; border: 1px solid #ddd5c8; transform: translateY(2rem); box-shadow: 0 4px 16px rgba(0,0,0,0.08);">
             <img
               src="assets/foto-lucas.jpg"
               alt="Lucas Quevedo"
@@ -507,7 +507,7 @@
 
           <!-- Foto (right on desktop, hidden on mobile) -->
           <div class="hidden lg:flex justify-end">
-            <div class="w-80 aspect-square overflow-hidden border border-border flex-shrink-0 rounded">
+            <div class="w-80 aspect-square overflow-hidden border border-border flex-shrink-0" style="border-radius: 28px; box-shadow: 0 4px 16px rgba(0,0,0,0.08);">
               <img
                 src="assets/foto-lucas.jpg"
                 alt="Lucas Quevedo"
@@ -700,7 +700,7 @@
       <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-5 reveal-stagger">
 
         <!-- Card 1: Calidad Cuyo -->
-        <a href="https://calidadcuyo.com/" target="_blank" rel="noopener noreferrer" class="project-card relative border border-border rounded overflow-hidden flex flex-col cursor-pointer" style="text-decoration:none;">
+        <a href="https://calidadcuyo.com/" target="_blank" rel="noopener noreferrer" class="project-card relative border border-border overflow-hidden flex flex-col cursor-pointer" style="text-decoration:none; border-radius: 28px;">
           <div class="project-img-wrap relative">
             <img src="assets/calidad-cuyo.png" alt="Calidad Cuyo" loading="lazy" />
             <div class="project-overlay">
@@ -722,7 +722,7 @@
         </a>
 
         <!-- Card 2: Grupo Innova -->
-        <a href="https://grupoinnova.com.ar/" target="_blank" rel="noopener noreferrer" class="project-card relative border border-border rounded overflow-hidden flex flex-col cursor-pointer" style="text-decoration:none;">
+        <a href="https://grupoinnova.com.ar/" target="_blank" rel="noopener noreferrer" class="project-card relative border border-border overflow-hidden flex flex-col cursor-pointer" style="text-decoration:none; border-radius: 28px;">
           <div class="project-img-wrap relative">
             <img src="assets/grupo-innova.png" alt="Grupo Innova" loading="lazy" />
             <div class="project-overlay">
@@ -744,7 +744,7 @@
         </a>
 
         <!-- Card 3: Pediátrica 020 -->
-        <a href="https://www.turnosped020.com.ar/" target="_blank" rel="noopener noreferrer" class="project-card relative border border-border rounded overflow-hidden flex flex-col cursor-pointer" style="text-decoration:none;">
+        <a href="https://www.turnosped020.com.ar/" target="_blank" rel="noopener noreferrer" class="project-card relative border border-border overflow-hidden flex flex-col cursor-pointer" style="text-decoration:none; border-radius: 28px;">
           <div class="project-img-wrap relative">
             <img src="assets/pediatrica-020.png" alt="Pediátrica 020" loading="lazy" />
             <div class="project-overlay">
@@ -932,12 +932,13 @@
 
         <!-- Right: sticky photo -->
         <div class="reveal" style="transition-delay:0.2s;">
-          <div class="sticky top-24">
+          <div class="sticky top-24" style="border-radius: 28px; overflow: hidden;">
             <img
               src="assets/foto-carilo.jpg"
               alt="Lucas Quevedo"
-              class="w-full object-cover rounded"
+              class="w-full object-cover"
               loading="lazy"
+              style="border-radius: 28px;"
             />
           </div>
         </div>
