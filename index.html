@@ -202,6 +202,131 @@
       }
     }
 
+    /* ─── Hero grid experimental (asimétrico) ──────────────────────── */
+    .hero-grid-experimental {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 2rem;
+      align-items: stretch;
+      min-height: 100vh;
+      padding: 6rem 0 4rem;
+      position: relative;
+    }
+    @media (max-width: 768px) {
+      .hero-grid-experimental {
+        grid-template-columns: 1fr;
+        padding: 5rem 0 3rem;
+      }
+    }
+
+    .hero-text-content {
+      padding: 0 3rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .hero-photo-container {
+      position: relative;
+      min-height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-right: 3rem;
+    }
+    @media (max-width: 768px) {
+      .hero-photo-container {
+        min-height: 500px;
+        padding-right: 1.5rem;
+      }
+    }
+
+    /* ─── Glitch effect ─────────────────────────────────────────────── */
+    @keyframes glitch-shift {
+      0%, 100% { transform: translate(0); }
+      20% { transform: translate(-2px, 2px); }
+      40% { transform: translate(-2px, -2px); }
+      60% { transform: translate(2px, 2px); }
+      80% { transform: translate(2px, -2px); }
+    }
+
+    @keyframes glitch-color {
+      0%, 100% { text-shadow: -2px 0 #ff00ff, 2px 0 #00ffff; }
+      25% { text-shadow: -2px 0 #00ffff, 2px 0 #ff00ff; }
+      50% { text-shadow: -2px 0 #ffff00, 2px 0 #ff0080; }
+      75% { text-shadow: -2px 0 #ff0080, 2px 0 #ffff00; }
+    }
+
+    .hero-glitch {
+      position: relative;
+      animation: glitch-shift 0.15s infinite;
+    }
+    .hero-glitch:hover {
+      animation: glitch-color 0.5s infinite;
+    }
+
+    .hero-glitch-accent {
+      position: relative;
+      background: linear-gradient(135deg, #c85c38, #ff6b4a, #c85c38);
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: gradient-shift 4s ease infinite;
+    }
+
+    @keyframes gradient-shift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    /* ─── Experimental photo frame ──────────────────────────────────── */
+    .photo-frame-experimental {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      max-width: 500px;
+      max-height: 600px;
+      margin: auto;
+      border-radius: 32px;
+      overflow: hidden;
+      border: 2px solid #c85c38;
+      box-shadow: 0 20px 60px rgba(200, 92, 56, 0.25),
+                  0 0 0 1px rgba(200, 92, 56, 0.1);
+      transform: perspective(1200px) rotateY(-5deg) rotateX(2deg);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .hero-photo-container:hover .photo-frame-experimental {
+      transform: perspective(1200px) rotateY(0deg) rotateX(0deg);
+    }
+
+    .photo-image-experimental {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: filter 0.4s ease;
+    }
+
+    .photo-frame-experimental:hover .photo-image-experimental {
+      filter: brightness(1.1) contrast(1.05);
+    }
+
+    .photo-gradient-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, transparent 0%, rgba(200, 92, 56, 0.15) 100%);
+      pointer-events: none;
+      opacity: 0;
+      animation: pulse-overlay 3s ease-in-out infinite;
+    }
+
+    @keyframes pulse-overlay {
+      0%, 100% { opacity: 0; }
+      50% { opacity: 1; }
+    }
+
     /* ─── Hero italic (Playfair Display) ──────────────────────────── */
     .hero-italic {
       font-family: 'Playfair Display', Georgia, serif;
@@ -426,20 +551,20 @@
   <main>
 
     <!-- ═════════════════════════════════════════════════════════ HERO -->
-    <section id="hero" class="relative px-6 lg:px-12">
-      <div class="hero-grid max-w-7xl mx-auto">
+    <section id="hero" class="relative px-6 lg:px-12 overflow-hidden">
+      <div class="hero-grid-experimental max-w-7xl mx-auto">
 
-        <!-- Left column: text -->
-        <div class="flex flex-col justify-center reveal">
+        <!-- Left column: text with glitch effect -->
+        <div class="flex flex-col justify-center reveal hero-text-content">
           <p class="text-label uppercase font-body text-ink-muted mb-8 tracking-widest" data-i18n="hero.label">
             Diseño web · No-Code · Argentina
           </p>
 
-          <h1 class="font-heading text-ink uppercase leading-none mb-2" style="font-size: clamp(2.6rem, 7vw, 5.5rem); letter-spacing: -0.02em; font-weight: 800;" data-i18n="hero.line1">
+          <h1 class="hero-glitch font-heading text-ink uppercase leading-none mb-2" style="font-size: clamp(2.6rem, 7vw, 5.5rem); letter-spacing: -0.02em; font-weight: 800;" data-i18n="hero.line1">
             Diseño lo que
           </h1>
 
-          <h1 class="hero-italic mb-8" data-i18n="hero.line2">
+          <h1 class="hero-italic hero-glitch-accent mb-8" data-i18n="hero.line2">
             construyo.
           </h1>
 
@@ -454,14 +579,15 @@
           </div>
         </div>
 
-        <!-- Right column: photo -->
-        <div class="flex justify-center lg:justify-end reveal" style="transition-delay: 0.1s;">
-          <div class="w-64 md:w-80 aspect-[3/4] overflow-hidden" style="border-radius: 28px; border: 1px solid #ddd5c8; transform: translateY(2rem); box-shadow: 0 4px 16px rgba(0,0,0,0.08);">
+        <!-- Right column: photo with experimental styling -->
+        <div class="hero-photo-container reveal" style="transition-delay: 0.1s;">
+          <div class="photo-frame-experimental">
             <img
               src="assets/foto-lucas.jpg"
               alt="Lucas Quevedo"
-              class="w-full h-full object-cover object-top"
+              class="photo-image-experimental"
             />
+            <div class="photo-gradient-overlay"></div>
           </div>
         </div>
 
