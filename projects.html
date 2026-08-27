@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Proyectos de Lucas Quevedo — trabajo real, clientes reales. Sistemas web, soporte IT y automatización." />
+  <title>Proyectos · Lucas Quevedo</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lenis@1.1.20/dist/lenis.min.css" />
+
+  <style>
+    /* ─── Tokens ──────────────────────────────────────────────── */
+    :root {
+      --bg:         #FFFFFF;
+      --bg-alt:     #F8FAFC;
+      --ink:        #0F172A;
+      --ink-muted:  #64748B;
+      --ink-subtle: #94A3B8;
+      --accent:     #2563EB;
+      --border:     #E2E8F0;
+      --nav-h:      60px;
+    }
+
+    /* ─── Reset ───────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'DM Sans', system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ─── Layout ──────────────────────────────────────────────── */
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
+    @media (min-width: 768px) { .container { padding: 0 3rem; } }
+
+    /* ─── Buttons ─────────────────────────────────────────────── */
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 10px 22px;
+      font-family: 'DM Sans', sans-serif; font-size: 0.82rem; font-weight: 500;
+      border-radius: 6px; cursor: pointer; transition: all 0.2s ease;
+      white-space: nowrap; border: 1px solid transparent;
+    }
+    .btn-primary  { background: var(--ink); color: #fff; border-color: var(--ink); }
+    .btn-primary:hover { background: #1e293b; }
+    .btn-secondary { background: transparent; color: var(--ink); border-color: var(--border); }
+    .btn-secondary:hover { border-color: var(--ink-muted); background: var(--bg-alt); }
+    .btn-white { background: #fff; color: var(--ink); border-color: #fff; }
+    .btn-white:hover { background: #f1f5f9; }
+    .btn-ghost { background: transparent; color: var(--ink-subtle); border-color: #334155; }
+    .btn-ghost:hover { border-color: #64748b; color: #fff; }
+
+    /* ─── Tag ─────────────────────────────────────────────────── */
+    .tag {
+      display: inline-block; padding: 3px 9px;
+      background: var(--bg-alt); border: 1px solid var(--border); border-radius: 4px;
+      font-size: 0.68rem; font-weight: 500; letter-spacing: 0.06em;
+      text-transform: uppercase; color: var(--ink-muted);
+    }
+
+    /* ─── Navbar ──────────────────────────────────────────────── */
+    #navbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+      height: var(--nav-h); border-bottom: 1px solid transparent;
+      transition: background 0.3s ease, border-color 0.3s ease;
+    }
+    #navbar.scrolled {
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+      border-bottom-color: var(--border);
+    }
+    .nav-inner { height: 100%; display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo {
+      font-family: 'Syne', sans-serif; font-weight: 800;
+      font-size: 0.95rem; letter-spacing: -0.01em; color: var(--ink);
+    }
+    .nav-links { display: none; align-items: center; gap: 2rem; }
+    @media (min-width: 768px) { .nav-links { display: flex; } }
+    .nav-link { font-size: 0.82rem; color: var(--ink-muted); transition: color 0.2s ease; }
+    .nav-link:hover, .nav-link.active { color: var(--ink); }
+    .nav-right { display: flex; align-items: center; gap: 0.75rem; }
+    .lang-btn {
+      background: none; border: none; font-family: 'DM Sans', sans-serif;
+      font-size: 0.75rem; font-weight: 500; letter-spacing: 0.08em;
+      color: var(--ink-muted); cursor: pointer; transition: color 0.2s ease; padding: 4px;
+    }
+    .lang-btn:hover { color: var(--ink); }
+
+    /* ─── Hamburger ───────────────────────────────────────────── */
+    .hamburger {
+      display: flex; flex-direction: column; justify-content: space-between;
+      width: 20px; height: 13px; background: none; border: none;
+      cursor: pointer; padding: 0; margin-left: 4px;
+    }
+    @media (min-width: 768px) { .hamburger { display: none; } }
+    .hamburger span {
+      display: block; height: 1.5px; background: var(--ink);
+      transition: transform 0.25s ease, opacity 0.2s ease; transform-origin: center;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(5.75px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-5.75px) rotate(-45deg); }
+
+    /* ─── Mobile menu ─────────────────────────────────────────── */
+    #mobile-menu {
+      display: none; position: fixed; top: var(--nav-h); left: 0; right: 0;
+      background: #fff; border-bottom: 1px solid var(--border);
+      padding: 1.25rem 1.5rem 1.5rem; z-index: 49; flex-direction: column; gap: 1.25rem;
+    }
+    #mobile-menu.open { display: flex; }
+    .mobile-link { font-size: 1rem; font-weight: 500; color: var(--ink-muted); transition: color 0.2s ease; }
+    .mobile-link:hover { color: var(--ink); }
+
+    /* ─── Page header ─────────────────────────────────────────── */
+    #page-header {
+      padding-top: calc(var(--nav-h) + 4rem);
+      padding-bottom: 4rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .page-back {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      font-size: 0.78rem; color: var(--ink-muted);
+      margin-bottom: 2rem; transition: color 0.2s ease;
+    }
+    .page-back:hover { color: var(--ink); }
+    .section-label {
+      font-size: 0.68rem; font-weight: 600; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 0.85rem;
+    }
+    .t-h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      font-weight: 800; line-height: 1.05; letter-spacing: -0.025em;
+    }
+    .t-h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 700; line-height: 1.15; letter-spacing: -0.015em;
+    }
+    .t-h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.85rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-subtle);
+      margin-bottom: 0.6rem;
+    }
+    .body-text { font-size: 0.95rem; color: var(--ink-muted); line-height: 1.75; }
+    .page-subtitle { font-size: 1.05rem; color: var(--ink-muted); line-height: 1.7; max-width: 540px; margin-top: 1rem; }
+
+    /* ─── Project section ─────────────────────────────────────── */
+    .proj-section {
+      padding: 5rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .proj-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+    @media (min-width: 860px) {
+      .proj-grid {
+        grid-template-columns: 260px 1fr;
+        gap: 5rem;
+        align-items: start;
+      }
+    }
+    .proj-meta { display: flex; flex-direction: column; gap: 1rem; }
+    @media (min-width: 860px) { .proj-meta { position: sticky; top: calc(var(--nav-h) + 2rem); } }
+    .proj-num {
+      font-family: 'Syne', sans-serif; font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 0.14em; color: var(--ink-subtle); text-transform: uppercase;
+    }
+    .proj-client {
+      font-family: 'Syne', sans-serif; font-size: 1.5rem;
+      font-weight: 800; letter-spacing: -0.02em; color: var(--ink); line-height: 1.1;
+    }
+    .proj-type { font-size: 0.8rem; color: var(--ink-muted); font-weight: 400; }
+    .proj-since {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 4px 10px; background: var(--bg-alt); border: 1px solid var(--border);
+      border-radius: 100px; font-size: 0.7rem; font-weight: 600; color: var(--ink-muted);
+      width: fit-content;
+    }
+    .proj-since::before {
+      content: '';
+      width: 5px; height: 5px;
+      background: #22C55E; border-radius: 50%; flex-shrink: 0;
+    }
+    .proj-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+
+    /* ─── Project content ─────────────────────────────────────── */
+    .proj-content { display: flex; flex-direction: column; gap: 2.5rem; }
+    .proj-img {
+      width: 100%; border-radius: 10px; overflow: hidden;
+      border: 1px solid var(--border);
+      aspect-ratio: 16/9;
+    }
+    .proj-img img { width: 100%; height: 100%; object-fit: cover; }
+    .proj-details { display: flex; flex-direction: column; gap: 2rem; }
+    .proj-block { display: flex; flex-direction: column; gap: 0.6rem; }
+    .proj-block p { font-size: 0.95rem; color: var(--ink-muted); line-height: 1.75; }
+
+    /* ─── Timeline ────────────────────────────────────────────── */
+    #trayectoria {
+      padding: 5rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .tl-header { margin-bottom: 3.5rem; }
+    .timeline {
+      position: relative;
+      padding-left: 2rem;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 6px; bottom: 6px;
+      width: 1px;
+      background: var(--border);
+    }
+    .tl-item {
+      position: relative;
+      padding-left: 2rem;
+      padding-bottom: 3rem;
+    }
+    .tl-item:last-child { padding-bottom: 0; }
+    .tl-dot {
+      position: absolute;
+      left: -2rem;
+      top: 6px;
+      width: 9px; height: 9px;
+      border-radius: 50%;
+      background: var(--border);
+      border: 2px solid var(--bg);
+      transform: translateX(-4px);
+    }
+    .tl-item.current .tl-dot {
+      background: #22C55E;
+      width: 11px; height: 11px;
+      transform: translateX(-5px);
+    }
+    .tl-year {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--ink-subtle); margin-bottom: 0.5rem;
+    }
+    .tl-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 1rem; font-weight: 700; color: var(--ink); margin-bottom: 0.4rem;
+    }
+    .tl-desc { font-size: 0.88rem; color: var(--ink-muted); line-height: 1.7; max-width: 560px; }
+    .tl-tag {
+      display: inline-block; margin-top: 0.65rem;
+      padding: 2px 8px; background: var(--bg-alt);
+      border: 1px solid var(--border); border-radius: 4px;
+      font-size: 0.65rem; font-weight: 600; letter-spacing: 0.07em;
+      text-transform: uppercase; color: var(--ink-subtle);
+    }
+    .tl-item.current .tl-tag {
+      background: #F0FDF4; border-color: #BBF7D0; color: #16A34A;
+    }
+
+    /* ─── CTA ─────────────────────────────────────────────────── */
+    #cta {
+      padding: 6rem 0;
+      background: var(--ink);
+    }
+    .cta-label {
+      font-size: 0.68rem; font-weight: 600; letter-spacing: 0.14em;
+      text-transform: uppercase; color: #475569; margin-bottom: 1.5rem;
+    }
+    .cta-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(1.75rem, 4vw, 2.75rem);
+      font-weight: 800; color: #fff; line-height: 1.1;
+      letter-spacing: -0.02em; margin-bottom: 1rem; max-width: 580px;
+    }
+    .cta-desc {
+      font-size: 0.95rem; color: #94A3B8; line-height: 1.7;
+      margin-bottom: 2.5rem; max-width: 460px;
+    }
+    .cta-ctas { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+
+    /* ─── Footer ──────────────────────────────────────────────── */
+    footer { padding: 2.25rem 0; border-top: 1px solid var(--border); }
+    .footer-row {
+      display: flex; flex-direction: column; gap: 1.5rem; align-items: flex-start;
+    }
+    @media (min-width: 640px) {
+      .footer-row { flex-direction: row; align-items: center; justify-content: space-between; }
+    }
+    .footer-copy { font-size: 0.78rem; color: var(--ink-muted); }
+    .footer-links { display: flex; align-items: center; gap: 1.5rem; }
+    .footer-link { font-size: 0.78rem; color: var(--ink-muted); transition: color 0.2s ease; }
+    .footer-link:hover { color: var(--ink); }
+    .socials { display: flex; gap: 0.4rem; }
+    .social-btn {
+      width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;
+      border: 1px solid var(--border); border-radius: 6px; color: var(--ink-muted);
+      transition: border-color 0.2s ease, color 0.2s ease;
+    }
+    .social-btn:hover { border-color: var(--ink-muted); color: var(--ink); }
+
+    /* ─── Custom cursor ──────────────────────────────────────────  */
+    @media (pointer: fine) { * { cursor: none !important; } }
+    .cursor-dot {
+      position: fixed; top: 0; left: 0;
+      width: 5px; height: 5px;
+      background: var(--ink); border-radius: 50%;
+      pointer-events: none; z-index: 9999;
+      transform: translate(-50%, -50%); opacity: 0;
+    }
+    .cursor-ring {
+      position: fixed; top: 0; left: 0;
+      width: 30px; height: 30px;
+      border: 1.5px solid rgba(15,23,42,0.3); border-radius: 50%;
+      pointer-events: none; z-index: 9998;
+      transform: translate(-50%, -50%); opacity: 0;
+      transition: width 0.3s ease, height 0.3s ease, border-color 0.3s ease;
+    }
+    .cursor-active .cursor-dot  { opacity: 1; }
+    .cursor-active .cursor-ring { opacity: 1; }
+    .cursor-hover  .cursor-ring { width: 46px; height: 46px; border-color: rgba(15,23,42,0.15); }
+
+    /* ─── Reveal ──────────────────────────────────────────────── */
+    .reveal {
+      opacity: 0; transform: translateY(14px);
+      transition: opacity 0.55s ease, transform 0.55s ease;
+    }
+    .reveal.is-visible { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <header id="navbar">
+    <div class="container nav-inner">
+      <a href="index.html" class="nav-logo">Lucas Quevedo</a>
+      <nav class="nav-links">
+        <a href="projects.html" class="nav-link active" data-i18n="nav.projects">Proyectos</a>
+        <a href="index.html#about"    class="nav-link" data-i18n="nav.about">Sobre mí</a>
+        <a href="index.html#services" class="nav-link" data-i18n="nav.services">Servicios</a>
+      </nav>
+      <div class="nav-right">
+        <button class="lang-btn" id="lang-toggle">EN</button>
+        <a href="index.html#cta" class="btn btn-primary" data-i18n="nav.cta">Hablemos</a>
+        <button class="hamburger" id="hamburger" aria-label="Menú" aria-expanded="false" aria-controls="mobile-menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MOBILE MENU -->
+  <nav id="mobile-menu" aria-label="Menú móvil">
+    <a href="projects.html" class="mobile-link" data-i18n="nav.projects">Proyectos</a>
+    <a href="index.html#about"    class="mobile-link" data-i18n="nav.about">Sobre mí</a>
+    <a href="index.html#services" class="mobile-link" data-i18n="nav.services">Servicios</a>
+    <a href="index.html#cta"      class="mobile-link" data-i18n="nav.cta">Hablemos</a>
+  </nav>
+
+  <main>
+
+    <!-- PAGE HEADER -->
+    <section id="page-header">
+      <div class="container">
+        <a href="index.html" class="page-back">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+          <span data-i18n="back">Volver al inicio</span>
+        </a>
+        <p class="section-label" data-i18n="projects.label">Proyectos</p>
+        <h1 class="t-h1" data-i18n="page.title">Mi trabajo</h1>
+        <p class="page-subtitle" data-i18n="page.subtitle">
+          Tres clientes activos, más de tres años de relación. Acá está el detalle de lo que construí, cómo colaboramos hoy y por dónde pasé.
+        </p>
+      </div>
+    </section>
+
+    <!-- ── PROJECT 01: CALIDAD SAN JUAN ── -->
+    <section class="proj-section" id="calidad">
+      <div class="container">
+        <div class="proj-grid">
+
+          <!-- Sticky metadata -->
+          <aside class="proj-meta reveal">
+            <p class="proj-num" data-i18n="proj.num1">01 / Agencia</p>
+            <h2 class="proj-client">Calidad<br>San Juan</h2>
+            <p class="proj-type" data-i18n="proj.calidad.type">Agencia de publicidad y comunicación</p>
+            <div class="proj-since" data-i18n="proj.calidad.since">Desde 2023</div>
+            <div class="proj-tags">
+              <span class="tag">Node.js</span>
+              <span class="tag">JavaScript</span>
+              <span class="tag">HTML/CSS</span>
+            </div>
+            <a href="https://calidadcuyo.com/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="width: fit-content;" data-i18n="proj.visit">Ver sitio →</a>
+          </aside>
+
+          <!-- Content -->
+          <div class="proj-content">
+
+            <div class="proj-img reveal" style="transition-delay:0.1s">
+              <img src="assets/calidad-cuyo.png" alt="Calidad San Juan" loading="lazy" />
+            </div>
+
+            <div class="proj-details reveal" style="transition-delay:0.15s">
+
+              <div class="proj-block">
+                <h3 class="t-h3" data-i18n="proj.built">Lo que construí</h3>
+                <p data-i18n="proj.calidad.built1">
+                  Empecé desarrollando el sitio web corporativo de la agencia: diseño, estructura y contenido. Un sitio limpio, rápido y orientado a captar nuevos clientes.
+                </p>
+                <p data-i18n="proj.calidad.built2">
+                  Con el tiempo la relación creció y me encomendaron algo más ambicioso: un sistema de gestión interna completo. La agencia ahora maneja desde ahí toda su operación administrativa — clientes, seguimiento de campañas, tareas internas y más.
+                </p>
+              </div>
+
+              <div class="proj-block">
+                <h3 class="t-h3" data-i18n="proj.role.now">Mi rol hoy</h3>
+                <p data-i18n="proj.calidad.role">
+                  Desarrollo continuo del sistema administrativo — nuevas funcionalidades según las necesidades del equipo. También mantengo el sitio web y estoy disponible para soporte técnico cuando algo falla o cuando necesitan cambios.
+                </p>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── PROJECT 02: GRUPO INNOVA ── -->
+    <section class="proj-section" id="innova">
+      <div class="container">
+        <div class="proj-grid">
+
+          <aside class="proj-meta reveal">
+            <p class="proj-num" data-i18n="proj.num2">02 / Grupo empresarial</p>
+            <h2 class="proj-client">Grupo<br>Innova</h2>
+            <p class="proj-type" data-i18n="proj.innova.type">Grupo empresarial multi-rubro</p>
+            <div class="proj-since" data-i18n="proj.innova.since">Desde 2024</div>
+            <div class="proj-tags">
+              <span class="tag">HTML/CSS</span>
+              <span class="tag">JavaScript</span>
+              <span class="tag">IT Support</span>
+            </div>
+            <a href="https://grupoinnova.com.ar/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="width: fit-content;" data-i18n="proj.visit">Ver sitio →</a>
+          </aside>
+
+          <div class="proj-content">
+
+            <div class="proj-img reveal" style="transition-delay:0.1s">
+              <img src="assets/grupo-innova.png" alt="Grupo Innova" loading="lazy" />
+            </div>
+
+            <div class="proj-details reveal" style="transition-delay:0.15s">
+
+              <div class="proj-block">
+                <h3 class="t-h3" data-i18n="proj.built">Lo que construí</h3>
+                <p data-i18n="proj.innova.built">
+                  Desarrollé el sitio corporativo del grupo, que tiene múltiples unidades de negocio bajo una misma marca. El foco fue en claridad: que quien lo visita entienda rápido qué hace cada rama y cómo contactarlos.
+                </p>
+              </div>
+
+              <div class="proj-block">
+                <h3 class="t-h3" data-i18n="proj.role.now">Mi rol hoy</h3>
+                <p data-i18n="proj.innova.role">
+                  Soporte IT continuo: actualizaciones, resolución de problemas técnicos y tareas varias de mantenimiento. Cuando algo falla o necesitan agregar algo al sitio, me contactan y lo resuelvo.
+                </p>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── PROJECT 03: PEDIÁTRICA 020 ── -->
+    <section class="proj-section" id="pediatrica">
+      <div class="container">
+        <div class="proj-grid">
+
+          <aside class="proj-meta reveal">
+            <p class="proj-num" data-i18n="proj.num3">03 / Salud</p>
+            <h2 class="proj-client">Pediátrica<br>020</h2>
+            <p class="proj-type" data-i18n="proj.pediatrica.type">Clínica pediátrica</p>
+            <div class="proj-since" data-i18n="proj.pediatrica.since">Desde 2024</div>
+            <div class="proj-tags">
+              <span class="tag">JavaScript</span>
+              <span class="tag">HTML/CSS</span>
+              <span class="tag">IT Support</span>
+            </div>
+            <a href="https://www.turnosped020.com.ar/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="width: fit-content;" data-i18n="proj.visit">Ver sitio →</a>
+          </aside>
+
+          <div class="proj-content">
+
+            <div class="proj-img reveal" style="transition-delay:0.1s">
+              <img src="assets/pediatrica-020.png" alt="Pediátrica 020" loading="lazy" />
+            </div>
+
+            <div class="proj-details reveal" style="transition-delay:0.15s">
+
+              <div class="proj-block">
+                <h3 class="t-h3" data-i18n="proj.built">Lo que construí</h3>
+                <p data-i18n="proj.pediatrica.built">
+                  Sistema de reservas de turnos médicos online para la clínica. Los padres pueden seleccionar el médico, elegir fecha y horario disponible, y recibir confirmación instantánea. Sin llamadas, sin espera.
+                </p>
+              </div>
+
+              <div class="proj-block">
+                <h3 class="t-h3" data-i18n="proj.role.now">Mi rol hoy</h3>
+                <p data-i18n="proj.pediatrica.role">
+                  Soporte IT del sistema y el sitio. Me encargo de que el sistema de turnos funcione sin interrupciones, resuelvo cualquier problema técnico que surja y mantengo todo actualizado.
+                </p>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── TRAYECTORIA ── -->
+    <section id="trayectoria">
+      <div class="container">
+        <div class="tl-header reveal">
+          <p class="section-label" data-i18n="tl.label">Trayectoria</p>
+          <h2 class="t-h2" data-i18n="tl.title">Por dónde pasé</h2>
+        </div>
+
+        <div class="timeline">
+
+          <div class="tl-item reveal">
+            <div class="tl-dot"></div>
+            <p class="tl-year">2023</p>
+            <h3 class="tl-title" data-i18n="tl.1.title">Inicio como freelance</h3>
+            <p class="tl-desc" data-i18n="tl.1.desc">
+              Arranqué a trabajar de manera independiente. Primer proyecto: el sitio web corporativo de Calidad San Juan. Fue el comienzo de lo que se convirtió en una relación de largo plazo.
+            </p>
+            <span class="tl-tag" data-i18n="tl.1.tag">Primer cliente</span>
+          </div>
+
+          <div class="tl-item reveal" style="transition-delay:0.08s">
+            <div class="tl-dot"></div>
+            <p class="tl-year">2023 – 2024</p>
+            <h3 class="tl-title" data-i18n="tl.2.title">Sistema administrativo — Calidad San Juan</h3>
+            <p class="tl-desc" data-i18n="tl.2.desc">
+              La agencia necesitaba más que un sitio. Diseñé y desarrollé un sistema de gestión interna para que su equipo manejara la operación completa desde un mismo lugar. El proyecto más complejo hasta entonces.
+            </p>
+            <span class="tl-tag" data-i18n="tl.2.tag">Desarrollo full-stack</span>
+          </div>
+
+          <div class="tl-item reveal" style="transition-delay:0.12s">
+            <div class="tl-dot"></div>
+            <p class="tl-year">2024</p>
+            <h3 class="tl-title" data-i18n="tl.3.title">Expansión — Grupo Innova y Pediátrica 020</h3>
+            <p class="tl-desc" data-i18n="tl.3.desc">
+              Dos nuevos clientes. Con Grupo Innova: sitio corporativo y soporte IT continuo. Con Pediátrica 020: sistema de reservas de turnos online y soporte técnico. El stack creció: más Node.js, más lógica de backend.
+            </p>
+            <span class="tl-tag" data-i18n="tl.3.tag">Tres clientes simultáneos</span>
+          </div>
+
+          <div class="tl-item reveal" style="transition-delay:0.16s">
+            <div class="tl-dot"></div>
+            <p class="tl-year">2025</p>
+            <h3 class="tl-title" data-i18n="tl.4.title">Consolidación y aprendizaje continuo</h3>
+            <p class="tl-desc" data-i18n="tl.4.desc">
+              Sistemas en producción, clientes estables. Empecé a profundizar en React y Next.js para poder construir interfaces más dinámicas. Incorporé Python para automatizar tareas repetitivas en los proyectos.
+            </p>
+            <span class="tl-tag" data-i18n="tl.4.tag">React · Next.js · Python</span>
+          </div>
+
+          <div class="tl-item current reveal" style="transition-delay:0.2s">
+            <div class="tl-dot"></div>
+            <p class="tl-year" data-i18n="tl.5.year">2026 · Hoy</p>
+            <h3 class="tl-title" data-i18n="tl.5.title">Presente — tres clientes, sistemas vivos</h3>
+            <p class="tl-desc" data-i18n="tl.5.desc">
+              Sigo trabajando con los mismos tres clientes, manteniendo y mejorando los sistemas. Abierto a nuevos proyectos que encajen con lo que sé hacer: desarrollo web, sistemas internos, automatización y soporte IT.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section id="cta">
+      <div class="container">
+        <div class="reveal">
+          <p class="cta-label" data-i18n="cta.label">Contacto</p>
+          <h2 class="cta-title" data-i18n="cta.title">¿Tenés un proyecto o necesitás un desarrollador de confianza?</h2>
+          <p class="cta-desc" data-i18n="cta.desc">Hablemos 15 minutos. Si hay match, te mando una propuesta en 48 horas.</p>
+          <div class="cta-ctas">
+            <a href="https://wa.me/5492645852654" target="_blank" rel="noopener noreferrer" class="btn btn-white" data-i18n="cta.btn1">WhatsApp directo</a>
+            <a href="index.html" class="btn btn-ghost" data-i18n="cta.btn2">Ver portfolio</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-row">
+        <p class="footer-copy">
+          © <span id="footer-year">2026</span> Lucas Quevedo
+        </p>
+        <div class="footer-links">
+          <a href="index.html#services" class="footer-link" data-i18n="nav.services">Servicios</a>
+          <a href="index.html#cta"      class="footer-link" data-i18n="nav.cta">Contacto</a>
+        </div>
+        <div class="socials">
+          <a href="https://www.instagram.com/lucasquevedo04/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="social-btn">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/>
+            </svg>
+          </a>
+          <a href="https://www.linkedin.com/in/lucas-javier-quevedo-berjano-a522b2192/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="social-btn">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/>
+            </svg>
+          </a>
+          <a href="https://wa.me/5492645852654" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" class="social-btn">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="cursor-dot"  id="cursor-dot"  aria-hidden="true"></div>
+  <div class="cursor-ring" id="cursor-ring" aria-hidden="true"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.20/dist/lenis.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script>
+    // ── Lenis smooth scroll ──────────────────────────────────────
+    (function () {
+      const lenis = new Lenis({ lerp: 0.08, smoothWheel: true });
+      function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+      requestAnimationFrame(raf);
+    })();
+
+    // ── GSAP setup + ScrollTrigger parallax ─────────────────────
+    (function () {
+      gsap.registerPlugin(ScrollTrigger);
+      gsap.utils.toArray('.proj-img').forEach(function (wrap) {
+        var img = wrap.querySelector('img');
+        if (!img) return;
+        gsap.fromTo(img,
+          { yPercent: -8 },
+          { yPercent: 8, ease: 'none',
+            scrollTrigger: { trigger: wrap, scrub: 1.2 } }
+        );
+      });
+    })();
+
+    // ── Custom cursor ─────────────────────────────────────────────
+    (function () {
+      var dot  = document.getElementById('cursor-dot');
+      var ring = document.getElementById('cursor-ring');
+      if (!dot || !ring) return;
+      var mx = -100, my = -100, rx = -100, ry = -100;
+
+      document.addEventListener('mousemove', function (e) {
+        mx = e.clientX; my = e.clientY;
+        dot.style.left = mx + 'px'; dot.style.top = my + 'px';
+        document.body.classList.add('cursor-active');
+      });
+      document.addEventListener('mouseleave', function () {
+        document.body.classList.remove('cursor-active');
+      });
+      (function animRing() {
+        rx += (mx - rx) * 0.13; ry += (my - ry) * 0.13;
+        ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+        requestAnimationFrame(animRing);
+      })();
+      document.querySelectorAll('a, button, .proj-client, .stack-pill, .tl-item').forEach(function (el) {
+        el.addEventListener('mouseenter', function () { document.body.classList.add('cursor-hover'); });
+        el.addEventListener('mouseleave', function () { document.body.classList.remove('cursor-hover'); });
+      });
+    })();
+
+    // ── Navbar scroll ────────────────────────────────────────────
+    (function () {
+      const nav = document.getElementById('navbar');
+      const tick = () => nav.classList.toggle('scrolled', window.scrollY > 40);
+      window.addEventListener('scroll', tick, { passive: true });
+      tick();
+    })();
+
+    // ── Mobile menu ──────────────────────────────────────────────
+    (function () {
+      const ham  = document.getElementById('hamburger');
+      const menu = document.getElementById('mobile-menu');
+      function close() {
+        menu.classList.remove('open'); ham.classList.remove('open');
+        ham.setAttribute('aria-expanded', 'false');
+      }
+      ham.addEventListener('click', () => {
+        const open = menu.classList.toggle('open');
+        ham.classList.toggle('open', open);
+        ham.setAttribute('aria-expanded', open);
+      });
+      menu.querySelectorAll('.mobile-link').forEach(l => l.addEventListener('click', close));
+      document.addEventListener('click', e => {
+        if (menu.classList.contains('open') && !menu.contains(e.target) && !ham.contains(e.target)) close();
+      });
+      window.addEventListener('resize', () => { if (window.innerWidth >= 768) close(); });
+    })();
+
+    // ── Scroll reveal ────────────────────────────────────────────
+    (function () {
+      const obs = new IntersectionObserver(
+        entries => entries.forEach(e => {
+          if (e.isIntersecting) { e.target.classList.add('is-visible'); obs.unobserve(e.target); }
+        }),
+        { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
+      );
+      document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+    })();
+
+    // ── Footer year ──────────────────────────────────────────────
+    document.getElementById('footer-year').textContent = new Date().getFullYear();
+
+    // ── i18n ─────────────────────────────────────────────────────
+    (function () {
+      const T = {
+        es: {
+          'nav.projects':   'Proyectos',
+          'nav.about':      'Sobre mí',
+          'nav.services':   'Servicios',
+          'nav.cta':        'Hablemos',
+          'back':           'Volver al inicio',
+          'projects.label': 'Proyectos',
+          'page.title':     'Mi trabajo',
+          'page.subtitle':  'Tres clientes activos, más de tres años de relación. Acá está el detalle de lo que construí, cómo colaboramos hoy y por dónde pasé.',
+          'proj.num1':      '01 / Agencia',
+          'proj.num2':      '02 / Grupo empresarial',
+          'proj.num3':      '03 / Salud',
+          'proj.visit':     'Ver sitio →',
+          'proj.built':     'Lo que construí',
+          'proj.role.now':  'Mi rol hoy',
+          'proj.calidad.type':  'Agencia de publicidad y comunicación',
+          'proj.calidad.since': 'Desde 2023',
+          'proj.calidad.built1': 'Empecé desarrollando el sitio web corporativo de la agencia: diseño, estructura y contenido. Un sitio limpio, rápido y orientado a captar nuevos clientes.',
+          'proj.calidad.built2': 'Con el tiempo la relación creció y me encomendaron algo más ambicioso: un sistema de gestión interna completo. La agencia ahora maneja desde ahí toda su operación administrativa — clientes, seguimiento de campañas, tareas internas y más.',
+          'proj.calidad.role':  'Desarrollo continuo del sistema administrativo — nuevas funcionalidades según las necesidades del equipo. También mantengo el sitio web y estoy disponible para soporte técnico cuando algo falla o cuando necesitan cambios.',
+          'proj.innova.type':   'Grupo empresarial multi-rubro',
+          'proj.innova.since':  'Desde 2024',
+          'proj.innova.built':  'Desarrollé el sitio corporativo del grupo, que tiene múltiples unidades de negocio bajo una misma marca. El foco fue en claridad: que quien lo visita entienda rápido qué hace cada rama y cómo contactarlos.',
+          'proj.innova.role':   'Soporte IT continuo: actualizaciones, resolución de problemas técnicos y tareas varias de mantenimiento. Cuando algo falla o necesitan agregar algo al sitio, me contactan y lo resuelvo.',
+          'proj.pediatrica.type':  'Clínica pediátrica',
+          'proj.pediatrica.since': 'Desde 2024',
+          'proj.pediatrica.built': 'Sistema de reservas de turnos médicos online para la clínica. Los padres pueden seleccionar el médico, elegir fecha y horario disponible, y recibir confirmación instantánea. Sin llamadas, sin espera.',
+          'proj.pediatrica.role':  'Soporte IT del sistema y el sitio. Me encargo de que el sistema de turnos funcione sin interrupciones, resuelvo cualquier problema técnico que surja y mantengo todo actualizado.',
+          'tl.label':   'Trayectoria',
+          'tl.title':   'Por dónde pasé',
+          'tl.1.title': 'Inicio como freelance',
+          'tl.1.desc':  'Arranqué a trabajar de manera independiente. Primer proyecto: el sitio web corporativo de Calidad San Juan. Fue el comienzo de lo que se convirtió en una relación de largo plazo.',
+          'tl.1.tag':   'Primer cliente',
+          'tl.2.title': 'Sistema administrativo — Calidad San Juan',
+          'tl.2.desc':  'La agencia necesitaba más que un sitio. Diseñé y desarrollé un sistema de gestión interna para que su equipo manejara la operación completa desde un mismo lugar. El proyecto más complejo hasta entonces.',
+          'tl.2.tag':   'Desarrollo full-stack',
+          'tl.3.title': 'Expansión — Grupo Innova y Pediátrica 020',
+          'tl.3.desc':  'Dos nuevos clientes. Con Grupo Innova: sitio corporativo y soporte IT continuo. Con Pediátrica 020: sistema de reservas de turnos online y soporte técnico. El stack creció: más Node.js, más lógica de backend.',
+          'tl.3.tag':   'Tres clientes simultáneos',
+          'tl.4.title': 'Consolidación y aprendizaje continuo',
+          'tl.4.desc':  'Sistemas en producción, clientes estables. Empecé a profundizar en React y Next.js para construir interfaces más dinámicas. Incorporé Python para automatizar tareas repetitivas en los proyectos.',
+          'tl.4.tag':   'React · Next.js · Python',
+          'tl.5.year':  '2026 · Hoy',
+          'tl.5.title': 'Presente — tres clientes, sistemas vivos',
+          'tl.5.desc':  'Sigo trabajando con los mismos tres clientes, manteniendo y mejorando los sistemas. Abierto a nuevos proyectos que encajen con lo que sé hacer: desarrollo web, sistemas internos, automatización y soporte IT.',
+          'tl.5.tag':   'Disponible para proyectos',
+          'cta.label':  'Contacto',
+          'cta.title':  '¿Tenés un proyecto o necesitás un desarrollador de confianza?',
+          'cta.desc':   'Hablemos 15 minutos. Si hay match, te mando una propuesta en 48 horas.',
+          'cta.btn1':   'WhatsApp directo',
+          'cta.btn2':   'Ver portfolio',
+          'footer.available': 'Disponible para proyectos',
+        },
+        en: {
+          'nav.projects':   'Projects',
+          'nav.about':      'About',
+          'nav.services':   'Services',
+          'nav.cta':        "Let's talk",
+          'back':           'Back to home',
+          'projects.label': 'Projects',
+          'page.title':     'My work',
+          'page.subtitle':  'Three active clients, over three years of collaboration. Here\'s the full picture of what I built, how we work together today, and where I\'ve been.',
+          'proj.num1':      '01 / Agency',
+          'proj.num2':      '02 / Business group',
+          'proj.num3':      '03 / Healthcare',
+          'proj.visit':     'View site →',
+          'proj.built':     'What I built',
+          'proj.role.now':  'My role today',
+          'proj.calidad.type':  'Advertising and communications agency',
+          'proj.calidad.since': 'Since 2023',
+          'proj.calidad.built1': 'I started by building the agency\'s corporate website: design, structure, and content. A clean, fast site focused on attracting new clients.',
+          'proj.calidad.built2': 'Over time the relationship grew and they commissioned something more ambitious: a complete internal management system. The agency now runs its full administrative operation from it — clients, campaign tracking, internal tasks, and more.',
+          'proj.calidad.role':  'Ongoing development of the admin system — new features based on the team\'s needs. I also maintain the website and am available for technical support when something breaks or changes are needed.',
+          'proj.innova.type':   'Multi-sector business group',
+          'proj.innova.since':  'Since 2024',
+          'proj.innova.built':  'I built the corporate website for the group, which has multiple business units under one brand. The focus was clarity: visitors should immediately understand what each unit does and how to contact them.',
+          'proj.innova.role':   'Ongoing IT support: updates, technical problem-solving, and general maintenance tasks. When something breaks or they need to add something to the site, they reach out and I fix it.',
+          'proj.pediatrica.type':  'Pediatric clinic',
+          'proj.pediatrica.since': 'Since 2024',
+          'proj.pediatrica.built': 'Online appointment booking system for the clinic. Parents can select the doctor, choose an available date and time, and receive instant confirmation. No phone calls, no waiting.',
+          'proj.pediatrica.role':  'IT support for the system and site. I make sure the booking system runs without interruptions, resolve any technical issues that come up, and keep everything updated.',
+          'tl.label':   'Journey',
+          'tl.title':   'Where I\'ve been',
+          'tl.1.title': 'Starting out as a freelancer',
+          'tl.1.desc':  'I started working independently. First project: the corporate website for Calidad San Juan. It was the beginning of what became a long-term relationship.',
+          'tl.1.tag':   'First client',
+          'tl.2.title': 'Admin system — Calidad San Juan',
+          'tl.2.desc':  'The agency needed more than a website. I designed and developed a complete internal management system so their team could handle the full operation from one place. The most complex project I had built at that point.',
+          'tl.2.tag':   'Full-stack development',
+          'tl.3.title': 'Expansion — Grupo Innova & Pediátrica 020',
+          'tl.3.desc':  'Two new clients. With Grupo Innova: corporate site and ongoing IT support. With Pediátrica 020: online appointment booking system and technical support. The stack grew: more Node.js, more backend logic.',
+          'tl.3.tag':   'Three simultaneous clients',
+          'tl.4.title': 'Consolidation and continuous learning',
+          'tl.4.desc':  'Systems in production, stable clients. I started going deeper into React and Next.js to build more dynamic interfaces. Added Python to automate repetitive tasks across projects.',
+          'tl.4.tag':   'React · Next.js · Python',
+          'tl.5.year':  '2026 · Now',
+          'tl.5.title': 'Present — three clients, live systems',
+          'tl.5.desc':  'Still working with the same three clients, maintaining and improving the systems. Open to new projects that fit what I do: web development, internal systems, automation, and IT support.',
+          'tl.5.tag':   'Available for projects',
+          'cta.label':  'Contact',
+          'cta.title':  'Got a project or need a reliable developer?',
+          'cta.desc':   "Let's talk for 15 minutes. If there's a fit, I'll send a proposal in 48 hours.",
+          'cta.btn1':   'WhatsApp',
+          'cta.btn2':   'View portfolio',
+          'footer.available': 'Available for projects',
+        }
+      };
+
+      let lang = localStorage.getItem('lang') || 'es';
+      const btn = document.getElementById('lang-toggle');
+
+      function apply(l) {
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+          const v = T[l][el.getAttribute('data-i18n')];
+          if (v !== undefined) el.textContent = v;
+        });
+        btn.textContent = l === 'es' ? 'EN' : 'ES';
+        document.documentElement.lang = l;
+        localStorage.setItem('lang', l);
+        lang = l;
+      }
+
+      btn.addEventListener('click', () => apply(lang === 'es' ? 'en' : 'es'));
+      apply(lang);
+    })();
+  </script>
+
+</body>
+</html>

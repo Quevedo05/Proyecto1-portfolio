@@ -3,1386 +3,1108 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Lucas Quevedo — diseñador web y desarrollador No-Code. Diseño en Figma, construyo en Webflow y Framer. Argentina, proyectos globales." />
-  <meta name="theme-color" content="#f5f0e8" />
-  <title>Lucas Quevedo · Diseño Web</title>
+  <meta name="description" content="Lucas Quevedo — Desarrollador Web Freelance. Construyo y mantengo sistemas web para negocios reales. Node.js, React, Next.js, Python. Argentina." />
+  <meta name="theme-color" content="#FFFFFF" />
+  <meta property="og:title" content="Lucas Quevedo · Desarrollador Web" />
+  <meta property="og:description" content="Construyo y mantengo sistemas web para negocios reales. Node.js, React, Next.js, Python." />
+  <meta property="og:type" content="website" />
+  <title>Lucas Quevedo · Desarrollador Web</title>
 
-  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&family=Playfair+Display:ital,wght@1,700&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
-
-  <!-- Tailwind config MUST go before CDN script -->
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            bg:           '#f5f0e8',
-            'bg-alt':     '#ede8e0',
-            ink:          '#1a1512',
-            'ink-muted':  '#6b5f54',
-            accent:       '#c85c38',
-            'accent-pale':'#f0e0d8',
-            border:       '#ddd5c8',
-          },
-          fontFamily: {
-            heading:  ['Syne', 'sans-serif'],
-            display:  ['"Playfair Display"', 'Georgia', 'serif'],
-            mono:     ['"Bebas Neue"', 'sans-serif'],
-            body:     ['"DM Sans"', 'system-ui', 'sans-serif'],
-          },
-        }
-      }
-    }
-  </script>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet" />
 
   <style>
-    /* ─── Reset & Base ─────────────────────────────────────────────── */
+    /* ─── Tokens ──────────────────────────────────────────────── */
+    :root {
+      --bg:         #FAFAFA;
+      --bg-alt:     #F4F4F5;
+      --ink:        #18181B;
+      --ink-muted:  #52525B;
+      --ink-subtle: #A1A1AA;
+      --accent:     #1D4ED8;
+      --border:     #E4E4E7;
+      --nav-h:      60px;
+    }
+
+    /* ─── Reset ───────────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    html { scroll-behavior: smooth; }
     body {
-      background-color: #f5f0e8;
-      color: #1a1512;
+      background: var(--bg);
+      color: var(--ink);
       font-family: 'DM Sans', system-ui, sans-serif;
       -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
       overflow-x: hidden;
+      line-height: 1.6;
     }
     img { max-width: 100%; display: block; }
-    a   { color: inherit; text-decoration: none; }
+    a { color: inherit; text-decoration: none; }
 
-    /* ─── Typography helpers ───────────────────────────────────────── */
-    .text-hero {
-      font-size: clamp(2.6rem, 7vw, 6rem);
-      line-height: 0.96;
-      letter-spacing: -0.02em;
+    /* ─── Layout ──────────────────────────────────────────────── */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
     }
-    .text-h2 {
-      font-size: clamp(1.8rem, 4vw, 3rem);
-      line-height: 1.08;
-      letter-spacing: -0.01em;
+    @media (min-width: 768px) { .container { padding: 0 3rem; } }
+
+    /* ─── Buttons ─────────────────────────────────────────────── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 10px 22px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 500;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+      border: 1px solid transparent;
     }
-    .text-label {
+    .btn-primary { background: var(--ink); color: #fff; border-color: var(--ink); }
+    .btn-primary:hover { background: #1e293b; border-color: #1e293b; }
+    .btn-secondary { background: transparent; color: var(--ink); border-color: var(--border); }
+    .btn-secondary:hover { border-color: var(--ink-muted); background: var(--bg-alt); }
+    .btn-white { background: #fff; color: var(--ink); border-color: #fff; }
+    .btn-white:hover { background: #f1f5f9; }
+    .btn-ghost { background: transparent; color: var(--ink-subtle); border-color: #334155; }
+    .btn-ghost:hover { border-color: #64748b; color: #fff; }
+
+    /* ─── Tag ─────────────────────────────────────────────────── */
+    .tag {
+      display: inline-block;
+      padding: 3px 9px;
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: 4px;
       font-size: 0.68rem;
-      letter-spacing: 0.18em;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
     }
 
-    /* ─── Buttons ──────────────────────────────────────────────────── */
-    .btn-outline {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 11px 28px;
-      border: 1px solid #1a1512;
-      color: #1a1512;
-      background: transparent;
-      border-radius: 3px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.78rem;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      transition: background-color 0.2s ease, color 0.2s ease;
-      white-space: nowrap;
-      cursor: pointer;
-    }
-    .btn-outline:hover {
-      background-color: #1a1512;
-      color: #f5f0e8;
-    }
-    .btn-fill {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 11px 28px;
-      background: #c85c38;
-      color: #ffffff;
-      border: 1px solid #c85c38;
-      border-radius: 3px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.78rem;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
-      white-space: nowrap;
-      cursor: pointer;
-    }
-    .btn-fill:hover {
-      background: #b54d2a;
-      border-color: #b54d2a;
-    }
-
-    /* ─── Navbar ───────────────────────────────────────────────────── */
+    /* ─── Navbar ──────────────────────────────────────────────── */
     #navbar {
-      transition: background-color 0.35s ease, backdrop-filter 0.35s ease,
-                  -webkit-backdrop-filter 0.35s ease, border-color 0.35s ease;
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 50;
+      height: var(--nav-h);
       border-bottom: 1px solid transparent;
+      transition: background 0.3s ease, border-color 0.3s ease;
     }
     #navbar.scrolled {
-      background-color: rgba(245, 240, 232, 0.92);
-      backdrop-filter: blur(22px) saturate(1.6);
-      -webkit-backdrop-filter: blur(22px) saturate(1.6);
-      border-bottom-color: #ddd5c8;
+      background: rgba(250,250,250,0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom-color: var(--border);
     }
-
-    /* ─── Project card image + overlay ────────────────────────────── */
-    .project-img-wrap {
-      aspect-ratio: 16 / 9;
-      overflow: hidden;
-    }
-    .project-img-wrap img {
-      width: 100%;
+    .nav-inner {
       height: 100%;
-      object-fit: cover;
-      transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
-    .project-card:hover .project-img-wrap img {
-      transform: scale(1.05);
+    .nav-logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 0.95rem;
+      letter-spacing: -0.01em;
+      color: var(--ink);
     }
-    .project-overlay {
-      position: absolute;
-      inset: 0;
-      background: rgba(26, 21, 18, 0.78);
+    .nav-links {
+      display: none;
+      align-items: center;
+      gap: 2rem;
+    }
+    @media (min-width: 768px) { .nav-links { display: flex; } }
+    .nav-link {
+      font-size: 0.82rem;
+      color: var(--ink-muted);
+      transition: color 0.2s ease;
+    }
+    .nav-link:hover { color: var(--ink); }
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .lang-btn {
+      background: none;
+      border: none;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      color: var(--ink-muted);
+      cursor: pointer;
+      transition: color 0.2s ease;
+      padding: 4px;
+    }
+    .lang-btn:hover { color: var(--ink); }
+
+    /* ─── Hamburger ───────────────────────────────────────────── */
+    .hamburger {
       display: flex;
       flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      opacity: 0;
-      transition: opacity 0.35s ease;
+      justify-content: space-between;
+      width: 20px;
+      height: 13px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      margin-left: 4px;
     }
-    .project-card:hover .project-overlay { opacity: 1; }
+    @media (min-width: 768px) { .hamburger { display: none; } }
+    .hamburger span {
+      display: block;
+      height: 1.5px;
+      background: var(--ink);
+      transition: transform 0.25s ease, opacity 0.2s ease;
+      transform-origin: center;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(5.75px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-5.75px) rotate(-45deg); }
 
-    /* ─── Project row (case study list) ──────────────────────────── */
-    .project-row {
-      display: grid;
-      grid-template-columns: auto 1fr auto;
-      gap: 2rem;
-      padding: 2rem 0;
-      border-bottom: 1px solid #ddd5c8;
-      align-items: start;
-      transition: background-color 0.2s ease;
+    /* ─── Mobile menu ─────────────────────────────────────────── */
+    #mobile-menu {
+      display: none;
+      position: fixed;
+      top: var(--nav-h);
+      left: 0; right: 0;
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+      padding: 1.25rem 1.5rem 1.5rem;
+      z-index: 49;
+      flex-direction: column;
+      gap: 1.25rem;
     }
-    .project-row:hover {
-      background-color: #ede8e0;
-      margin: 0 -1.5rem;
-      padding-left: 1.5rem;
-      padding-right: 1.5rem;
+    #mobile-menu.open { display: flex; }
+    .mobile-link {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--ink-muted);
+      transition: color 0.2s ease;
     }
-    .section-num {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 3.5rem;
-      letter-spacing: 0.15em;
-      color: #c85c38;
-      line-height: 0.9;
-      min-width: 5rem;
-    }
+    .mobile-link:hover { color: var(--ink); }
 
-    /* ─── Hero background (paper texture) ──────────────────────────── */
+    /* ─── Hero ────────────────────────────────────────────────── */
     #hero {
-      background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' result='noise'/%3E%3C/filter%3E%3Crect width='100' height='100' fill='%23f5f0e8' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      padding-top: calc(var(--nav-h) + 4.5rem);
+      padding-bottom: 5rem;
+      border-bottom: 1px solid var(--border);
     }
-
-    /* ─── Hero grid layout ─────────────────────────────────────────── */
     .hero-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 4rem;
+      grid-template-columns: 1fr;
+      gap: 3rem;
       align-items: center;
-      min-height: 100vh;
-      padding: 6rem 3rem 4rem;
     }
-    @media (max-width: 768px) {
-      .hero-grid {
-        grid-template-columns: 1fr;
-        padding: 5rem 1.5rem 3rem;
-      }
+    @media (min-width: 860px) {
+      .hero-grid { grid-template-columns: 1fr auto; gap: 4rem; }
     }
-
-    /* ─── Hero grid experimental (asimétrico) ──────────────────────── */
-    .hero-grid-experimental {
-      display: grid;
-      grid-template-columns: 1fr 1.2fr;
-      gap: 2rem;
-      align-items: stretch;
-      min-height: 100vh;
-      padding: 6rem 0 4rem;
-      position: relative;
-    }
-    @media (max-width: 768px) {
-      .hero-grid-experimental {
-        grid-template-columns: 1fr;
-        padding: 5rem 0 3rem;
-      }
-    }
-
-    .hero-text-content {
-      padding: 0 3rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .hero-photo-container {
-      position: relative;
-      min-height: 100%;
-      display: flex;
+    .hero-badge {
+      display: inline-flex;
       align-items: center;
-      justify-content: center;
-      padding-right: 3rem;
+      gap: 0.5rem;
+      padding: 5px 12px;
+      background: #F0FDF4;
+      border: 1px solid #BBF7D0;
+      border-radius: 100px;
+      font-size: 0.72rem;
+      font-weight: 500;
+      color: #16A34A;
+      margin-bottom: 1.75rem;
     }
-    @media (max-width: 768px) {
-      .hero-photo-container {
-        min-height: 500px;
-        padding-right: 1.5rem;
-      }
-    }
-
-    /* ─── Glitch effect ─────────────────────────────────────────────── */
-    @keyframes glitch-shift {
-      0%, 100% { transform: translate(0); }
-      20% { transform: translate(-2px, 2px); }
-      40% { transform: translate(-2px, -2px); }
-      60% { transform: translate(2px, 2px); }
-      80% { transform: translate(2px, -2px); }
-    }
-
-    @keyframes glitch-color {
-      0%, 100% { text-shadow: -2px 0 #ff00ff, 2px 0 #00ffff; }
-      25% { text-shadow: -2px 0 #00ffff, 2px 0 #ff00ff; }
-      50% { text-shadow: -2px 0 #ffff00, 2px 0 #ff0080; }
-      75% { text-shadow: -2px 0 #ff0080, 2px 0 #ffff00; }
-    }
-
-    .hero-glitch {
-      position: relative;
-      animation: glitch-shift 0.15s infinite;
-    }
-    .hero-glitch:hover {
-      animation: glitch-color 0.5s infinite;
-    }
-
-    .hero-glitch-accent {
-      position: relative;
-      background: linear-gradient(135deg, #c85c38, #ff6b4a, #c85c38);
-      background-size: 200% 200%;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      animation: gradient-shift 4s ease infinite;
-    }
-
-    @keyframes gradient-shift {
-      0%, 100% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-    }
-
-    /* ─── Experimental photo frame ──────────────────────────────────── */
-    .photo-frame-experimental {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      max-width: 500px;
-      max-height: 600px;
-      margin: auto;
-      border-radius: 32px;
-      overflow: hidden;
-      border: 2px solid #c85c38;
-      box-shadow: 0 20px 60px rgba(200, 92, 56, 0.25),
-                  0 0 0 1px rgba(200, 92, 56, 0.1);
-      transform: perspective(1200px) rotateY(-5deg) rotateX(2deg);
-      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .hero-photo-container:hover .photo-frame-experimental {
-      transform: perspective(1200px) rotateY(0deg) rotateX(0deg);
-    }
-
-    .photo-image-experimental {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: filter 0.4s ease;
-    }
-
-    .photo-frame-experimental:hover .photo-image-experimental {
-      filter: brightness(1.1) contrast(1.05);
-    }
-
-    .photo-gradient-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, transparent 0%, rgba(200, 92, 56, 0.15) 100%);
-      pointer-events: none;
-      opacity: 0;
-      animation: pulse-overlay 3s ease-in-out infinite;
-    }
-
-    @keyframes pulse-overlay {
-      0%, 100% { opacity: 0; }
-      50% { opacity: 1; }
-    }
-
-    /* ─── Hero italic (Playfair Display) ──────────────────────────── */
-    .hero-italic {
-      font-family: 'Playfair Display', Georgia, serif;
-      font-style: italic;
-      font-weight: 700;
-      font-size: clamp(2.8rem, 7vw, 6rem);
-      line-height: 0.96;
-      letter-spacing: -0.02em;
-      color: #c85c38;
-    }
-
-    /* ─── Hero animation ───────────────────────────────────────────── */
-    @keyframes hero-in {
-      from { opacity: 0; transform: scale(0.94) translateY(10px); }
-      to   { opacity: 1; transform: scale(1) translateY(0); }
-    }
-    .hero-name {
-      animation: hero-in 1.1s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
-    }
-    .hero-role {
-      animation: hero-in 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.45s both;
-    }
-    .hero-scroll {
-      animation: hero-in 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.8s both;
-    }
-
-    /* ─── Marquee ──────────────────────────────────────────────────── */
-    .marquee-track {
-      display: flex;
-      width: max-content;
-      animation: marquee-scroll 40s linear infinite;
-      font-family: 'Playfair Display', Georgia, serif;
-      font-style: italic;
-      color: #6b5f54;
-    }
-    .marquee-track:hover { animation-play-state: paused; }
-    @keyframes marquee-scroll {
-      from { transform: translateX(0); }
-      to   { transform: translateX(-50%); }
-    }
-
-    /* ─── Scroll Reveal ────────────────────────────────────────────── */
-    .reveal {
-      opacity: 0;
-      transform: translateY(22px);
-      transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
-                  transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .reveal.is-visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    .reveal-stagger > * {
-      opacity: 0;
-      transform: translateY(16px);
-      transition: opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1),
-                  transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .reveal-stagger.is-visible > *:nth-child(1) { opacity:1; transform:none; transition-delay: 0.04s; }
-    .reveal-stagger.is-visible > *:nth-child(2) { opacity:1; transform:none; transition-delay: 0.14s; }
-    .reveal-stagger.is-visible > *:nth-child(3) { opacity:1; transform:none; transition-delay: 0.24s; }
-    .reveal-stagger.is-visible > *:nth-child(4) { opacity:1; transform:none; transition-delay: 0.34s; }
-    .reveal-stagger.is-visible > *:nth-child(5) { opacity:1; transform:none; transition-delay: 0.44s; }
-    .reveal-stagger.is-visible > *:nth-child(6) { opacity:1; transform:none; transition-delay: 0.54s; }
-
-    /* ─── FAQ Accordion ────────────────────────────────────────────── */
-    .faq-body {
-      max-height: 0;
-      overflow: hidden;
-      opacity: 0;
-      transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-                  opacity 0.3s ease;
-    }
-    .faq-item.open .faq-body {
-      max-height: 400px;
-      opacity: 1;
-    }
-    .faq-chevron {
-      transition: transform 0.32s ease;
+    .hero-badge::before {
+      content: '';
+      width: 6px; height: 6px;
+      background: #22C55E;
+      border-radius: 50%;
       flex-shrink: 0;
     }
-    .faq-item.open .faq-chevron {
-      transform: rotate(180deg);
+    .hero-name {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      font-weight: 800;
+      line-height: 1.0;
+      letter-spacing: -0.03em;
+      color: var(--ink);
+      margin-bottom: 0.5rem;
     }
-    .faq-trigger { cursor: pointer; background: none; border: none; }
-
-    /* ─── Project card hover ───────────────────────────────────────── */
-    .project-card {
-      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    .hero-role {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(1rem, 2.5vw, 1.35rem);
+      font-weight: 600;
+      color: var(--ink-muted);
+      letter-spacing: -0.01em;
+      margin-bottom: 1.5rem;
     }
-    .project-card:hover { transform: translateY(-4px); }
+    .hero-desc {
+      font-size: 1rem;
+      color: var(--ink-muted);
+      line-height: 1.75;
+      max-width: 460px;
+      margin-bottom: 2.25rem;
+    }
+    .hero-ctas { display: flex; flex-wrap: wrap; gap: 0.65rem; margin-bottom: 3rem; }
+    .hero-stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2.5rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+    }
+    .stat-val {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--ink);
+      letter-spacing: -0.02em;
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.75rem;
+      color: var(--ink-muted);
+      margin-top: 3px;
+    }
+    .hero-photo {
+      width: 260px;
+      height: auto;
+      flex-shrink: 0;
+      align-self: flex-end;
+    }
+    .hero-photo img { width: 100%; height: auto; object-fit: contain; display: block; }
+    @media (max-width: 859px) { .hero-photo { display: none; } }
 
-    /* ─── Reduced motion ───────────────────────────────────────────── */
-    @media (prefers-reduced-motion: reduce) {
-      .reveal, .reveal-stagger > * { opacity:1; transform:none; transition:none; }
-      .marquee-track { animation: none; }
+    /* ─── Section ─────────────────────────────────────────────── */
+    .section { padding: 5rem 0; border-bottom: 1px solid var(--border); }
+    .section-label {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.85rem;
+    }
+    .t-h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(1.5rem, 3vw, 2.25rem);
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.015em;
     }
 
-    /* ─── Capability table ────────────────────────────────────────── */
-    .capability-row {
+    /* ─── Projects ────────────────────────────────────────────── */
+    .projects-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1.25rem;
+      margin-bottom: 2.5rem;
+    }
+    .projects-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 1rem;
-      padding: 1rem 0;
-      border-bottom: 1px solid #ddd5c8;
-      align-items: center;
-      font-size: 0.95rem;
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
     }
-    .dot-filled {
-      color: #c85c38;
-      font-size: 1.2rem;
-    }
-    .dot-empty {
-      color: #ddd5c8;
-      font-size: 1.2rem;
-    }
-
-    /* ─── Skill Cards (legacy) ───────────────────────────────────── */
-    .skill-card {
-      background: #ede8e0;
-      border: 1px solid #ddd5c8;
-      border-radius: 4px;
-      padding: 24px 20px;
+    @media (min-width: 580px) { .projects-grid { grid-template-columns: 1fr 1fr; } }
+    @media (min-width: 900px) { .projects-grid { grid-template-columns: 1fr 1fr 1fr; } }
+    .project-card {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      background: var(--bg);
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      transition: border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-                  transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
     }
-    .skill-card:hover {
-      border-color: #c85c38;
-      transform: translateY(-3px);
+    .project-card:hover {
+      border-color: #CBD5E1;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.07);
     }
-    .skill-card__icon {
-      color: #1a1512;
-      opacity: 0.7;
+    .project-img { aspect-ratio: 16/9; overflow: hidden; background: var(--bg-alt); }
+    .project-img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
     }
-    .skill-card__name {
-      font-size: 0.72rem;
-      line-height: 1.2;
-      color: #1a1512;
-    }
-    .skill-card__desc {
-      font-size: 0.82rem;
-      line-height: 1.55;
-      color: #6b5f54;
-    }
-
-    /* ─── Project card body ─────────────────────────────────────────── */
+    .project-card:hover .project-img img { transform: scale(1.03); }
     .project-body {
-      padding: 18px 20px 22px;
+      padding: 1.1rem 1.25rem 1.4rem;
       display: flex;
       flex-direction: column;
       flex: 1;
+      gap: 0.35rem;
     }
-    .project-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 5px;
-      margin-bottom: 10px;
+    .project-tags { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-bottom: 0.2rem; }
+    .project-name {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--ink);
     }
-    .project-tag {
-      display: inline-block;
-      padding: 2px 7px;
-      background: #f0e0d8;
-      border: 1px solid #ddd5c8;
-      border-radius: 3px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.62rem;
-      font-weight: 500;
-      letter-spacing: 0.1em;
+    .project-type {
+      font-size: 0.72rem;
+      color: var(--ink-subtle);
       text-transform: uppercase;
-      color: #6b5f54;
-      white-space: nowrap;
+      letter-spacing: 0.07em;
+      font-weight: 500;
+    }
+    .project-desc {
+      font-size: 0.83rem;
+      color: var(--ink-muted);
+      line-height: 1.6;
+      margin-top: 0.35rem;
     }
     .project-link {
       display: inline-flex;
       align-items: center;
-      gap: 4px;
+      gap: 0.3rem;
       font-size: 0.72rem;
       font-weight: 500;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: #6b5f54;
+      color: var(--ink-muted);
+      margin-top: 0.9rem;
       transition: color 0.2s ease, gap 0.2s ease;
-      margin-top: auto;
     }
-    .project-link:hover {
-      color: #1a1512;
-      gap: 8px;
+    .project-card:hover .project-link { color: var(--ink); gap: 0.5rem; }
+
+    /* ─── About + Stack ───────────────────────────────────────── */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3.5rem;
+      margin-top: 2.5rem;
     }
+    @media (min-width: 768px) { .two-col { grid-template-columns: 1fr 1fr; gap: 5rem; } }
+    .body-text { font-size: 0.95rem; color: var(--ink-muted); line-height: 1.75; }
+    .stack-list { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-top: 1.25rem; }
+    .stack-pill {
+      padding: 6px 13px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--ink);
+      background: var(--bg-alt);
+    }
+
+    /* ─── Service item hover ─────────────────────────────────── */
+    .svc-item { transition: background 0.2s ease; }
+    .svc-title { transition: color 0.2s ease; }
+    .svc-item:hover .svc-title { color: var(--accent); }
+
+    /* ─── Services ────────────────────────────────────────────── */
+    .services-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      margin-top: 2.5rem;
+      border-top: 1px solid var(--border);
+    }
+    @media (min-width: 640px) { .services-grid { grid-template-columns: 1fr 1fr; } }
+    .svc-item {
+      padding: 2rem 0;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    @media (min-width: 640px) {
+      .svc-item:nth-child(odd)  { padding-right: 2.5rem; }
+      .svc-item:nth-child(even) { padding-left: 2.5rem; border-left: 1px solid var(--border); }
+    }
+    .svc-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--ink-subtle);
+      letter-spacing: 0.1em;
+      margin-bottom: 0.4rem;
+    }
+    .svc-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.97rem;
+      font-weight: 700;
+      color: var(--ink);
+    }
+    .svc-desc { font-size: 0.85rem; color: var(--ink-muted); line-height: 1.65; }
+
+    /* ─── Tech strip ─────────────────────────────────────────── */
+    .tech-strip {
+      padding: 1.25rem 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: var(--bg-alt);
+    }
+    .tech-strip-inner {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 1.5rem;
+      align-items: center;
+      color: var(--ink-subtle);
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    /* ─── CTA ─────────────────────────────────────────────────── */
+    #cta {
+      padding: 6rem 0;
+      background: var(--ink);
+      border-bottom: none;
+    }
+    .cta-label {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #475569;
+      margin-bottom: 1.5rem;
+    }
+    .cta-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(1.75rem, 4vw, 2.75rem);
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+      max-width: 580px;
+    }
+    .cta-desc {
+      font-size: 0.95rem;
+      color: #94A3B8;
+      line-height: 1.7;
+      margin-bottom: 2.5rem;
+      max-width: 460px;
+    }
+    .cta-ctas { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+
+    /* ─── Footer ──────────────────────────────────────────────── */
+    footer { padding: 2.25rem 0; border-top: 1px solid var(--border); }
+    .footer-row {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      align-items: flex-start;
+    }
+    @media (min-width: 640px) {
+      .footer-row { flex-direction: row; align-items: center; justify-content: space-between; }
+    }
+    .footer-copy { font-size: 0.78rem; color: var(--ink-muted); }
+    .footer-links { display: flex; align-items: center; gap: 1.5rem; }
+    .footer-link { font-size: 0.78rem; color: var(--ink-muted); transition: color 0.2s ease; }
+    .footer-link:hover { color: var(--ink); }
+    .socials { display: flex; gap: 0.4rem; }
+    .social-btn {
+      width: 32px; height: 32px;
+      display: flex; align-items: center; justify-content: center;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--ink-muted);
+      transition: border-color 0.2s ease, color 0.2s ease;
+    }
+    .social-btn:hover { border-color: var(--ink-muted); color: var(--ink); }
+
+    /* ─── Hero name ──────────────────────────────────────────── */
+    .hero-name .word { display: block; line-height: 1.05; }
+
+    /* ─── FAQ ────────────────────────────────────────────────── */
+    .faq-list { border-top: 1px solid var(--border); margin-top: 2.5rem; }
+    .faq-item { border-bottom: 1px solid var(--border); }
+    .faq-q {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1.35rem 0;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: 'Syne', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--ink);
+      text-align: left;
+      transition: color 0.2s ease;
+    }
+    .faq-q:hover { color: var(--accent); }
+    .faq-q:hover .faq-icon { color: var(--accent); }
+    .faq-icon {
+      flex-shrink: 0;
+      color: var(--ink-subtle);
+      transition: transform 0.3s ease, color 0.2s ease;
+    }
+    .faq-item.open .faq-icon { transform: rotate(180deg); }
+    .faq-a {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.35s ease;
+    }
+    .faq-item.open .faq-a { grid-template-rows: 1fr; }
+    .faq-a-inner { overflow: hidden; }
+    .faq-a p {
+      font-size: 0.88rem;
+      color: var(--ink-muted);
+      line-height: 1.8;
+      padding-bottom: 1.35rem;
+      max-width: 640px;
+    }
+
   </style>
 </head>
 
 <body>
 
-  <!-- ═══════════════════════════════════════════════════════ NAVBAR -->
-  <header id="navbar" class="fixed top-0 left-0 right-0 z-50 px-6 lg:px-12">
-    <div class="max-w-7xl mx-auto flex items-center justify-between h-16 md:h-20">
-
-      <!-- Logo -->
-      <a href="#hero" class="flex items-center gap-2 font-heading text-sm tracking-widest uppercase" style="color: #1a1512;">
-        <span style="font-size: 1.3rem; letter-spacing: -0.08em; font-weight: 800;">LQ</span>
-        <span style="font-size: 0.7rem; font-weight: 700;">Lucas Quevedo</span>
-      </a>
-
-      <!-- Nav links (desktop) -->
-      <nav class="hidden md:flex items-center gap-8">
-        <a href="#projects" class="text-label uppercase tracking-widest transition-colors font-body" style="color: #6b5f54;" data-i18n="nav.projects">Proyectos</a>
-        <a href="#services" class="text-label uppercase tracking-widest transition-colors font-body" style="color: #6b5f54;" data-i18n="nav.services">Servicios</a>
-        <a href="#faq"      class="text-label uppercase tracking-widest transition-colors font-body" style="color: #6b5f54;">FAQ</a>
+  <!-- NAVBAR -->
+  <header id="navbar">
+    <div class="container nav-inner">
+      <a href="#hero" class="nav-logo">Lucas Quevedo</a>
+      <nav class="nav-links">
+        <a href="projects.html" class="nav-link" data-i18n="nav.projects">Proyectos</a>
+        <a href="#about"    class="nav-link" data-i18n="nav.about">Sobre mí</a>
+        <a href="#services" class="nav-link" data-i18n="nav.services">Servicios</a>
+        <a href="#faq"      class="nav-link" data-i18n="nav.faq">FAQ</a>
       </nav>
-
-      <!-- Lang toggle + CTA -->
-      <div class="flex items-center gap-4">
-        <button id="lang-toggle" class="font-body text-label uppercase tracking-widest transition-colors" style="color: #6b5f54;">EN</button>
-        <a href="#cta" class="btn-outline" data-i18n="nav.cta">Hablemos</a>
+      <div class="nav-right">
+        <button class="lang-btn" id="lang-toggle">EN</button>
+        <a href="#cta" class="btn btn-primary" data-i18n="nav.cta">Hablemos</a>
+        <button class="hamburger" id="hamburger" aria-label="Menú" aria-expanded="false" aria-controls="mobile-menu">
+          <span></span><span></span><span></span>
+        </button>
       </div>
     </div>
   </header>
 
+  <!-- MOBILE MENU -->
+  <nav id="mobile-menu" aria-label="Menú móvil">
+    <a href="projects.html" class="mobile-link" data-i18n="nav.projects">Proyectos</a>
+    <a href="#about"    class="mobile-link" data-i18n="nav.about">Sobre mí</a>
+    <a href="#services" class="mobile-link" data-i18n="nav.services">Servicios</a>
+    <a href="#faq"      class="mobile-link" data-i18n="nav.faq">FAQ</a>
+    <a href="#cta"      class="mobile-link" data-i18n="nav.cta">Hablemos</a>
+  </nav>
+
   <main>
 
-    <!-- ═════════════════════════════════════════════════════════ HERO -->
-    <section id="hero" class="relative px-6 lg:px-12 overflow-hidden">
-      <div class="hero-grid-experimental max-w-7xl mx-auto">
-
-        <!-- Left column: text with glitch effect -->
-        <div class="flex flex-col justify-center reveal hero-text-content">
-          <p class="text-label uppercase font-body text-ink-muted mb-8 tracking-widest" data-i18n="hero.label">
-            Diseño web · No-Code · Argentina
-          </p>
-
-          <h1 class="hero-glitch font-heading text-ink uppercase leading-none mb-2" style="font-size: clamp(2.6rem, 7vw, 5.5rem); letter-spacing: -0.02em; font-weight: 800;" data-i18n="hero.line1">
-            Diseño lo que
-          </h1>
-
-          <h1 class="hero-italic hero-glitch-accent mb-8" data-i18n="hero.line2">
-            construyo.
-          </h1>
-
-          <div class="flex flex-col md:flex-row gap-4 mb-8">
-            <span class="text-sm font-body text-ink-muted" data-i18n="hero.stat1">12+ sitios lanzados</span>
-            <span class="text-sm font-body text-ink-muted" data-i18n="hero.stat2">3 países</span>
-          </div>
-
-          <div class="flex flex-col sm:flex-row gap-4">
-            <a href="#cta" class="btn-fill" data-i18n="nav.cta">Hablemos</a>
-            <a href="#projects" class="btn-outline" data-i18n="hero.projects">Ver proyectos</a>
-          </div>
-        </div>
-
-        <!-- Right column: photo with experimental styling -->
-        <div class="hero-photo-container reveal" style="transition-delay: 0.1s;">
-          <div class="photo-frame-experimental">
-            <img
-              src="assets/foto-lucas.jpg"
-              alt="Lucas Quevedo"
-              class="photo-image-experimental"
-            />
-            <div class="photo-gradient-overlay"></div>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- Scroll indicator -->
-      <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2">
-        <div class="hero-scroll flex flex-col items-center gap-2 animate-bounce reveal" style="transition-delay: 0.2s;">
-          <span class="font-body text-ink-muted text-label uppercase tracking-widest" data-i18n="hero.scroll">Scroll</span>
-          <svg class="w-4 h-4 text-ink-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/>
-          </svg>
-        </div>
-      </div>
-
-    </section>
-
-    <!-- ══════════════════════════════════════════════════ SOBRE MÍ -->
-    <section id="about" class="border-t border-border py-28 px-6 lg:px-12">
-      <div class="max-w-7xl mx-auto">
-
-        <p class="text-label uppercase font-body text-ink-muted mb-12 tracking-widest reveal" data-i18n="about.label">(Sobre Mí)</p>
-
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start reveal">
-
-          <!-- Texto (left on desktop, top on mobile) -->
+    <!-- HERO -->
+    <section id="hero">
+      <div class="container">
+        <div class="hero-grid">
           <div>
-            <h2 class="text-h2 font-heading text-ink uppercase mb-8 leading-tight" data-i18n="about.title">
-              No soy diseñador que sabe código
-            </h2>
-            <p class="text-ink-muted font-body leading-relaxed mb-6" style="font-size:1.05rem;" data-i18n="about.p1">
-              Soy las dos cosas con igual seriedad. Diseño en Figma con criterio visual propio. Después abro Webflow o Framer y lo construyo yo mismo, sin perder nada en la traducción.
+            <h1 class="hero-name">
+              <span class="word">Lucas</span>
+              <span class="word">Quevedo</span>
+            </h1>
+            <p class="hero-role" data-i18n="hero.role">Desarrollador Web Freelance</p>
+            <p class="hero-desc" data-i18n="hero.desc">
+              Construyo y mantengo sistemas web para negocios que necesitan más que una página bonita. Mis clientes no cambian de desarrollador cada proyecto — llevan años trabajando conmigo.
             </p>
-            <p class="text-ink-muted font-body leading-relaxed mb-10" style="font-size:1.05rem;" data-i18n="about.p2">
-              Trabajo desde Argentina con clientes en LATAM, España y EEUU. Inglés fluido, zona horaria flexible, comunicación directa. Sin agencias, sin intermediarios.
-            </p>
-            <div class="flex flex-wrap gap-3">
-              <span class="text-xs font-body text-ink border border-ink rounded px-3 py-1.5">[Webflow]</span>
-              <span class="text-xs font-body text-ink border border-ink rounded px-3 py-1.5">[Framer]</span>
-              <span class="text-xs font-body text-ink border border-ink rounded px-3 py-1.5">[Figma]</span>
+            <div class="hero-ctas">
+              <a href="#cta"      class="btn btn-primary"   data-i18n="nav.cta">Hablemos</a>
+              <a href="#projects" class="btn btn-secondary" data-i18n="hero.see-work">Ver proyectos</a>
+            </div>
+            <div class="hero-stats">
+              <div>
+                <div class="stat-val">3+</div>
+                <div class="stat-label" data-i18n="hero.stat1">Años en el rubro</div>
+              </div>
+              <div>
+                <div class="stat-val">3</div>
+                <div class="stat-label" data-i18n="hero.stat2">Clientes activos</div>
+              </div>
+              <div>
+                <div class="stat-val">12+</div>
+                <div class="stat-label" data-i18n="hero.stat3">Sitios lanzados</div>
+              </div>
             </div>
           </div>
-
-          <!-- Foto (right on desktop, hidden on mobile) -->
-          <div class="hidden lg:flex justify-end">
-            <div class="w-80 aspect-square overflow-hidden border border-border flex-shrink-0" style="border-radius: 28px; box-shadow: 0 4px 16px rgba(0,0,0,0.08);">
-              <img
-                src="assets/foto-lucas.jpg"
-                alt="Lucas Quevedo"
-                class="w-full h-full object-cover object-top"
-              />
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- ══════════════════════════════════════════ SKILLS / TOOLS -->
-    <section id="skills" class="border-t border-border py-24 px-6 lg:px-12">
-      <div class="max-w-7xl mx-auto">
-
-        <p class="text-label uppercase font-body text-ink-muted mb-12 tracking-widest reveal"
-           data-i18n="skills.label">(Herramientas)</p>
-
-        <!-- Heading -->
-        <h2 class="text-h2 font-heading text-ink uppercase mb-16 leading-tight reveal"
-            data-i18n="skills.title">
-          El stack que muy pocos combinan
-        </h2>
-
-        <!-- Capability Table -->
-        <div class="reveal" style="overflow-x: auto;">
-          <table style="width: 100%; border-collapse: collapse;">
-            <thead>
-              <tr class="border-b border-border">
-                <th class="text-left py-3 px-0 font-heading text-ink text-sm" style="font-weight: 700; width: 30%;">Herramienta</th>
-                <th class="text-center py-3 px-4 font-heading text-ink text-sm" style="font-weight: 700; width: 35%;" data-i18n="skills.design">Diseño</th>
-                <th class="text-center py-3 px-4 font-heading text-ink text-sm" style="font-weight: 700; width: 35%;" data-i18n="skills.dev">Desarrollo</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr class="border-b border-border">
-                <td class="py-4 px-0 font-body text-ink">Figma</td>
-                <td class="py-4 px-4 text-center">
-                  <span class="dot-filled">● ● ● ● ●</span>
-                </td>
-                <td class="py-4 px-4 text-center">
-                  <span class="dot-empty">○</span>
-                </td>
-              </tr>
-              <tr class="border-b border-border">
-                <td class="py-4 px-0 font-body text-ink">Webflow</td>
-                <td class="py-4 px-4 text-center">
-                  <span class="dot-filled">● ● ● ● ○</span>
-                </td>
-                <td class="py-4 px-4 text-center">
-                  <span class="dot-filled">● ● ● ● ●</span>
-                </td>
-              </tr>
-              <tr class="border-b border-border">
-                <td class="py-4 px-0 font-body text-ink">Framer</td>
-                <td class="py-4 px-4 text-center">
-                  <span class="dot-filled">● ● ● ● ○</span>
-                </td>
-                <td class="py-4 px-4 text-center">
-                  <span class="dot-filled">● ● ● ● ●</span>
-                </td>
-              </tr>
-              <tr class="border-b border-border">
-                <td class="py-4 px-0 font-body text-ink">HTML / CSS / JS</td>
-                <td class="py-4 px-4 text-center">
-                  <span class="dot-empty">○</span>
-                </td>
-                <td class="py-4 px-4 text-center">
-                  <span class="dot-filled">● ● ● ● ○</span>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <p class="text-ink-muted font-body leading-relaxed mt-12 max-w-2xl" style="font-size: 0.95rem;" data-i18n="skills.note">
-          Webflow + Framer porque el proyecto manda, no la herramienta.
-        </p>
-
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center" style="display: none;">
-
-          <!-- Left: heading + description -->
-          <div class="reveal">
-            <h2 class="text-h2 font-heading text-accent uppercase mb-6 leading-tight"
-                data-i18n="skills.title">
-              Las herramientas con las que construyo
-            </h2>
-            <p class="text-muted font-body leading-relaxed"
-               style="font-size:1.05rem;"
-               data-i18n="skills.desc">
-              Cada proyecto requiere las herramientas correctas. Trabajo con un stack moderno y probado para diseñar, prototipar y construir experiencias digitales de alta calidad.
-            </p>
-          </div>
-
-          <!-- Right: skill cards grid -->
-          <div class="grid grid-cols-2 gap-4 reveal-stagger">
-
-            <!-- HTML / CSS / JS -->
-            <div class="skill-card">
-              <div class="skill-card__icon" aria-hidden="true">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none"
-                     stroke="currentColor" stroke-width="1.5"
-                     stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="16 18 22 12 16 6"/>
-                  <polyline points="8 6 2 12 8 18"/>
-                </svg>
-              </div>
-              <h3 class="skill-card__name font-heading text-accent uppercase tracking-widest"
-                  data-i18n="skills.html">HTML / CSS / JS</h3>
-              <p class="skill-card__desc font-body text-muted"
-                 data-i18n="skills.html.desc">Base de la web: estructura, estilo e interacción.</p>
-            </div>
-
-            <!-- Figma -->
-            <div class="skill-card">
-              <div class="skill-card__icon" aria-hidden="true">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none"
-                     stroke="currentColor" stroke-width="1.5"
-                     stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M5 5.5A3.5 3.5 0 0 1 8.5 2H12v7H8.5A3.5 3.5 0 0 1 5 5.5z"/>
-                  <path d="M12 2h3.5a3.5 3.5 0 1 1 0 7H12V2z"/>
-                  <path d="M12 12.5a3.5 3.5 0 1 1 7 0 3.5 3.5 0 1 1-7 0z"/>
-                  <path d="M5 19.5A3.5 3.5 0 0 1 8.5 16H12v3.5a3.5 3.5 0 1 1-7 0z"/>
-                  <path d="M5 12.5A3.5 3.5 0 0 1 8.5 9H12v7H8.5A3.5 3.5 0 0 1 5 12.5z"/>
-                </svg>
-              </div>
-              <h3 class="skill-card__name font-heading text-accent uppercase tracking-widest"
-                  data-i18n="skills.figma">Figma</h3>
-              <p class="skill-card__desc font-body text-muted"
-                 data-i18n="skills.figma.desc">Diseño UI/UX, wireframes y prototipos interactivos.</p>
-            </div>
-
-            <!-- Python -->
-            <div class="skill-card">
-              <div class="skill-card__icon" aria-hidden="true">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none"
-                     stroke="currentColor" stroke-width="1.5"
-                     stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M12 2C9 2 7 3.5 7 6v2h5v1H5.5C4 9 2 10.5 2 12.5S4 16 5.5 16H7v2c0 2.5 2 4 5 4s5-1.5 5-4v-2h1.5C20 16 22 14.5 22 12.5S20 9 18.5 9H13V8h5V6c0-2.5-2-4-5-4z"/>
-                  <circle cx="9.5" cy="6" r="0.75" fill="currentColor" stroke="none"/>
-                  <circle cx="14.5" cy="18" r="0.75" fill="currentColor" stroke="none"/>
-                </svg>
-              </div>
-              <h3 class="skill-card__name font-heading text-accent uppercase tracking-widest"
-                  data-i18n="skills.python">Python</h3>
-              <p class="skill-card__desc font-body text-muted"
-                 data-i18n="skills.python.desc">Automatización, scripting y lógica de back-end.</p>
-            </div>
-
-            <!-- Node.js -->
-            <div class="skill-card">
-              <div class="skill-card__icon" aria-hidden="true">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none"
-                     stroke="currentColor" stroke-width="1.5"
-                     stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-                  <path d="M2 17l10 5 10-5"/>
-                  <path d="M2 12l10 5 10-5"/>
-                </svg>
-              </div>
-              <h3 class="skill-card__name font-heading text-accent uppercase tracking-widest"
-                  data-i18n="skills.node">Node.js</h3>
-              <p class="skill-card__desc font-body text-muted"
-                 data-i18n="skills.node.desc">Entornos de servidor y APIs con JavaScript.</p>
-            </div>
-
+          <div class="hero-photo">
+            <img src="assets/foto-lucas.jpg - Edited.png" alt="Lucas Quevedo" />
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ═══════════════════════════════════════ PROJECTS HEADER -->
-    <section class="px-6 lg:px-12 border-t border-border py-20">
-      <div class="max-w-7xl mx-auto reveal">
-        <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-8">
-          <div>
-            <p class="text-label uppercase font-body text-muted mb-4 tracking-widest" data-i18n="projects.label">Proyectos</p>
-            <h2 class="text-h2 font-heading text-accent uppercase max-w-2xl" data-i18n="projects.title">
-              Diseño web funcional y construido para crecer
-            </h2>
-          </div>
-          <a href="#cta" class="btn-outline self-start md:self-auto flex-shrink-0" data-i18n="projects.cta">Trabajemos juntos</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- ════════════════════════════════════════════ PROJECTS GRID -->
-    <section id="projects" class="pb-24 px-6 lg:px-12">
-      <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-5 reveal-stagger">
-
-        <!-- Card 1: Calidad Cuyo -->
-        <a href="https://calidadcuyo.com/" target="_blank" rel="noopener noreferrer" class="project-card relative border border-border overflow-hidden flex flex-col cursor-pointer" style="text-decoration:none; border-radius: 28px;">
-          <div class="project-img-wrap relative">
-            <img src="assets/calidad-cuyo.png" alt="Calidad Cuyo" loading="lazy" />
-            <div class="project-overlay">
-              <span class="font-heading text-2xl text-accent uppercase tracking-widest">VER →</span>
-            </div>
-          </div>
-          <div class="project-body">
-            <div class="project-tags">
-              <span class="project-tag">HTML</span>
-              <span class="project-tag">CSS</span>
-              <span class="project-tag">JS</span>
-            </div>
-            <h3 class="font-heading text-accent uppercase tracking-wide mb-1" style="font-size:1rem;">Calidad Cuyo</h3>
-            <p class="text-label uppercase font-body text-muted tracking-widest mb-3" data-i18n="proj.calidadcuyo.type">Empresa regional</p>
-            <p class="font-body text-muted leading-relaxed" style="font-size:0.85rem;" data-i18n="proj.calidadcuyo.desc">
-              Sitio web corporativo para empresa regional de calidad. Diseño limpio y funcional orientado a captar nuevos clientes.
-            </p>
-          </div>
-        </a>
-
-        <!-- Card 2: Grupo Innova -->
-        <a href="https://grupoinnova.com.ar/" target="_blank" rel="noopener noreferrer" class="project-card relative border border-border overflow-hidden flex flex-col cursor-pointer" style="text-decoration:none; border-radius: 28px;">
-          <div class="project-img-wrap relative">
-            <img src="assets/grupo-innova.png" alt="Grupo Innova" loading="lazy" />
-            <div class="project-overlay">
-              <span class="font-heading text-2xl text-accent uppercase tracking-widest">VER →</span>
-            </div>
-          </div>
-          <div class="project-body">
-            <div class="project-tags">
-              <span class="project-tag">HTML</span>
-              <span class="project-tag">CSS</span>
-              <span class="project-tag">JS</span>
-            </div>
-            <h3 class="font-heading text-accent uppercase tracking-wide mb-1" style="font-size:1rem;">Grupo Innova</h3>
-            <p class="text-label uppercase font-body text-muted tracking-widest mb-3" data-i18n="proj.grupoinnova.type">Grupo empresarial</p>
-            <p class="font-body text-muted leading-relaxed" style="font-size:0.85rem;" data-i18n="proj.grupoinnova.desc">
-              Presencia digital para grupo empresarial con múltiples unidades de negocio. Enfoque en credibilidad y claridad de propuesta de valor.
-            </p>
-          </div>
-        </a>
-
-        <!-- Card 3: Pediátrica 020 -->
-        <a href="https://www.turnosped020.com.ar/" target="_blank" rel="noopener noreferrer" class="project-card relative border border-border overflow-hidden flex flex-col cursor-pointer" style="text-decoration:none; border-radius: 28px;">
-          <div class="project-img-wrap relative">
-            <img src="assets/pediatrica-020.png" alt="Pediátrica 020" loading="lazy" />
-            <div class="project-overlay">
-              <span class="font-heading text-2xl text-accent uppercase tracking-widest">VER →</span>
-            </div>
-          </div>
-          <div class="project-body">
-            <div class="project-tags">
-              <span class="project-tag">HTML</span>
-              <span class="project-tag">CSS</span>
-              <span class="project-tag">JS</span>
-            </div>
-            <h3 class="font-heading text-accent uppercase tracking-wide mb-1" style="font-size:1rem;">Pediátrica 020</h3>
-            <p class="text-label uppercase font-body text-muted tracking-widest mb-3" data-i18n="proj.pediatrica.type">Clínica / App</p>
-            <p class="font-body text-muted leading-relaxed" style="font-size:0.85rem;" data-i18n="proj.pediatrica.desc">
-              App de reservas de turnos médicos para clínica pediátrica. Permite elegir médico, fecha y horario con confirmación instantánea.
-            </p>
-          </div>
-        </a>
-
-      </div>
-    </section>
-
-    <!-- ═══════════════════════════════════════════════════ MARQUEE -->
-    <div class="overflow-hidden border-y border-border py-5" aria-hidden="true" style="background-color:#1a1a1a;">
-      <div class="marquee-track font-display text-3xl md:text-4xl text-muted uppercase select-none">
-        <span class="pr-14">DISEÑO WEB &nbsp;·&nbsp;</span>
-        <span class="pr-14">DESARROLLO &nbsp;·&nbsp;</span>
-        <span class="pr-14">FIGMA &nbsp;·&nbsp;</span>
-        <span class="pr-14">HTML &nbsp;·&nbsp; CSS &nbsp;·&nbsp; JS &nbsp;·&nbsp;</span>
-        <span class="pr-14">PYTHON &nbsp;·&nbsp;</span>
-        <span class="pr-14">NODE.JS &nbsp;·&nbsp;</span>
-        <!-- Duplicate for seamless loop -->
-        <span class="pr-14">DISEÑO WEB &nbsp;·&nbsp;</span>
-        <span class="pr-14">DESARROLLO &nbsp;·&nbsp;</span>
-        <span class="pr-14">FIGMA &nbsp;·&nbsp;</span>
-        <span class="pr-14">HTML &nbsp;·&nbsp; CSS &nbsp;·&nbsp; JS &nbsp;·&nbsp;</span>
-        <span class="pr-14">PYTHON &nbsp;·&nbsp;</span>
-        <span class="pr-14">NODE.JS &nbsp;·&nbsp;</span>
+    <!-- TECH STRIP -->
+    <div class="tech-strip" aria-hidden="true">
+      <div class="container tech-strip-inner">
+        <span>Node.js</span>
+        <span>·</span>
+        <span>React</span>
+        <span>·</span>
+        <span>Next.js</span>
+        <span>·</span>
+        <span>Python</span>
+        <span>·</span>
+        <span>HTML / CSS / JS</span>
+        <span>·</span>
+        <span>PostgreSQL</span>
+        <span>·</span>
+        <span>REST APIs</span>
+        <span>·</span>
+        <span>Git</span>
       </div>
     </div>
 
-    <!-- ═══════════════════════════════════════════════ SERVICES -->
-    <section id="services" class="py-28 px-6 lg:px-12 border-b border-border">
-      <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
-
-        <!-- Left -->
-        <div class="reveal">
-          <p class="text-label uppercase font-body text-muted mb-4 tracking-widest" data-i18n="services.label">Servicios</p>
-          <h2 class="text-h2 font-heading text-accent uppercase mb-8" data-i18n="services.title">
-            Diseño web y desarrollo No-Code
-          </h2>
-          <p class="text-muted font-body leading-relaxed max-w-sm" style="font-size:1.02rem;" data-i18n="services.desc">
-            Transformo ideas en sitios web que convierten. Trabajo con herramientas modernas —Webflow, Framer, código limpio— para entregar resultados rápidos sin sacrificar calidad ni escalabilidad.
-          </p>
-        </div>
-
-        <!-- Right: numbered steps -->
-        <ol class="flex flex-col gap-10 reveal-stagger">
-
-          <li class="flex gap-6 items-center">
-            <span class="font-display text-5xl leading-none flex-shrink-0" style="color:#2a2a2a;">01</span>
-            <div>
-              <h3 class="font-heading text-sm text-accent uppercase tracking-widest mb-2" data-i18n="services.s1.title">Descubrimiento y Brief</h3>
-              <p class="text-muted font-body text-sm leading-relaxed" data-i18n="services.s1.desc">Entiendo tu negocio, objetivos y audiencia para definir la estrategia visual y el alcance del proyecto.</p>
-            </div>
-          </li>
-
-          <li class="flex gap-6 items-center">
-            <span class="font-display text-5xl leading-none flex-shrink-0" style="color:#2a2a2a;">02</span>
-            <div>
-              <h3 class="font-heading text-sm text-accent uppercase tracking-widest mb-2" data-i18n="services.s2.title">Diseño UI</h3>
-              <p class="text-muted font-body text-sm leading-relaxed" data-i18n="services.s2.desc">Wireframes y propuesta visual completa en Figma antes de tocar una línea de código o herramienta no-code.</p>
-            </div>
-          </li>
-
-          <li class="flex gap-6 items-center">
-            <span class="font-display text-5xl leading-none flex-shrink-0" style="color:#2a2a2a;">03</span>
-            <div>
-              <h3 class="font-heading text-sm text-accent uppercase tracking-widest mb-2" data-i18n="services.s3.title">Desarrollo No-Code</h3>
-              <p class="text-muted font-body text-sm leading-relaxed" data-i18n="services.s3.desc">Construcción del sitio con las mejores herramientas del mercado, optimizado para velocidad, SEO y experiencia de usuario.</p>
-            </div>
-          </li>
-
-          <li class="flex gap-6 items-center">
-            <span class="font-display text-5xl leading-none flex-shrink-0" style="color:#2a2a2a;">04</span>
-            <div>
-              <h3 class="font-heading text-sm text-accent uppercase tracking-widest mb-2" data-i18n="services.s4.title">Lanzamiento y soporte</h3>
-              <p class="text-muted font-body text-sm leading-relaxed" data-i18n="services.s4.desc">Revisión final, publicación, capacitación y soporte post-entrega para que puedas operar tu sitio de forma independiente.</p>
-            </div>
-          </li>
-
-        </ol>
-      </div>
-    </section>
-
-    <!-- ════════════════════════════════════════════════════ FAQ -->
-    <section id="faq" class="py-28 px-6 lg:px-12 border-b border-border">
-      <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
-
-        <!-- Left: accordion -->
-        <div class="reveal">
-          <p class="text-label uppercase font-body text-muted mb-4 tracking-widest" data-i18n="faq.label">FAQ</p>
-          <h2 class="text-h2 font-heading text-accent uppercase mb-4" data-i18n="faq.title">Preguntas frecuentes</h2>
-          <p class="text-muted font-body leading-relaxed mb-10" style="font-size:1.02rem;" data-i18n="faq.intro">
-            Todo lo que necesitás saber antes de empezar a trabajar juntos.
-          </p>
-
-          <div id="faq-list" class="divide-y divide-border">
-
-            <div class="faq-item py-5">
-              <button class="faq-trigger w-full flex items-center justify-between text-left gap-4" aria-expanded="false" aria-controls="faq-body-1">
-                <span class="font-body font-medium text-accent" style="font-size:0.95rem;" data-i18n="faq.q1">¿Cuánto tiempo tarda un proyecto?</span>
-                <svg class="faq-chevron w-4 h-4 text-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-              </button>
-              <div class="faq-body" id="faq-body-1" role="region">
-                <p class="font-body text-muted text-sm leading-relaxed pt-4 pb-2" data-i18n="faq.a1">
-                  Depende del alcance. Una landing page suele estar lista en 1–2 semanas. Un sitio multi-página con funcionalidades personalizadas puede llevar 4–6 semanas. Al inicio del proyecto te doy un cronograma detallado.
-                </p>
-              </div>
-            </div>
-
-            <div class="faq-item py-5">
-              <button class="faq-trigger w-full flex items-center justify-between text-left gap-4" aria-expanded="false" aria-controls="faq-body-2">
-                <span class="font-body font-medium text-accent" style="font-size:0.95rem;" data-i18n="faq.q2">¿Con qué herramientas trabajás?</span>
-                <svg class="faq-chevron w-4 h-4 text-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-              </button>
-              <div class="faq-body" id="faq-body-2" role="region">
-                <p class="font-body text-muted text-sm leading-relaxed pt-4 pb-2" data-i18n="faq.a2">
-                  Diseño en Figma y desarrollo principalmente en Webflow y Framer. Para proyectos que requieren más personalización, trabajo con HTML, CSS y JavaScript. La elección depende de tus necesidades y presupuesto.
-                </p>
-              </div>
-            </div>
-
-            <div class="faq-item py-5">
-              <button class="faq-trigger w-full flex items-center justify-between text-left gap-4" aria-expanded="false" aria-controls="faq-body-3">
-                <span class="font-body font-medium text-accent" style="font-size:0.95rem;" data-i18n="faq.q3">¿Hacés mantenimiento después del lanzamiento?</span>
-                <svg class="faq-chevron w-4 h-4 text-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-              </button>
-              <div class="faq-body" id="faq-body-3" role="region">
-                <p class="font-body text-muted text-sm leading-relaxed pt-4 pb-2" data-i18n="faq.a3">
-                  Sí. Ofrezco planes de mantenimiento mensual que incluyen actualizaciones de contenido, soporte técnico y pequeñas mejoras. También podés optar por soporte puntual según necesites.
-                </p>
-              </div>
-            </div>
-
-            <div class="faq-item py-5">
-              <button class="faq-trigger w-full flex items-center justify-between text-left gap-4" aria-expanded="false" aria-controls="faq-body-4">
-                <span class="font-body font-medium text-accent" style="font-size:0.95rem;" data-i18n="faq.q4">¿Qué necesito tener listo antes de empezar?</span>
-                <svg class="faq-chevron w-4 h-4 text-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-              </button>
-              <div class="faq-body" id="faq-body-4" role="region">
-                <p class="font-body text-muted text-sm leading-relaxed pt-4 pb-2" data-i18n="faq.a4">
-                  Cuanto más material tengas mejor: logo, paleta de colores, tipografías, textos e imágenes. Pero si no tenés todo esto, puedo ayudarte a definir la identidad visual como parte del proyecto.
-                </p>
-              </div>
-            </div>
-
-            <div class="faq-item py-5">
-              <button class="faq-trigger w-full flex items-center justify-between text-left gap-4" aria-expanded="false" aria-controls="faq-body-5">
-                <span class="font-body font-medium text-accent" style="font-size:0.95rem;" data-i18n="faq.q5">¿Cuál es tu forma de pago?</span>
-                <svg class="faq-chevron w-4 h-4 text-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-              </button>
-              <div class="faq-body" id="faq-body-5" role="region">
-                <p class="font-body text-muted text-sm leading-relaxed pt-4 pb-2" data-i18n="faq.a5">
-                  Generalmente trabajo con un 50% al inicio del proyecto y el 50% restante al momento de la entrega. Para proyectos largos puedo proponer un esquema de pagos por etapas.
-                </p>
-              </div>
-            </div>
-
-            <div class="faq-item py-5">
-              <button class="faq-trigger w-full flex items-center justify-between text-left gap-4" aria-expanded="false" aria-controls="faq-body-6">
-                <span class="font-body font-medium text-accent" style="font-size:0.95rem;" data-i18n="faq.q6">¿Trabajás con clientes internacionales?</span>
-                <svg class="faq-chevron w-4 h-4 text-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-              </button>
-              <div class="faq-body" id="faq-body-6" role="region">
-                <p class="font-body text-muted text-sm leading-relaxed pt-4 pb-2" data-i18n="faq.a6">
-                  Sí, trabajo 100% remoto con clientes de toda Latinoamérica, España y Estados Unidos. Las reuniones son por videollamada y el trabajo se gestiona de forma asincrónica cuando hay diferencia horaria.
-                </p>
-              </div>
-            </div>
-
+    <!-- PROJECTS -->
+    <section class="section" id="projects">
+      <div class="container">
+        <div class="projects-header reveal">
+          <div>
+            <p class="section-label" data-i18n="projects.label">Proyectos</p>
+            <h2 class="t-h2" data-i18n="projects.title">Trabajo real, clientes reales</h2>
+          </div>
+          <div style="display:flex; gap:0.65rem; flex-wrap:wrap;">
+            <a href="projects.html" class="btn btn-secondary" data-i18n="projects.more">Ver trabajo completo</a>
+            <a href="#cta" class="btn btn-primary" data-i18n="projects.cta">Trabajemos juntos</a>
           </div>
         </div>
 
-        <!-- Right: sticky photo -->
-        <div class="reveal" style="transition-delay:0.2s;">
-          <div class="sticky top-24" style="border-radius: 28px; overflow: hidden;">
-            <img
-              src="assets/foto-carilo.jpg"
-              alt="Lucas Quevedo"
-              class="w-full object-cover"
-              loading="lazy"
-              style="border-radius: 28px;"
-            />
-          </div>
-        </div>
+        <div class="projects-grid">
 
+          <a href="https://calidadcuyo.com/" target="_blank" rel="noopener noreferrer" class="project-card reveal">
+            <div class="project-img">
+              <img src="assets/calidad-cuyo.png" alt="Calidad San Juan" loading="lazy" />
+            </div>
+            <div class="project-body">
+              <div class="project-tags">
+                <span class="tag">Node.js</span>
+                <span class="tag">JavaScript</span>
+                <span class="tag">HTML/CSS</span>
+              </div>
+              <p class="project-name">Calidad San Juan</p>
+              <p class="project-type" data-i18n="proj.calidad.type">Agencia · Sistema administrativo</p>
+              <p class="project-desc" data-i18n="proj.calidad.desc">Sitio web corporativo + sistema de gestión interna para las operaciones administrativas de la agencia. Relación activa desde hace más de 3 años.</p>
+              <span class="project-link" data-i18n="proj.visit">Ver sitio →</span>
+            </div>
+          </a>
+
+          <a href="https://grupoinnova.com.ar/" target="_blank" rel="noopener noreferrer" class="project-card reveal" style="transition-delay:0.08s">
+            <div class="project-img">
+              <img src="assets/grupo-innova.png" alt="Grupo Innova" loading="lazy" />
+            </div>
+            <div class="project-body">
+              <div class="project-tags">
+                <span class="tag">HTML/CSS</span>
+                <span class="tag">JavaScript</span>
+                <span class="tag">IT Support</span>
+              </div>
+              <p class="project-name">Grupo Innova</p>
+              <p class="project-type" data-i18n="proj.innova.type">Grupo empresarial · Soporte IT</p>
+              <p class="project-desc" data-i18n="proj.innova.desc">Desarrollo web y soporte IT continuo para grupo empresarial con múltiples unidades de negocio.</p>
+              <span class="project-link" data-i18n="proj.visit">Ver sitio →</span>
+            </div>
+          </a>
+
+          <a href="https://www.turnosped020.com.ar/" target="_blank" rel="noopener noreferrer" class="project-card reveal" style="transition-delay:0.16s">
+            <div class="project-img">
+              <img src="assets/pediatrica-020.png" alt="Pediátrica 020" loading="lazy" />
+            </div>
+            <div class="project-body">
+              <div class="project-tags">
+                <span class="tag">JavaScript</span>
+                <span class="tag">IT Support</span>
+              </div>
+              <p class="project-name">Pediátrica 020</p>
+              <p class="project-type" data-i18n="proj.pediatrica.type">Clínica · App de turnos</p>
+              <p class="project-desc" data-i18n="proj.pediatrica.desc">Sistema de reservas de turnos médicos + soporte IT. Pacientes eligen médico, fecha y horario con confirmación instantánea.</p>
+              <span class="project-link" data-i18n="proj.visit">Ver sitio →</span>
+            </div>
+          </a>
+
+        </div>
       </div>
     </section>
 
-    <!-- ═══════════════════════════════════════════ CTA FINAL -->
-    <section id="cta" class="py-28 px-6 lg:px-12" style="background-color:#1a1512;">
-      <div class="max-w-4xl mx-auto text-center flex flex-col items-center gap-8 reveal">
+    <!-- ABOUT + STACK -->
+    <section class="section" id="about">
+      <div class="container">
+        <div class="two-col">
+          <div class="reveal">
+            <p class="section-label" data-i18n="about.label">Sobre mí</p>
+            <h2 class="t-h2" style="margin-bottom:1.5rem;" data-i18n="about.title">Tres años, tres clientes, cero intermediarios</h2>
+            <p class="body-text" style="margin-bottom:1rem;" data-i18n="about.p1">
+              Trabajo freelance desde Argentina. Tengo tres clientes activos con quienes vengo colaborando desde hace más de tres años: Calidad San Juan, Grupo Innova y Pediátrica 020.
+            </p>
+            <p class="body-text" data-i18n="about.p2">
+              Manejo el ciclo completo: diseño, desarrollo, despliegue y mantenimiento. Desde construir un sistema administrativo hasta resolver tickets de soporte — con comunicación directa y sin vueltas.
+            </p>
+          </div>
 
-        <p class="text-label uppercase font-body tracking-widest" style="color: #6b5f54;" data-i18n="cta.label">Contacto</p>
-
-        <h2 class="text-h2 font-heading uppercase" style="color: #f5f0e8;" data-i18n="cta.title">
-          ¿Tu sitio te da vergüenza o no existe?
-        </h2>
-
-        <p class="font-body leading-relaxed max-w-md" style="font-size:1.02rem; color: #6b5f54;" data-i18n="cta.desc">
-          Hablemos 15 minutos. Si hay match, propuesta en 48 horas.
-        </p>
-
-        <div class="flex flex-wrap gap-4 justify-center">
-          <a href="https://wa.me/5492645852654" target="_blank" rel="noopener noreferrer" class="btn-fill" data-i18n="cta.btn1">WhatsApp directo</a>
-          <a href="#projects" class="btn-outline" style="border-color: #ddd5c8; color: #ddd5c8;" data-i18n="cta.btn2">Ver proyectos</a>
+          <div class="reveal" style="transition-delay:0.12s">
+            <p class="section-label" data-i18n="stack.label">Stack</p>
+            <h2 class="t-h2" style="margin-bottom:0.5rem;" data-i18n="stack.title">Herramientas</h2>
+            <p class="body-text" style="margin-bottom:0;" data-i18n="stack.desc">Las tecnologías con las que trabajo a diario.</p>
+            <div class="stack-list">
+              <span class="stack-pill">Node.js</span>
+              <span class="stack-pill">React</span>
+              <span class="stack-pill">Next.js</span>
+              <span class="stack-pill">Python</span>
+              <span class="stack-pill">HTML</span>
+              <span class="stack-pill">CSS</span>
+              <span class="stack-pill">JavaScript</span>
+              <span class="stack-pill">PostgreSQL</span>
+              <span class="stack-pill">Git</span>
+              <span class="stack-pill">REST APIs</span>
+            </div>
+          </div>
         </div>
+      </div>
+    </section>
 
+    <!-- SERVICES -->
+    <section class="section" id="services">
+      <div class="container">
+        <div class="reveal">
+          <p class="section-label" data-i18n="services.label">Servicios</p>
+          <h2 class="t-h2" data-i18n="services.title">Qué puedo hacer por tu negocio</h2>
+        </div>
+        <div class="services-grid">
+          <div class="svc-item reveal">
+            <p class="svc-num">01</p>
+            <h3 class="svc-title" data-i18n="svc.1.title">Desarrollo web</h3>
+            <p class="svc-desc" data-i18n="svc.1.desc">Sitios y aplicaciones hechos a medida. Desde una landing page hasta un sistema con autenticación, base de datos y API propia.</p>
+          </div>
+          <div class="svc-item reveal" style="transition-delay:0.08s">
+            <p class="svc-num">02</p>
+            <h3 class="svc-title" data-i18n="svc.2.title">Sistemas internos</h3>
+            <p class="svc-desc" data-i18n="svc.2.desc">Paneles de administración, gestión de datos y automatizaciones que hacen que tu equipo trabaje mejor.</p>
+          </div>
+          <div class="svc-item reveal">
+            <p class="svc-num">03</p>
+            <h3 class="svc-title" data-i18n="svc.3.title">Soporte IT</h3>
+            <p class="svc-desc" data-i18n="svc.3.desc">Mantenimiento, actualizaciones y resolución de errores. Cuando algo falla, estoy disponible.</p>
+          </div>
+          <div class="svc-item reveal" style="transition-delay:0.08s">
+            <p class="svc-num">04</p>
+            <h3 class="svc-title" data-i18n="svc.4.title">Automatización</h3>
+            <p class="svc-desc" data-i18n="svc.4.desc">Scripts en Python o Node.js para automatizar reportes, integraciones con APIs y procesamiento de datos.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section" id="faq">
+      <div class="container">
+        <div class="reveal">
+          <p class="section-label" data-i18n="faq.label">FAQ</p>
+          <h2 class="t-h2" data-i18n="faq.title">Preguntas frecuentes</h2>
+        </div>
+        <div class="faq-list">
+
+          <div class="faq-item reveal">
+            <button class="faq-q" aria-expanded="false">
+              <span data-i18n="faq.q1">¿Trabajás con cualquier tipo de negocio?</span>
+              <svg class="faq-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 6l4 4 4-4"/>
+              </svg>
+            </button>
+            <div class="faq-a"><div class="faq-a-inner">
+              <p data-i18n="faq.a1">Principalmente con negocios que ya tienen operación y necesitan digitalizar procesos o mejorar su presencia web. No trabajo con proyectos en etapa de idea sin tracción.</p>
+            </div></div>
+          </div>
+
+          <div class="faq-item reveal" style="transition-delay:0.06s">
+            <button class="faq-q" aria-expanded="false">
+              <span data-i18n="faq.q2">¿Cuánto tarda un proyecto?</span>
+              <svg class="faq-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 6l4 4 4-4"/>
+              </svg>
+            </button>
+            <div class="faq-a"><div class="faq-a-inner">
+              <p data-i18n="faq.a2">Depende del alcance. Una landing page: 1-2 semanas. Un sistema con base de datos y autenticación: 4-8 semanas. Siempre doy una estimación antes de arrancar — sin sorpresas en el camino.</p>
+            </div></div>
+          </div>
+
+          <div class="faq-item reveal" style="transition-delay:0.12s">
+            <button class="faq-q" aria-expanded="false">
+              <span data-i18n="faq.q3">¿Cómo es la comunicación?</span>
+              <svg class="faq-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 6l4 4 4-4"/>
+              </svg>
+            </button>
+            <div class="faq-a"><div class="faq-a-inner">
+              <p data-i18n="faq.a3">Directa, por WhatsApp. No hay account managers ni tickets. Hablo yo, trabajo yo. Eso es exactamente lo que valoran mis clientes de largo plazo.</p>
+            </div></div>
+          </div>
+
+          <div class="faq-item reveal" style="transition-delay:0.18s">
+            <button class="faq-q" aria-expanded="false">
+              <span data-i18n="faq.q4">¿Qué pasa después del lanzamiento?</span>
+              <svg class="faq-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 6l4 4 4-4"/>
+              </svg>
+            </button>
+            <div class="faq-a"><div class="faq-a-inner">
+              <p data-i18n="faq.a4">Sigo disponible. Mis clientes actuales llevan más de 3 años trabajando conmigo precisamente porque no desaparezco después de entregar. Mantenimiento, actualizaciones y soporte son parte del trato.</p>
+            </div></div>
+          </div>
+
+          <div class="faq-item reveal" style="transition-delay:0.24s">
+            <button class="faq-q" aria-expanded="false">
+              <span data-i18n="faq.q5">¿Trabajás con precio fijo o por hora?</span>
+              <svg class="faq-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 6l4 4 4-4"/>
+              </svg>
+            </button>
+            <div class="faq-a"><div class="faq-a-inner">
+              <p data-i18n="faq.a5">Generalmente por proyecto — presupuesto cerrado para que no haya sorpresas. Para soporte continuo, manejamos una tarifa mensual fija.</p>
+            </div></div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section id="cta">
+      <div class="container">
+        <div class="reveal">
+          <p class="cta-label" data-i18n="cta.label">Contacto</p>
+          <h2 class="cta-title" data-i18n="cta.title">¿Tenés un proyecto o necesitás un desarrollador de confianza?</h2>
+          <p class="cta-desc" data-i18n="cta.desc">Hablemos 15 minutos. Si hay match, te mando una propuesta en 48 horas.</p>
+          <div class="cta-ctas">
+            <a href="https://wa.me/5492645852654" target="_blank" rel="noopener noreferrer" class="btn btn-white" data-i18n="cta.btn1">WhatsApp directo</a>
+            <a href="#projects" class="btn btn-ghost" data-i18n="cta.btn2">Ver proyectos</a>
+          </div>
+        </div>
       </div>
     </section>
 
   </main>
 
-  <!-- ══════════════════════════════════════════════════ FOOTER -->
-  <footer class="border-t border-border px-6 lg:px-12 pt-10 pb-8">
-    <div class="max-w-7xl mx-auto">
-
-      <!-- Main row -->
-      <div class="flex flex-col md:flex-row items-center justify-between gap-8 pb-8 border-b border-border">
-
-        <!-- Logo -->
-        <a href="#hero" class="flex items-center gap-2 font-heading text-sm tracking-widest uppercase" style="color: #1a1512;">
-          <span style="font-size: 1rem; letter-spacing: -0.08em; font-weight: 800;">LQ</span>
-          <span style="font-size: 0.65rem; font-weight: 700;">Lucas Quevedo</span>
-        </a>
-
-        <!-- Nav -->
-        <nav class="flex flex-wrap items-center gap-6 justify-center">
-          <a href="#projects" class="text-label uppercase tracking-widest transition-colors font-body" style="color: #6b5f54;" data-i18n="footer.projects">Proyectos</a>
-          <a href="#services" class="text-label uppercase tracking-widest transition-colors font-body" style="color: #6b5f54;" data-i18n="footer.services">Servicios</a>
-          <a href="#faq"      class="text-label uppercase tracking-widest transition-colors font-body" style="color: #6b5f54;">FAQ</a>
-          <a href="#cta"      class="text-label uppercase tracking-widest transition-colors font-body" style="color: #6b5f54;" data-i18n="footer.contact">Contacto</a>
-        </nav>
-
-        <!-- Social icons -->
-        <div class="flex items-center gap-2">
-
-          <!-- Instagram -->
-          <a href="https://www.instagram.com/lucasquevedo04/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="w-8 h-8 flex items-center justify-center border border-border rounded transition-colors" style="color: #6b5f54; border-color: #ddd5c8;">
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-row">
+        <p class="footer-copy">
+          © <span id="footer-year">2026</span> Lucas Quevedo
+        </p>
+        <div class="footer-links">
+          <a href="#projects" class="footer-link" data-i18n="nav.projects">Proyectos</a>
+          <a href="#services" class="footer-link" data-i18n="nav.services">Servicios</a>
+          <a href="#faq"      class="footer-link" data-i18n="nav.faq">FAQ</a>
+          <a href="#cta"      class="footer-link" data-i18n="nav.cta">Contacto</a>
+        </div>
+        <div class="socials">
+          <a href="https://www.instagram.com/lucasquevedo04/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="social-btn">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+              <rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/>
             </svg>
           </a>
-
-          <!-- LinkedIn -->
-          <a href="https://www.linkedin.com/in/lucas-javier-quevedo-berjano-a522b2192/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="w-8 h-8 flex items-center justify-center border border-border rounded transition-colors" style="color: #6b5f54; border-color: #ddd5c8;">
+          <a href="https://www.linkedin.com/in/lucas-javier-quevedo-berjano-a522b2192/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="social-btn">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/>
+              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/>
             </svg>
           </a>
-
-          <!-- WhatsApp -->
-          <a href="https://wa.me/5492645852654" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" class="w-8 h-8 flex items-center justify-center border border-border rounded transition-colors" style="color: #6b5f54; border-color: #ddd5c8;">
+          <a href="https://wa.me/5492645852654" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" class="social-btn">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
               <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/>
             </svg>
           </a>
-
         </div>
       </div>
-
-      <!-- Copyright -->
-      <div class="pt-6 text-center">
-        <p class="text-xs font-body tracking-wide" style="color: #6b5f54;">
-          <span style="color: #c85c38; font-weight: 600;" data-i18n="footer.available">Disponible para proyectos</span> · © <span id="footer-year">2026</span> Lucas Quevedo. <span data-i18n="footer.rights">Todos los derechos reservados.</span>
-        </p>
-      </div>
-
     </div>
   </footer>
 
-  <!-- ══════════════════════════════════════════════════ SCRIPTS -->
-  <script>
-    // Hero canvas removed — using CSS paper texture instead
 
-    // ── Navbar scroll effect ─────────────────────────────────────────
-    (function initNavbar() {
-      const navbar = document.getElementById('navbar');
-      if (!navbar) return;
-      const onScroll = () => navbar.classList.toggle('scrolled', window.scrollY > 40);
-      window.addEventListener('scroll', onScroll, { passive: true });
-      onScroll();
+  <script>
+
+    // ── Navbar scroll ────────────────────────────────────────────
+    (function () {
+      const nav = document.getElementById('navbar');
+      const tick = () => nav.classList.toggle('scrolled', window.scrollY > 40);
+      window.addEventListener('scroll', tick, { passive: true });
+      tick();
     })();
 
-    // ── FAQ Accordion ────────────────────────────────────────────────
-    (function initAccordion() {
-      const items = document.querySelectorAll('.faq-item');
-      if (!items.length) return;
+    // ── Mobile menu ──────────────────────────────────────────────
+    (function () {
+      const ham  = document.getElementById('hamburger');
+      const menu = document.getElementById('mobile-menu');
 
-      items.forEach(item => {
-        const trigger = item.querySelector('.faq-trigger');
-        if (!trigger) return;
+      function close() {
+        menu.classList.remove('open');
+        ham.classList.remove('open');
+        ham.setAttribute('aria-expanded', 'false');
+      }
 
-        trigger.addEventListener('click', () => {
+      ham.addEventListener('click', () => {
+        const open = menu.classList.toggle('open');
+        ham.classList.toggle('open', open);
+        ham.setAttribute('aria-expanded', open);
+      });
+
+      menu.querySelectorAll('.mobile-link').forEach(l => l.addEventListener('click', close));
+      document.addEventListener('click', e => {
+        if (menu.classList.contains('open') && !menu.contains(e.target) && !ham.contains(e.target)) close();
+      });
+      window.addEventListener('resize', () => { if (window.innerWidth >= 768) close(); });
+    })();
+
+
+    // ── FAQ accordion ─────────────────────────────────────────────
+    (function () {
+      document.querySelectorAll('.faq-item').forEach(function (item) {
+        item.querySelector('.faq-q').addEventListener('click', function () {
           const isOpen = item.classList.contains('open');
-
-          // Close all
-          items.forEach(i => {
-            i.classList.remove('open');
-            const t = i.querySelector('.faq-trigger');
-            if (t) t.setAttribute('aria-expanded', 'false');
+          document.querySelectorAll('.faq-item.open').forEach(function (o) {
+            o.classList.remove('open');
+            o.querySelector('.faq-q').setAttribute('aria-expanded', 'false');
           });
-
-          // Open this one if it was closed
           if (!isOpen) {
             item.classList.add('open');
-            trigger.setAttribute('aria-expanded', 'true');
+            this.setAttribute('aria-expanded', 'true');
           }
         });
       });
     })();
 
-    // ── Scroll Reveal ────────────────────────────────────────────────
-    (function initReveal() {
-      const targets = document.querySelectorAll('.reveal, .reveal-stagger');
-      if (!targets.length) return;
+    // ── Footer year ──────────────────────────────────────────────
+    document.getElementById('footer-year').textContent = new Date().getFullYear();
 
-      const observer = new IntersectionObserver(
-        entries => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add('is-visible');
-              observer.unobserve(entry.target);
-            }
-          });
-        },
-        { threshold: 0.08, rootMargin: '0px 0px -48px 0px' }
-      );
-
-      targets.forEach(el => observer.observe(el));
-    })();
-
-    // ── Footer year ──────────────────────────────────────────────────
-    (function initFooterYear() {
-      const el = document.getElementById('footer-year');
-      if (el) el.textContent = new Date().getFullYear();
-    })();
-
-    // ── i18n ─────────────────────────────────────────────────────────
-    (function initLang() {
-      const translations = {
+    // ── i18n ─────────────────────────────────────────────────────
+    (function () {
+      const T = {
         es: {
-          'nav.projects':        'Proyectos',
-          'nav.services':        'Servicios',
-          'nav.cta':             'Hablemos',
-          'hero.label':          'Diseño web · No-Code · Argentina',
-          'hero.line1':          'Diseño lo que',
-          'hero.line2':          'construyo.',
-          'hero.stat1':          '12+ sitios lanzados',
-          'hero.stat2':          '3 países',
-          'hero.projects':       'Ver proyectos',
-          'hero.scroll':         'Scroll',
-          'about.label':         '(Sobre Mí)',
-          'about.title':         'No soy diseñador que sabe código',
-          'about.p1':            'Soy las dos cosas con igual seriedad. Diseño en Figma con criterio visual propio. Después abro Webflow o Framer y lo construyo yo mismo, sin perder nada en la traducción.',
-          'about.p2':            'Trabajo desde Argentina con clientes en LATAM, España y EEUU. Inglés fluido, zona horaria flexible, comunicación directa. Sin agencias, sin intermediarios.',
-          'skills.label':        '(Herramientas)',
-          'skills.title':        'El stack que muy pocos combinan',
-          'skills.design':       'Diseño',
-          'skills.dev':          'Desarrollo',
-          'skills.note':         'Webflow + Framer porque el proyecto manda, no la herramienta.',
-          'skills.html':         'HTML / CSS / JS',
-          'skills.html.desc':    'Base de la web: estructura, estilo e interacción.',
-          'skills.figma':        'Figma',
-          'skills.figma.desc':   'Diseño UI/UX, wireframes y prototipos interactivos.',
-          'skills.python':       'Python',
-          'skills.python.desc':  'Automatización, scripting y lógica de back-end.',
-          'skills.node':         'Node.js',
-          'skills.node.desc':    'Entornos de servidor y APIs con JavaScript.',
-          'projects.label':      'Proyectos',
-          'projects.title':      'Diseño web funcional y construido para crecer',
-          'projects.cta':        'Trabajemos juntos',
-          'proj.calidadcuyo.type': 'Empresa regional',
-          'proj.grupoinnova.type': 'Grupo empresarial',
-          'proj.pediatrica.type': 'Clínica / App',
-          'proj.calidadcuyo.desc': 'Sitio web corporativo para empresa regional de calidad. Diseño limpio y funcional orientado a captar nuevos clientes.',
-          'proj.grupoinnova.desc': 'Presencia digital para grupo empresarial con múltiples unidades de negocio. Enfoque en credibilidad y claridad de propuesta de valor.',
-          'proj.pediatrica.desc': 'App de reservas de turnos médicos para clínica pediátrica. Permite elegir médico, fecha y horario con confirmación instantánea.',
-          'services.label':      'Servicios',
-          'services.title':      'Diseño web y desarrollo No-Code',
-          'services.desc':       'Transformo ideas en sitios web que convierten. Trabajo con herramientas modernas —Webflow, Framer, código limpio— para entregar resultados rápidos sin sacrificar calidad ni escalabilidad.',
-          'services.s1.title':   'Descubrimiento y Brief',
-          'services.s1.desc':    'Entiendo tu negocio, objetivos y audiencia para definir la estrategia visual y el alcance del proyecto.',
-          'services.s2.title':   'Diseño UI',
-          'services.s2.desc':    'Wireframes y propuesta visual completa en Figma antes de tocar una línea de código o herramienta no-code.',
-          'services.s3.title':   'Desarrollo No-Code',
-          'services.s3.desc':    'Construcción del sitio con las mejores herramientas del mercado, optimizado para velocidad, SEO y experiencia de usuario.',
-          'services.s4.title':   'Lanzamiento y soporte',
-          'services.s4.desc':    'Revisión final, publicación, capacitación y soporte post-entrega para que puedas operar tu sitio de forma independiente.',
-          'faq.label':           'FAQ',
-          'faq.title':           'Preguntas frecuentes',
-          'faq.intro':           'Todo lo que necesitás saber antes de empezar a trabajar juntos.',
-          'faq.q1':              '¿Cuánto tiempo tarda un proyecto?',
-          'faq.a1':              'Depende del alcance. Una landing page suele estar lista en 1–2 semanas. Un sitio multi-página con funcionalidades personalizadas puede llevar 4–6 semanas. Al inicio del proyecto te doy un cronograma detallado.',
-          'faq.q2':              '¿Con qué herramientas trabajás?',
-          'faq.a2':              'Diseño en Figma y desarrollo principalmente en Webflow y Framer. Para proyectos que requieren más personalización, trabajo con HTML, CSS y JavaScript. La elección depende de tus necesidades y presupuesto.',
-          'faq.q3':              '¿Hacés mantenimiento después del lanzamiento?',
-          'faq.a3':              'Sí. Ofrezco planes de mantenimiento mensual que incluyen actualizaciones de contenido, soporte técnico y pequeñas mejoras. También podés optar por soporte puntual según necesites.',
-          'faq.q4':              '¿Qué necesito tener listo antes de empezar?',
-          'faq.a4':              'Cuanto más material tengas mejor: logo, paleta de colores, tipografías, textos e imágenes. Pero si no tenés todo esto, puedo ayudarte a definir la identidad visual como parte del proyecto.',
-          'faq.q5':              '¿Cuál es tu forma de pago?',
-          'faq.a5':              'Generalmente trabajo con un 50% al inicio del proyecto y el 50% restante al momento de la entrega. Para proyectos largos puedo proponer un esquema de pagos por etapas.',
-          'faq.q6':              '¿Trabajás con clientes internacionales?',
-          'faq.a6':              'Sí, trabajo 100% remoto con clientes de toda Latinoamérica, España y Estados Unidos. Las reuniones son por videollamada y el trabajo se gestiona de forma asincrónica cuando hay diferencia horaria.',
-          'cta.label':           'Contacto',
-          'cta.title':           '¿Tu sitio te da vergüenza o no existe?',
-          'cta.desc':            'Hablemos 15 minutos. Si hay match, propuesta en 48 horas.',
-          'cta.btn1':            'WhatsApp directo',
-          'cta.btn2':            'Ver proyectos',
-          'footer.projects':     'Proyectos',
-          'footer.services':     'Servicios',
-          'footer.contact':      'Contacto',
-          'footer.available':    'Disponible para proyectos',
-          'footer.rights':       'Todos los derechos reservados.',
+          'nav.projects':      'Proyectos',
+          'nav.about':         'Sobre mí',
+          'nav.services':      'Servicios',
+          'nav.faq':           'FAQ',
+          'nav.cta':           'Hablemos',
+          'hero.status':       'Disponible para proyectos',
+          'hero.role':         'Desarrollador Web Freelance',
+          'hero.desc':         'Construyo y mantengo sistemas web para negocios que necesitan más que una página bonita. Mis clientes no cambian de desarrollador cada proyecto — llevan años trabajando conmigo.',
+          'hero.see-work':     'Ver proyectos',
+          'hero.stat1':        'Años en el rubro',
+          'hero.stat2':        'Clientes activos',
+          'hero.stat3':        'Sitios lanzados',
+          'projects.label':    'Proyectos',
+          'projects.title':    'Trabajo real, clientes reales',
+          'projects.more':     'Ver trabajo completo',
+          'projects.cta':      'Trabajemos juntos',
+          'proj.calidad.type': 'Agencia · Sistema administrativo',
+          'proj.calidad.desc': 'Sitio web corporativo + sistema de gestión interna para las operaciones administrativas de la agencia. Relación activa desde hace más de 3 años.',
+          'proj.innova.type':  'Grupo empresarial · Soporte IT',
+          'proj.innova.desc':  'Desarrollo web y soporte IT continuo para grupo empresarial con múltiples unidades de negocio.',
+          'proj.pediatrica.type': 'Clínica · App de turnos',
+          'proj.pediatrica.desc': 'Sistema de reservas de turnos médicos + soporte IT. Pacientes eligen médico, fecha y horario con confirmación instantánea.',
+          'proj.visit':        'Ver sitio →',
+          'about.label':       'Sobre mí',
+          'about.title':       'Tres años, tres clientes, cero intermediarios',
+          'about.p1':          'Trabajo freelance desde Argentina. Tengo tres clientes activos con quienes vengo colaborando desde hace más de tres años: Calidad San Juan, Grupo Innova y Pediátrica 020.',
+          'about.p2':          'Manejo el ciclo completo: diseño, desarrollo, despliegue y mantenimiento. Desde construir un sistema administrativo hasta resolver tickets de soporte — con comunicación directa y sin vueltas.',
+          'stack.label':       'Stack',
+          'stack.title':       'Herramientas',
+          'stack.desc':        'Las tecnologías con las que trabajo a diario.',
+          'services.label':    'Servicios',
+          'services.title':    'Qué puedo hacer por tu negocio',
+          'svc.1.title':       'Desarrollo web',
+          'svc.1.desc':        'Sitios y aplicaciones hechos a medida. Desde una landing page hasta un sistema con autenticación, base de datos y API propia.',
+          'svc.2.title':       'Sistemas internos',
+          'svc.2.desc':        'Paneles de administración, gestión de datos y automatizaciones que hacen que tu equipo trabaje mejor.',
+          'svc.3.title':       'Soporte IT',
+          'svc.3.desc':        'Mantenimiento, actualizaciones y resolución de errores. Cuando algo falla, estoy disponible.',
+          'svc.4.title':       'Automatización',
+          'svc.4.desc':        'Scripts en Python o Node.js para automatizar reportes, integraciones con APIs y procesamiento de datos.',
+          'faq.label':         'FAQ',
+          'faq.title':         'Preguntas frecuentes',
+          'faq.q1':            '¿Trabajás con cualquier tipo de negocio?',
+          'faq.a1':            'Principalmente con negocios que ya tienen operación y necesitan digitalizar procesos o mejorar su presencia web. No trabajo con proyectos en etapa de idea sin tracción.',
+          'faq.q2':            '¿Cuánto tarda un proyecto?',
+          'faq.a2':            'Depende del alcance. Una landing page: 1-2 semanas. Un sistema con base de datos y autenticación: 4-8 semanas. Siempre doy una estimación antes de arrancar — sin sorpresas en el camino.',
+          'faq.q3':            '¿Cómo es la comunicación?',
+          'faq.a3':            'Directa, por WhatsApp. No hay account managers ni tickets. Hablo yo, trabajo yo. Eso es exactamente lo que valoran mis clientes de largo plazo.',
+          'faq.q4':            '¿Qué pasa después del lanzamiento?',
+          'faq.a4':            'Sigo disponible. Mis clientes actuales llevan más de 3 años trabajando conmigo precisamente porque no desaparezco después de entregar. Mantenimiento, actualizaciones y soporte son parte del trato.',
+          'faq.q5':            '¿Trabajás con precio fijo o por hora?',
+          'faq.a5':            'Generalmente por proyecto — presupuesto cerrado para que no haya sorpresas. Para soporte continuo, manejamos una tarifa mensual fija.',
+          'cta.label':         'Contacto',
+          'cta.title':         '¿Tenés un proyecto o necesitás un desarrollador de confianza?',
+          'cta.desc':          'Hablemos 15 minutos. Si hay match, te mando una propuesta en 48 horas.',
+          'cta.btn1':          'WhatsApp directo',
+          'cta.btn2':          'Ver proyectos',
+          'footer.available':  'Disponible para proyectos',
         },
         en: {
-          'nav.projects':        'Projects',
-          'nav.services':        'Services',
-          'nav.cta':             "Let's talk",
-          'hero.label':          'Web design · No-Code · Argentina',
-          'hero.line1':          'I design what',
-          'hero.line2':          'I build.',
-          'hero.stat1':          '12+ sites launched',
-          'hero.stat2':          '3 countries',
-          'hero.projects':       'View projects',
-          'hero.scroll':         'Scroll',
-          'about.label':         '(About Me)',
-          'about.title':         'Not a designer who dabbles in code',
-          'about.p1':            "Both, seriously. I design in Figma with genuine visual judgment. Then I open Webflow or Framer and build it myself, so nothing gets lost in translation.",
-          'about.p2':            'Based in Argentina, working with clients across Latin America, Spain, and the US. Fluent English, flexible timezone, direct communication. No agencies, no middlemen.',
-          'skills.label':        '(Tools)',
-          'skills.title':        'The stack very few combine',
-          'skills.design':       'Design',
-          'skills.dev':          'Development',
-          'skills.note':         'Webflow + Framer because the project dictates the tool, not the other way around.',
-          'skills.html':         'HTML / CSS / JS',
-          'skills.html.desc':    'The foundation of the web: structure, style, and interaction.',
-          'skills.figma':        'Figma',
-          'skills.figma.desc':   'UI/UX design, wireframes, and interactive prototypes.',
-          'skills.python':       'Python',
-          'skills.python.desc':  'Automation, scripting, and back-end logic.',
-          'skills.node':         'Node.js',
-          'skills.node.desc':    'Server environments and APIs with JavaScript.',
-          'projects.label':      'Projects',
-          'projects.title':      'Functional web design built to grow',
-          'projects.cta':        "Let's work together",
-          'proj.calidadcuyo.type': 'Regional company',
-          'proj.grupoinnova.type': 'Business group',
-          'proj.pediatrica.type': 'Clinic / App',
-          'proj.calidadcuyo.desc': 'Corporate website for a regional quality company. Clean, functional design focused on attracting new clients.',
-          'proj.grupoinnova.desc': 'Digital presence for a multi-unit business group. Emphasis on credibility and clear value proposition.',
-          'proj.pediatrica.desc': 'Medical appointment booking app for a pediatric clinic. Lets patients choose their doctor, date and time with instant confirmation.',
-          'services.label':      'Services',
-          'services.title':      'Web design & No-Code development',
-          'services.desc':       'I turn ideas into websites that convert. I work with modern tools — Webflow, Framer, clean code — to deliver fast results without sacrificing quality or scalability.',
-          'services.s1.title':   'Discovery & Brief',
-          'services.s1.desc':    'I understand your business, goals, and audience to define the visual strategy and project scope.',
-          'services.s2.title':   'UI Design',
-          'services.s2.desc':    'Full wireframes and visual proposal in Figma before touching a single line of code or no-code tool.',
-          'services.s3.title':   'No-Code Development',
-          'services.s3.desc':    'Building the site with the best tools on the market, optimized for speed, SEO, and user experience.',
-          'services.s4.title':   'Launch & Support',
-          'services.s4.desc':    'Final review, publication, training, and post-delivery support so you can manage your site independently.',
-          'faq.label':           'FAQ',
-          'faq.title':           'Frequently asked questions',
-          'faq.intro':           'Everything you need to know before we start working together.',
-          'faq.q1':              'How long does a project take?',
-          'faq.a1':              'It depends on the scope. A landing page is usually ready in 1–2 weeks. A multi-page site with custom features can take 4–6 weeks. At the start of the project I give you a detailed timeline.',
-          'faq.q2':              'What tools do you use?',
-          'faq.a2':              'I design in Figma and develop mainly in Webflow and Framer. For projects requiring more customization, I work with HTML, CSS and JavaScript. The choice depends on your needs and budget.',
-          'faq.q3':              'Do you offer maintenance after launch?',
-          'faq.a3':              'Yes. I offer monthly maintenance plans that include content updates, technical support, and small improvements. You can also choose one-off support as needed.',
-          'faq.q4':              'What do I need to have ready before we start?',
-          'faq.a4':              "The more material you have the better: logo, color palette, fonts, texts and images. But if you don't have all of this, I can help you define the visual identity as part of the project.",
-          'faq.q5':              'How do you handle payment?',
-          'faq.a5':              'I generally work with 50% upfront and 50% on delivery. For longer projects I can propose a milestone-based payment plan.',
-          'faq.q6':              'Do you work with international clients?',
-          'faq.a6':              "Yes, I work 100% remotely with clients from across Latin America, Spain and the United States. Meetings are via video call and work is managed asynchronously when there's a time difference.",
-          'cta.label':           'Contact',
-          'cta.title':           'Is your site embarrassing or just not there yet?',
-          'cta.desc':            '15-minute call. If there\'s a fit, I\'ll send a proposal in 48 hours.',
-          'cta.btn1':            'Direct WhatsApp',
-          'cta.btn2':            'View projects',
-          'footer.projects':     'Projects',
-          'footer.services':     'Services',
-          'footer.contact':      'Contact',
-          'footer.available':    'Available for projects',
-          'footer.rights':       'All rights reserved.',
+          'nav.projects':      'Projects',
+          'nav.about':         'About',
+          'nav.services':      'Services',
+          'nav.faq':           'FAQ',
+          'nav.cta':           "Let's talk",
+          'hero.status':       'Available for projects',
+          'hero.role':         'Freelance Web Developer',
+          'hero.desc':         "I build and maintain web systems for businesses that need more than a pretty page. My clients don't switch developers every project — they've been working with me for years.",
+          'hero.see-work':     'View projects',
+          'hero.stat1':        'Years in the field',
+          'hero.stat2':        'Active clients',
+          'hero.stat3':        'Sites launched',
+          'projects.label':    'Projects',
+          'projects.title':    'Real work, real clients',
+          'projects.more':     'Full case studies',
+          'projects.cta':      "Let's work together",
+          'proj.calidad.type': 'Agency · Admin system',
+          'proj.calidad.desc': 'Corporate website + internal management system for the agency\'s administrative operations. Active relationship for over 3 years.',
+          'proj.innova.type':  'Business group · IT Support',
+          'proj.innova.desc':  'Web development and ongoing IT support for a multi-unit business group.',
+          'proj.pediatrica.type': 'Clinic · Booking app',
+          'proj.pediatrica.desc': 'Online appointment booking system + IT support. Patients choose their doctor, date, and time with instant confirmation.',
+          'proj.visit':        'View site →',
+          'about.label':       'About',
+          'about.title':       'Three years, three clients, no middlemen',
+          'about.p1':          "I work freelance from Argentina. I have three active clients I've been collaborating with for over three years: Calidad San Juan, Grupo Innova, and Pediátrica 020.",
+          'about.p2':          'I handle the full cycle: design, development, deployment, and maintenance. From building an admin system to resolving support tickets — direct communication, no layers.',
+          'stack.label':       'Stack',
+          'stack.title':       'Tools',
+          'stack.desc':        'Technologies I work with daily.',
+          'services.label':    'Services',
+          'services.title':    'What I can do for your business',
+          'svc.1.title':       'Web development',
+          'svc.1.desc':        'Custom websites and web applications. From a landing page to a system with authentication, database, and its own API.',
+          'svc.2.title':       'Internal systems',
+          'svc.2.desc':        'Admin panels, data management, and automations that help your team work better.',
+          'svc.3.title':       'IT Support',
+          'svc.3.desc':        'Maintenance, updates, and bug fixes. When something breaks, I\'m available.',
+          'svc.4.title':       'Automation',
+          'svc.4.desc':        'Python or Node.js scripts to automate reports, API integrations, and data processing.',
+          'faq.label':         'FAQ',
+          'faq.title':         'Frequently asked questions',
+          'faq.q1':            'Do you work with any type of business?',
+          'faq.a1':            'Mainly with businesses that are already up and running and need to digitize processes or improve their web presence. I don\'t take on early-stage idea projects without traction.',
+          'faq.q2':            'How long does a project take?',
+          'faq.a2':            'Depends on scope. A landing page: 1-2 weeks. A system with a database and authentication: 4-8 weeks. I always give an estimate before starting — no surprises along the way.',
+          'faq.q3':            'How do you handle communication?',
+          'faq.a3':            'Direct, via WhatsApp. No account managers, no ticket systems. I talk to you, I work for you. That\'s exactly what my long-term clients value.',
+          'faq.q4':            'What happens after launch?',
+          'faq.a4':            'I stay available. My current clients have been working with me for over 3 years precisely because I don\'t disappear after delivery. Maintenance, updates, and support are part of the deal.',
+          'faq.q5':            'Do you charge fixed price or hourly?',
+          'faq.a5':            'Usually per project — fixed quote so there are no surprises. For ongoing support, we handle a fixed monthly rate.',
+          'cta.label':         'Contact',
+          'cta.title':         'Got a project or need a reliable developer?',
+          'cta.desc':          "Let's talk for 15 minutes. If there's a fit, I'll send a proposal in 48 hours.",
+          'cta.btn1':          'WhatsApp',
+          'cta.btn2':          'View projects',
+          'footer.available':  'Available for projects',
         }
       };
 
       let lang = localStorage.getItem('lang') || 'es';
       const btn = document.getElementById('lang-toggle');
-      if (!btn) return;
 
-      function applyLang(l) {
+      function apply(l) {
         document.querySelectorAll('[data-i18n]').forEach(el => {
-          const key = el.getAttribute('data-i18n');
-          const text = translations[l][key];
-          if (text !== undefined) el.textContent = text;
+          const v = T[l][el.getAttribute('data-i18n')];
+          if (v !== undefined) el.textContent = v;
         });
         btn.textContent = l === 'es' ? 'EN' : 'ES';
         document.documentElement.lang = l;
@@ -1390,8 +1112,8 @@
         lang = l;
       }
 
-      btn.addEventListener('click', () => applyLang(lang === 'es' ? 'en' : 'es'));
-      applyLang(lang);
+      btn.addEventListener('click', () => apply(lang === 'es' ? 'en' : 'es'));
+      apply(lang);
     })();
   </script>
 
